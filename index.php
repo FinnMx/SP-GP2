@@ -21,7 +21,7 @@
       <h2>Login</h2> 
 
       <div class="form-group">
-        <input type="text" placeholder="Username" name="username" class="form-control"> 
+        <input type="text" placeholder="ManagerID" name="ManagerID" class="form-control"> 
       </div>
 
       <div class="form-group">
@@ -37,16 +37,18 @@
 
       if (isset($_POST['submit'])){
 
-          if($_POST['username']== '' || $_POST['password'] == ''){
+        //Manager login routine
+
+          if($_POST['ManagerID']== '' || $_POST['password'] == ''){
                 echo "Please fill all fields";
           }
 
           else{
 
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-            $sql = "SELECT Username, Password FROM Users WHERE Username =:username";
+            $sql = "SELECT Manager_ID, Password FROM Manager WHERE Manager_ID =:MID";
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(':username', $_POST['username'], SQLITE3_TEXT);
+            $stmt->bindParam(':MID', $_POST['ManagerID'], SQLITE3_TEXT);
             $result= $stmt->execute();
             $arrayResult = [];
 
@@ -54,7 +56,16 @@
               $arrayResult = $row;                              
             }
 
+            if($_POST['ManagerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
 
+              header("Location: Managerpage.php");
+
+            }
+
+            else{
+
+              echo "invalid login";
+            }
           }
       }
       ?>
