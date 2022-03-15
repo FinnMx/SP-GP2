@@ -58,7 +58,7 @@
 
             if($_POST['EmployeeID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
 
-              header("Location: Employee.php");
+              header("Location: engineer.php");
 
             }
 
