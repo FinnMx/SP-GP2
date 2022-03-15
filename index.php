@@ -62,8 +62,4 @@
 
 </body>
 
-<a href="SupplierLogin.php">
-   <input style="position:  absolute; top: 95%;" type="button" value="SupplierLogin" />
-</a>
-
 </html>
