@@ -37,16 +37,17 @@
 
       if (isset($_POST['submit'])){
 
-        //Manager login routine
+        //Engineer login routine
 
           if($_POST['EngineerID']== '' || $_POST['password'] == ''){
                 echo "Please fill all fields";
+              
           }
 
           else{
 
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-            $sql = "SELECT Engineer_ID, Password FROM Enigneer WHERE Engineer_ID =:EID";
+            $sql = "SELECT Engineer_ID, Password FROM Engineer WHERE Engineer_ID =:EID";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':EID', $_POST['EngineerID'], SQLITE3_TEXT);
             $result= $stmt->execute();
@@ -55,11 +56,11 @@
             while($row=$result->fetchArray(SQLITE3_NUM)){ // how to read the result from the query
               $arrayResult = $row;                              
             }
+            echo "this worked";
 
             if($_POST['EngineerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
 
               header("Location: engineer.php");
-
             }
 
             else{
