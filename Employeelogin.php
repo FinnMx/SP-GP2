@@ -12,7 +12,7 @@
 <body>
 
   <a> 
-    <input href="index.php" value="Back">
+    <input type="button" href="index.php" value="Back">
   </a>
 
 
