@@ -11,14 +11,14 @@
 
 <body>
 
-  <a> 
-    <input type="button" href="index.php" value="Back">
+  <a href="index.php"> 
+    <input type="button" value="Back">
   </a>
 
 
       <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post"> 
 
-      <h2>Login</h2> 
+      <h2>EmployeeLogin</h2> 
 
       <div class="form-group">
         <input type="text" placeholder="EmployeeID" name="EmployeeID" class="form-control"> 
