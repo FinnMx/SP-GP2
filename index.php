@@ -58,7 +58,7 @@
 
             if($_POST['ManagerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
 
-              header("Location: Managerpage.php");
+              header("Location: Manager.php");
 
             }
 
