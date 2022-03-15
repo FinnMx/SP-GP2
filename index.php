@@ -11,64 +11,68 @@
 
 <body>
 
+<<<<<<< Updated upstream
   <a href="Engineerlogin.php"> 
     <input type="Button" value="Engineer Login">
+=======
+  <a>
+    <input href="Engineerlogin.php" type="Button" value="Engineer Login">
+>>>>>>> Stashed changes
   </a>
 
 
-      <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post"> 
+  <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post">
 
+<<<<<<< Updated upstream
       <h2>Manager Login</h2> 
+=======
+    <h2>Login</h2>
+>>>>>>> Stashed changes
 
-      <div class="form-group">
-        <input type="text" placeholder="ManagerID" name="ManagerID" class="form-control"> 
-      </div>
+    <div class="form-group">
+      <input type="text" placeholder="ManagerID" name="ManagerID" class="form-control">
+    </div>
 
-      <div class="form-group">
-        <input type="password" placeholder="Password" name ="password" class="form-control"> 
-      </div>
+    <div class="form-group">
+      <input type="password" placeholder="Password" name="password" class="form-control">
+    </div>
 
-        <input type="submit" value="Login" name="submit" class="btn btn-primary btn-sm"> 
+    <input type="submit" value="Login" name="submit" class="btn btn-primary btn-sm">
 
-      </form> 
+  </form>
 
-      <?php
-      error_reporting(0);
+  <?php
+  error_reporting(0);
 
-      if (isset($_POST['submit'])){
+  if (isset($_POST['submit'])) {
 
-        //Manager login routine
+    //Manager login routine
 
-          if($_POST['ManagerID']== '' || $_POST['password'] == ''){
-                echo "Please fill all fields";
-          }
+    if ($_POST['ManagerID'] == '' || $_POST['password'] == '') {
+      echo "Please fill all fields";
+    } else {
 
-          else{
+      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+      $sql = "SELECT Manager_ID, Password FROM Manager WHERE Manager_ID =:MID";
+      $stmt = $db->prepare($sql);
+      $stmt->bindParam(':MID', $_POST['ManagerID'], SQLITE3_TEXT);
+      $result = $stmt->execute();
+      $arrayResult = [];
 
-            $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-            $sql = "SELECT Manager_ID, Password FROM Manager WHERE Manager_ID =:MID";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':MID', $_POST['ManagerID'], SQLITE3_TEXT);
-            $result= $stmt->execute();
-            $arrayResult = [];
-
-            while($row=$result->fetchArray(SQLITE3_NUM)){ // how to read the result from the query
-              $arrayResult = $row;                              
-            }
-
-            if($_POST['ManagerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
-
-              header("Location: Manager.php");
-
-            }
-
-            else{
-
-              echo "invalid login";
-            }
-          }
+      while ($row = $result->fetchArray(SQLITE3_NUM)) { // how to read the result from the query
+        $arrayResult = $row;
       }
-      ?>
+
+      if ($_POST['ManagerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
+
+        header("Location: Manager.php");
+      } else {
+
+        echo "invalid login";
+      }
+    }
+  }
+  ?>
 
 </body>
 
