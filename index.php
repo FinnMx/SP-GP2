@@ -28,8 +28,6 @@
 
       </form> 
 
-      //method to check login not created properly yet ygm
-
       <?php
       error_reporting(0);
 
@@ -49,10 +47,6 @@
 
             while($row=$result->fetchArray(SQLITE3_NUM)){ // how to read the result from the query
               $arrayResult = $row;                              
-            }
-
-            else{
-              echo"invalid login";
             }
 
 
