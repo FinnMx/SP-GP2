@@ -18,10 +18,10 @@
 
       <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post"> 
 
-      <h2>EmployeeLogin</h2> 
+      <h2>Engineer Login</h2> 
 
       <div class="form-group">
-        <input type="text" placeholder="EmployeeID" name="EmployeeID" class="form-control"> 
+        <input type="text" placeholder="EngineerID" name="EngineerID" class="form-control"> 
       </div>
 
       <div class="form-group">
@@ -39,16 +39,16 @@
 
         //Manager login routine
 
-          if($_POST['EmployeeID']== '' || $_POST['password'] == ''){
+          if($_POST['EngineerID']== '' || $_POST['password'] == ''){
                 echo "Please fill all fields";
           }
 
           else{
 
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-            $sql = "SELECT Employee_ID, Password FROM Employee WHERE Employee_ID =:EID";
+            $sql = "SELECT Engineer_ID, Password FROM Enigneer WHERE Engineer_ID =:EID";
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(':EID', $_POST['EmployeeID'], SQLITE3_TEXT);
+            $stmt->bindParam(':EID', $_POST['EngineerID'], SQLITE3_TEXT);
             $result= $stmt->execute();
             $arrayResult = [];
 
@@ -56,7 +56,7 @@
               $arrayResult = $row;                              
             }
 
-            if($_POST['EmployeeID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
+            if($_POST['EngineerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
 
               header("Location: engineer.php");
 
