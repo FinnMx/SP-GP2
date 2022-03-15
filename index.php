@@ -11,14 +11,14 @@
 
 <body>
 
-  <a> 
-    <input href="Engineerlogin.php" type="Button" value="Engineer Login">
+  <a href="Engineerlogin.php"> 
+    <input type="Button" value="Engineer Login">
   </a>
 
 
       <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post"> 
 
-      <h2>Login</h2> 
+      <h2>Manager Login</h2> 
 
       <div class="form-group">
         <input type="text" placeholder="ManagerID" name="ManagerID" class="form-control"> 
