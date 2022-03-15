@@ -12,7 +12,7 @@
 <body>
 
   <a> 
-    <input href="index.php" value="Back">
+    <input type="button" href="index.php" value="Back">
   </a>
 
 
@@ -58,7 +58,7 @@
 
             if($_POST['EmployeeID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
 
-              header("Location: Employee.php");
+              header("Location: engineer.php");
 
             }
 

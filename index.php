@@ -12,7 +12,7 @@
 <body>
 
   <a> 
-    <input href="Engineerlogin.php" value="Engineer Login">
+    <input href="Engineerlogin.php" type="Button" value="Engineer Login">
   </a>
 
 
