@@ -15,6 +15,8 @@ class MyDB extends SQLite3
 
 $db = new MyDB();
 
-$db->exec('CREATE TABLE Engineer(Engineer_ID STRING, Engineer_firstname STRING, Engineer_lastname STRING)');
+$db->exec('CREATE TABLE Engineer(Engineer_ID STRING, F_name STRING, L_name STRING, Password STRING, Group_ID STRING)');
+
 
 ?>
+

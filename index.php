@@ -11,6 +11,10 @@
 
 <body>
 
+  <a> 
+    <input href="Engineerlogin.php" value="Engineer Login">
+  </a>
+
 
       <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post"> 
 
@@ -38,6 +42,7 @@
           }
 
           else{
+
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
             $sql = "SELECT Username, Password FROM Users WHERE Username =:username";
             $stmt = $db->prepare($sql);
