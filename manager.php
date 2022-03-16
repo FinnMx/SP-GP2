@@ -146,7 +146,7 @@ require("require.php");
                 <br>
                 <label class="label">Customer satisfaction:</label>
                 <br>
-                <input class="form-group col-md-4" type="text" name="customer_satisfaction" placeholder="Customer satisfaction" min="0" max="10">
+                <input class="form-group col-md-4" type="number" name="customer_satisfaction" placeholder="Customer satisfaction" min="0" max="10">
                 <br>
             </div>
             <div class="form-group col-md-4">
