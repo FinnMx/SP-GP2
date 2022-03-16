@@ -50,19 +50,19 @@ require("require.php");
 
             </div>
             <div class="form-group col-md-4">
-                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+                <input class="btn btn-primary" type='submit' value="submit" name='submitE'>
             </div>
 
             <?php 
 
-        if (isset($_POST['submit'])){
+        if (isset($_POST['submitE'])){
 
             $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
 
             if($boolCheck !=1){
             
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-            $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er)";
+            $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er,:st)";
             $stmt = $db->prepare($sql);
 
             $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
@@ -73,6 +73,8 @@ require("require.php");
             $stmt->bindParam(':pwd', $_POST['password'], SQLITE3_TEXT);
             $stmt->bindParam(':gid',$_POST['group_id'], SQLITE3_TEXT);
             $stmt->bindParam(':er', $_POST['engineer_rate'], SQLITE3_TEXT);
+            $status = "Active";
+            $stmt->bindParam(':st', $status, SQLITE3_TEXT);
             $result = $stmt->execute();
 
             echo "account succesfully created";
@@ -99,7 +101,7 @@ require("require.php");
                 <br>
                 <label class="label">Project name:</label>
                 <br>
-                <input class="form-group col-md-4" type="text" name="project_name" placeholder="Project name">
+                <input class="form-group col-md-4" type="text" name="project_name" placeholder="Project_name">
                 <br>
                 <label class="label">Project Value:</label>
                 <br>
@@ -141,7 +143,7 @@ require("require.php");
                 <br>
             </div>
             <div class="form-group col-md-4">
-                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+                <input class="btn btn-primary" type='submit' value="submit" name='submitG'>
             </div>
         </form>
         <form action="includes/assign_group.inc.php" method="post">
@@ -161,7 +163,7 @@ require("require.php");
                 <br>
             </div>
             <div class="form-group col-md-4">
-                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+                <input class="btn btn-primary" type='submit' value="submit" name='submitAG'>
             </div>
         </form>
         <!--Form to input customer satisfaction once project is complete -->
@@ -182,7 +184,7 @@ require("require.php");
                 <br>
             </div>
             <div class="form-group col-md-4">
-                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+                <input class="btn btn-primary" type='submit' value="submit" name='submitCS'>
             </div>
         </form>
 
