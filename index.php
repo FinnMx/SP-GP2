@@ -11,23 +11,14 @@
 
 <body>
 
-<<<<<<< Updated upstream
   <a href="Engineerlogin.php"> 
     <input type="Button" value="Engineer Login">
-=======
-  <a>
-    <input href="Engineerlogin.php" type="Button" value="Engineer Login">
->>>>>>> Stashed changes
   </a>
 
 
   <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post">
 
-<<<<<<< Updated upstream
-      <h2>Manager Login</h2> 
-=======
-    <h2>Login</h2>
->>>>>>> Stashed changes
+    <h2>Manager Login</h2> 
 
     <div class="form-group">
       <input type="text" placeholder="ManagerID" name="ManagerID" class="form-control">
