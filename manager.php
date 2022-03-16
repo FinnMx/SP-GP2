@@ -1,7 +1,6 @@
 <?php
 //session,header and footer
 require("require.php");
-require("includes/functions.inc.php")
 ?>
 <!--Basic html 5 setup-->
 <!DOCTYPE html>
@@ -60,7 +59,7 @@ require("includes/functions.inc.php")
 
             $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
 
-            if($boolCheck !=1 && ){
+            if($boolCheck !=1){
             
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
             $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er)";
