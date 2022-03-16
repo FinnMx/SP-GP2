@@ -4,15 +4,15 @@
  * Notes for functions
  * needed - fuction to calculate Engineer_cost from Engineer_rate and Timescale
  * needed - 
-*/
+ */
 
 
 //The following functions apply to the registration form
 //Function to check for empty inputs.
-function emptyInputApply($fName, $lName, $email, $pword, $rePassword, $engineerRate, $groupID)
+function emptyInputApply($fName, $lName, $pword, $rePassword, $engineerRate, $groupID)
 {
 
-    if (empty($fName) || empty($lName) || empty($email) || empty($pword) || empty($rePassword) || empty($engineerRate) || empty($groupID)) {
+    if (empty($fName) || empty($lName) ||  empty($pword) || empty($rePassword) || empty($engineerRate) || empty($groupID)) {
         $result = true;
     } else {
         $result = false;
