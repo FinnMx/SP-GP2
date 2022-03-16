@@ -18,7 +18,7 @@ require("includes/functions.inc.php")
 
     <!--Form to create an engineer-->
     <div class="container-fluid">
-        <form action="includes/create_engineer.inc.php" method="post">
+        <form method="post">
             <div>
                 <br>
                 <br>
@@ -61,7 +61,7 @@ require("includes/functions.inc.php")
             $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
             
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-            $sql = "INSERT INTO Engineer(:eid,:fname,:lname,:pwd,:gid,:er";
+            $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er)";
             $stmt = $db->prepare($sql);
 
             $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
