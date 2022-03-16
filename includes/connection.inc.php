@@ -8,7 +8,7 @@ class MyDB extends SQLite3
 {
     function __construct()
     {
-        $this->open('myDB.db');
+        $this->open('C:\xampp\htdocs\myDB.db');
     }
 }
 ?>
