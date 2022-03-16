@@ -10,7 +10,7 @@ body { /* Edit colour for background on all pages */
     background-color: #0C4582;
 }
 
-h4 {
+h5,h4,b {
     color: #0C4582; 
 }
 
@@ -30,13 +30,21 @@ h4 {
 /* Boxes 
 -------------------------------------------------- */
 .w-box {
-    border-radius: 10px;
+    border-radius: 50px;
     padding: 25px;
     background-color: #ffffff;
     margin: auto;
     width: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
+.b-box {
+    border-radius: 50px;
+    padding: 25px;
+    background-color: #345B71;
+    margin: auto;
+    width: 100%;
+}
+
 .g-box {
     border-radius: 10px;
     padding: 25px;

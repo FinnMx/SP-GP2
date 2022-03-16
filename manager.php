@@ -16,7 +16,7 @@ require("require.php");
 <body>
 
     <!--Form to create an engineer-->
-    <div class="container-fluid">
+    <div class="container">
         <form method="post">
             <div>
                 <br>
