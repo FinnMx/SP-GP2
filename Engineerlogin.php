@@ -56,7 +56,6 @@
               $arrayResult = $row;                              
             }
 
-
             if($_POST['EngineerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
 
               header("Location: engineer.php");
