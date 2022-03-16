@@ -9,7 +9,7 @@ class MyDB extends SQLite3
 {
     function __construct()
     {
-        $this->open('myDB.db');
+        $this->open('C:\xampp\htdocs\myDB.db');
     }
 }
 
@@ -26,6 +26,13 @@ $db->exec('CREATE TABLE Project(Project_ID STRING, Project_value MONEY, Engineer
 $db->exec("INSERT INTO Manager VALUES('Martin1', 'Martin', 'D', 'Password1')");
 
 $db->exec("INSERT INTO Engineer VALUES('Alex1', 'Alex', 'Patterson', 'Password1','1','9.50')");
+
+/**
+ * Notes for Database
+ * needed - project name in projects
+ * needed - Timescale in "project" so "Pay_rate" (hourly/monthly?) can be converted into "Engineer_cost"
+*/
+
 
 ?>
 
