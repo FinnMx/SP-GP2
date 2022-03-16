@@ -40,11 +40,11 @@ require("require.php");
                 <br>
                 <label class="label">Pay Rate:</label>
                 <br>
-                <input class="form-group col-md-4" type="number" name="engineer_rate" placeholder="Pay rate">
+                <input class="form-group col-md-4" type="number" name="engineer_rate" placeholder="Pay rate" min="1">
                 <br>
                 <label class="label">Assign to Group</label>
                 <br>
-                <input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID">
+                <input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">
                 <br>
 
             </div>
@@ -62,12 +62,12 @@ require("require.php");
                 <br>
                 <label class="label">Group ID:</label>
                 <br>
-                <input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID">
+                <input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">
                 <br>
                 <br>
                 <label class="label">Project ID:</label>
                 <br>
-                <input class="form-group col-md-4" type="number" name="project_id" placeholder="Project ID">
+                <input class="form-group col-md-4" type="number" name="project_id" placeholder="Project ID" min="1">
                 <br>
             </div>
             <div class="form-group col-md-4">
