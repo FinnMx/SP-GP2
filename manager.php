@@ -15,6 +15,7 @@ require("require.php");
 </head>
 
 <body>
+
     <!--Form to create an engineer-->
     <div class="container-fluid">
         <form action="includes/create_engineer.inc.php" method="post">
@@ -52,6 +53,28 @@ require("require.php");
             <div class="form-group col-md-4">
                 <input class="btn btn-primary" type='submit' value="submit" name='submit'>
             </div>
+
+            <?php 
+
+            if (isset($_POST['submit'])){
+
+            $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+            $sql = "INSERT INTO Engineer(:eid,:fname,:lname,:pwd,:gid,:er";
+            $stmt = $db->prepare($sql);
+
+            $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
+
+            $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
+            $stmt->bindParam(':fname', $_POST['first_name'], SQLITE3_TEXT);
+            $stmt->bindParam(':lname', $_POST['last_name'], SQLITE3_TEXT);
+            $stmt->bindParam(':pwd', $_POST['password'], SQLITE3_TEXT);
+            $stmt->bindParam(':gid',$_POST['group_id'], SQLITE3_TEXT);
+            $stmt->bindParam(':er', $_POST['engineer_rate'], SQLITE3_TEXT);
+            $result = $stmt->execute();
+
+            }
+
+            ?>
 
         </form>
         <!--Form to create projects projects-->
