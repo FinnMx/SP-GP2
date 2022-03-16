@@ -33,9 +33,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.php">Logout <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+           <!-- <li class="nav-item">
                 <a class="nav-link" href="manager.php">Back</a>
             </li>
+        -->
+
 
     </div>
 </nav>

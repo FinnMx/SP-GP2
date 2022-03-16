@@ -1,36 +1,57 @@
+<?php
+//session,header and footer
+require("require.php");
+?>
+<!--Basic html 5 setup-->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
 
-  <a href="Engineerlogin.php"> 
-    <input type="Button" value="Engineer Login">
-  </a>
+  <div class="container">
 
+    <br><br><br>
 
-  <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post">
+    <div class="w-box" style="width:50%">
+      <form method="post">
 
-    <h2>Manager Login</h2> 
+        <div style="text-align:center">
+          <div class="row">
+            <div class="col">
+              <h2>Manager Login</h2> 
+            </div>
+            <div class="col">
+              <a href="Engineerlogin.php"><input type="Button" value="Engineer Login"></a>  
+            </div>
+          </div>
 
-    <div class="form-group">
-      <input type="text" placeholder="ManagerID" name="ManagerID" class="form-control">
+          <br>
+
+          <div style="b-box">
+            <b style="color:#0C4582">USERNAME</b>
+            <div class="form-group">
+              <input type="text" placeholder="ManagerID" name="ManagerID" class="form-control">
+            </div>
+            <b style="color:#0C4582">PASSWORD</b>
+            <div class="form-group">
+              <input type="password" placeholder="Password" name="password" class="form-control">
+            </div>
+          </div>
+        </div>  
+
+        <input type="submit" value="Login" name="submit" class="btn btn-main">
+
+      </form>
     </div>
 
-    <div class="form-group">
-      <input type="password" placeholder="Password" name="password" class="form-control">
-    </div>
-
-    <input type="submit" value="Login" name="submit" class="btn btn-primary btn-sm">
-
-  </form>
+  </div>
 
   <?php
   error_reporting(0);
