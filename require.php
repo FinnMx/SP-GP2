@@ -5,7 +5,6 @@ session_start();
 require("header.php");
 require("footer.php");
 require("includes/functions.inc.php");
-require("includes/add_engineer.inc.php");
 require("includes/assign_group.inc.php");
 require("includes/connection.inc.php");
 require("includes/create_project.inc.php");

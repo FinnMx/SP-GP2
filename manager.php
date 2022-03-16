@@ -67,8 +67,6 @@ require("require.php");
 
             $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
 
-            echo "work";
-
             $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
             $stmt->bindParam(':fname', $_POST['first_name'], SQLITE3_TEXT);
             $stmt->bindParam(':lname', $_POST['last_name'], SQLITE3_TEXT);
@@ -77,8 +75,11 @@ require("require.php");
             $stmt->bindParam(':er', $_POST['engineer_rate'], SQLITE3_TEXT);
             $result = $stmt->execute();
 
-        }
+            echo "account succesfully created";
+
             }
+
+         }
         
 
 
