@@ -77,8 +77,9 @@ require("require.php");
             $stmt->bindParam(':er', $_POST['engineer_rate'], SQLITE3_TEXT);
             $result = $stmt->execute();
 
-            }
         }
+            }
+        
 
 
             ?>
