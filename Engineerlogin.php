@@ -11,65 +11,62 @@
 
 <body>
 
-  <a href="index.php"> 
+  <a href="index.php">
     <input type="button" value="Back">
   </a>
 
 
-      <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post"> 
+  <form style="width: 175px; text-align: center; position: absolute; top: 35%; left: 45%;" method="post">
 
-      <h2>Engineer Login</h2> 
+    <h2>Engineer Login</h2>
 
-      <div class="form-group">
-        <input type="text" placeholder="EngineerID" name="EngineerID" class="form-control"> 
-      </div>
+    <div class="form-group">
+      <input type="text" placeholder="EngineerID" name="EngineerID" class="form-control">
+    </div>
 
-      <div class="form-group">
-        <input type="password" placeholder="Password" name ="password" class="form-control"> 
-      </div>
+    <div class="form-group">
+      <input type="password" placeholder="Password" name="password" class="form-control">
+    </div>
 
-        <input type="submit" value="Login" name="submit" class="btn btn-primary btn-sm"> 
+    <input type="submit" value="Login" name="submit" class="btn btn-primary btn-sm">
 
-      </form> 
+  </form>
 
-      <?php
-      //error_reporting(0);
+  <?php
+  //error_reporting(0);
 
-      if (isset($_POST['submit'])){
+  if (isset($_POST['submit'])) {
 
-        //Manager login routine
+    session_start();
+    //Manager login routine
 
-          if($_POST['EngineerID']== '' || $_POST['password'] == ''){
-                echo "Please fill all fields";
-          }
+    if ($_POST['EngineerID'] == '' || $_POST['password'] == '') {
+      echo "Please fill all fields";
+    } else {
 
-          else{
-
-            $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-            $sql = "SELECT Engineer_ID, Password FROM Engineer WHERE Engineer_ID =:EID";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':EID', $_POST['EngineerID'], SQLITE3_TEXT);
-            $result= $stmt->execute();
-            $arrayResult = [];
-
-            while($row=$result->fetchArray(SQLITE3_NUM)){ // how to read the result from the query
-              $arrayResult = $row;                              
-            }
+      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+      $sql = "SELECT Engineer_ID, Password FROM Engineer WHERE Engineer_ID =:EID";
+      $stmt = $db->prepare($sql);
+      $stmt->bindParam(':EID', $_POST['EngineerID'], SQLITE3_TEXT);
+      $result = $stmt->execute();
+      $arrayResult = [];
 
 
-            if($_POST['EngineerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]){
 
-              header("Location: engineer.php");
-
-            }
-
-            else{
-
-              echo "invalid login";
-            }
-          }
+      while ($row = $result->fetchArray(SQLITE3_NUM)) { // how to read the result from the query
+        $arrayResult = $row;
       }
-      ?>
+
+      if ($_POST['EngineerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
+        $_POST['EngineerID'] = $_SESSION['EID'];
+        header("Location: engineer.php");
+      } else {
+
+        echo "invalid login";
+      }
+    }
+  }
+  ?>
 
 </body>
 
