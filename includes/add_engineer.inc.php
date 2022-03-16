@@ -4,63 +4,50 @@
 //Check to see if user did click submit rather than entering information into the url.
 if (isset($_POST['submit'])) {
 
-    //Assign values from customer input to variables.
+    //Assign values from Engineer input to variables.
     $fName = $_POST['first_name'];
     $lName = $_POST['last_name'];
     $pword = $_POST['password'];
     $rePassword = $_POST['re_password'];
     $engineerRate = $_POST['engineer_rate'];
     $groupID = ['group_id'];
-    
-    
+
+
+
 
 
     //link of functions page
     require_once 'functions.inc.php';
 
-    //Check if any customer inputs are empty.
+    //Check if any Engineer inputs are empty.
     if (emptyInputApply($fName, $lName, $pword, $rePassword, $engineerRate, $groupID) !== false) {
-        header("Location:../register.php?error=emptyinput");
+        header("Location:../manager.php?error=emptyinput");
         exit();
     }
     //Check if first name contains valid characters.
     if (invalidFN($fName) !== false) {
-        header("Location:../register.php?error=invalidfirstname");
+        header("Location:../manager.php?error=invalidfirstname");
         exit();
     }
     //Check if lastr name contains valid characters.
     if (invalidLN($lName) !== false) {
-        header("Location:../register.php?error=invalidlastname");
-        exit();
-    }
-    //Check if email is valid.
-    if (invalidEmail($email) !== false) {
-        header("location:../register.php?error=invalidemail");
-        exit();
-    }
-    //Check if email is taken
-    if(emailMatch($email)!== false)
-    {
-        header("location:../register.php?error=emailtaken");
+        header("Location:../manager.php?error=invalidlastname");
         exit();
     }
     //Check password and re-entered password match
     if (passwordMismatch($pword, $rePassword) !== false) {
-        header("location:../register.php?error=passwordmissmatch");
+        header("location:../manager.php?error=passwordmissmatch");
         exit();
     }
-    //Insert customer into database.
-    if (createCustomer($fName, $lName, $email, $pword, $adminId ) !== true) {
-        header("location:../register.php?error=stmtfailed");
+    //Insert Engineer into database.
+    if (createEngineer($fName, $lName, $pword, $engineerRate, $groupID) !== true) {
+        header("location:../manager.php?error=stmtfailed");
         exit();
     } else {
-        header("location:../registrationsuccessfull.php");
+        header("location:../manager.php");
         exit();
     }
-    
 } else {
-    header("Location:../register.php?error=unauthorisedentry");
+    header("Location:../manager.php?error=unauthorisedentry");
     exit();
 }
-
-?>
