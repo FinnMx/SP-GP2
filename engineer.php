@@ -1,8 +1,6 @@
 <?php
 require("require.php");
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +14,53 @@ require("require.php");
 </head>
 
 <body>
+
+    <table>
+        <?php
+
+        for ($i = 0; $i < count($arrayResult); $i++) :
+
+        ?>
+            <thead>
+
+                <td><?php echo $arrayResult[$i][''] ?></td>
+
+            </thead>
+
+            <tr>
+
+                <td><?php echo $arrayResult[$i][''] ?></td>
+                <td><img src="<?php echo $arrayResult[$i]['Image_reference'] ?>" alt=""></td>
+
+
+            </tr>
+        <?php endfor;
+        ?>
+    </table>
+
+
+    <table>
+        <?php
+
+        for ($i = 0; $i < count($arrayResult); $i++) :
+
+        ?>
+            <thead>
+
+                <td><?php echo $arrayResult[$i][''] ?></td>
+
+            </thead>
+
+            <tr>
+
+                <td style=color:aliceblue><?php echo $arrayResult[$i][''] ?></td>
+                <td style=color:aliceblue><img src="<?php echo $arrayResult[$i][''] ?>" alt=""></td>
+
+
+            </tr>
+        <?php endfor;
+        ?>
+    </table>
 
 
 
