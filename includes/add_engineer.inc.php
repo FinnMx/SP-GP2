@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
     require_once 'functions.inc.php';
 
     //Check if any customer inputs are empty.
-    if (emptyInputApply($fName, $lName, $email, $pword) !== false) {
+    if (emptyInputApply($fName, $lName, $email, $pword, $rePassword, $engineerRate, $groupID) !== false) {
         header("Location:../register.php?error=emptyinput");
         exit();
     }
