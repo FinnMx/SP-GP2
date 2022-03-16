@@ -14,46 +14,58 @@ require("require.php");
     <title>Document</title>
 </head>
 
+<br>
+
 <body>
     <!--Form to create an engineer-->
-    <div class="container-fluid">
-        <form action="includes/create_engineer.inc.php" method="post">
-            <div>
-                <br>
-                <br>
-                <label class="label">Create Engineer</label>
-                <br>
-                <label class="label">First Name:</label>
-                <br>
-                <input class="form-group col-md-4" type="text" name="first_name" placeholder="First name">
-                <br>
-                <label class="label">Last name:</label>
-                <br>
-                <input class="form-group col-md-4" type="text" name="last_name" placeholder="Last name">
-                <br>
-                <label class="label">Password:</label>
-                <br>
-                <input class="form-group col-md-4" type="password" name="password" placeholder="Password">
-                <br>
-                <label class="label">Re-enter password:</label>
-                <br>
-                <input class="form-group col-md-4" type="password" name="re_password" placeholder="Re-enter password">
-                <br>
-                <label class="label">Pay Rate:</label>
-                <br>
-                <input class="form-group col-md-4" type="number" name="engineer_rate" placeholder="Pay rate" min="1">
-                <br>
-                <label class="label">Assign to Group</label>
-                <br>
-                <input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">
-                <br>
+    <div class="container">
+        <div class="row">
 
-            </div>
-            <div class="form-group col-md-4">
-                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
-            </div>
+            <div class="col-md-4">
+                <div class="w-box">
+                    <form action="includes/create_engineer.inc.php" method="post">
+                        <div>
+                            <h4>CREATE ENGINEER</h4>
 
-        </form>
+                            <div class="b-input"><p>test box</p></div>
+
+                            
+                            <label class="label">First Name:</label>
+                            <br>
+                            <div class="b-input"><input type="text" name="first_name" placeholder="First name"></div>
+                            <br>
+                            <label class="label">Last name:</label>
+                            <br>
+                            <input class="form-group" type="text" name="last_name" placeholder="Last name">
+                            <br>
+                            <label class="label">Password:</label>
+                            <br>
+                            <input class="form-group" type="password" name="password" placeholder="Password">
+                            <br>
+                            <label class="label">Re-enter password:</label>
+                            <br>
+                            <input class="form-group" type="password" name="re_password" placeholder="Re-enter password">
+                            <br>
+                            <label class="label">Pay Rate:</label>
+                            <br>
+                            <input class="form-group" type="number" name="engineer_rate" placeholder="Pay rate" min="1">
+                            <br>
+                            <label class="label">Assign to Group</label>
+                            <br>
+                            <input class="form-group" type="number" name="group_id" placeholder="Group ID" min="1">
+                            <br>
+
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-main" type='submit' value="submit" name='submit'>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         <!--Form to create projects projects-->
         <form action="includes/create_project.inc.php" method="post">
             <div>
@@ -153,7 +165,7 @@ require("require.php");
                 <input class="btn btn-primary" type='submit' value="submit" name='submit'>
             </div>
         </form>
-
+</div>
 
 
 

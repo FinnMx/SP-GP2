@@ -1,27 +1,56 @@
-body {
-    background-color: #0C4582;
-}
 
-colour scheme {
+colour scheme { /* These are just color swatches to use as a theme, copy to where you want to use */
     color: #0C4582;
     color: #D3E239;
     color: #CAD7E4;
     color: #345B71;
 }
 
+body { /* Edit colour for background on all pages */
+    background-color: #0C4582;
+}
+
+h4 {
+    color: #0C4582; 
+}
+
+/* Buttons 
+-------------------------------------------------- */
+.btn-main {
+    color: #fff;
+    background-color: #D3E239;
+    border-color: #D3E239;
+  }
+  .btn-main:hover {
+    background-color: #D3E23950;
+  }
+
+
+
+/* Boxes 
+-------------------------------------------------- */
 .w-box {
-    border-radius: 2px;
+    border-radius: 10px;
     padding: 25px;
     background-color: #ffffff;
     margin: auto;
     width: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  }
+}
 .g-box {
-    border-radius: 2px;
+    border-radius: 10px;
     padding: 25px;
     background-color: #D3E239;
     margin: auto;
     width: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  }
+}
+
+.b-input {
+    border-radius: 10px;
+    padding: 25px;
+    background-color: #345B71;
+    margin: auto;
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
