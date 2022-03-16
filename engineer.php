@@ -1,17 +1,19 @@
 <?php
 require("require.php");
 
+$_SESSION['EID'];
 
+echo $_SESSION['EID'];
 
 $db = new SQLITE3('C:\xampp\htdocs\myDB.db');
-
-
+$stmt = $db->prepare($sql);
 
 $sql = "SELECT * 
         FROM Engineer 
-        WHERE EngineerId = ";
+        WHERE EngineerId = :EID";
 
 $stmt = $db->prepare($sql);
+$stmt->bindParam(':EID', $_POST['EngineerID'], SQLITE3_TEXT);
 $result = $stmt->execute();
 
 $arrayResult = []; //prepare an empty array first
