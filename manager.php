@@ -1,7 +1,6 @@
 <?php
 //session,header and footer
 require("require.php");
-
 ?>
 <!--Basic html 5 setup-->
 <!DOCTYPE html>
@@ -18,7 +17,7 @@ require("require.php");
 
     <!--Form to create an engineer-->
     <div class="container-fluid">
-        <form action="includes/create_engineer.inc.php" method="post">
+        <form method="post">
             <div>
                 <br>
                 <br>
@@ -56,13 +55,19 @@ require("require.php");
 
             <?php 
 
-            if (isset($_POST['submit'])){
+        if (isset($_POST['submit'])){
 
+            $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
+
+            if($boolCheck !=1){
+            
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-            $sql = "INSERT INTO Engineer(:eid,:fname,:lname,:pwd,:gid,:er";
+            $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er)";
             $stmt = $db->prepare($sql);
 
             $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
+
+            echo "work";
 
             $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
             $stmt->bindParam(':fname', $_POST['first_name'], SQLITE3_TEXT);
@@ -73,6 +78,8 @@ require("require.php");
             $result = $stmt->execute();
 
             }
+        }
+
 
             ?>
 
