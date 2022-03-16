@@ -1,7 +1,7 @@
 <?php
 //session,header and footer
 require("require.php");
-
+require("includes/functions.inc.php")
 ?>
 <!--Basic html 5 setup-->
 <!DOCTYPE html>
@@ -58,11 +58,15 @@ require("require.php");
 
             if (isset($_POST['submit'])){
 
+            $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
+            
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
             $sql = "INSERT INTO Engineer(:eid,:fname,:lname,:pwd,:gid,:er";
             $stmt = $db->prepare($sql);
 
             $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
+
+            echo $boolCheck;
 
             $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
             $stmt->bindParam(':fname', $_POST['first_name'], SQLITE3_TEXT);
