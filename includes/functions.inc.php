@@ -9,10 +9,10 @@
 
 //The following functions apply to the registration form
 //Function to check for empty inputs.
-function emptyInputApply($fName, $lName, $pword, $email)
+function emptyInputApply($fName, $lName, $email, $pword, $rePassword, $engineerRate, $groupID)
 {
 
-    if (empty($fName) || empty($lName) || empty($email) || empty($pword)) {
+    if (empty($fName) || empty($lName) || empty($email) || empty($pword) || empty($rePassword) || empty($engineerRate) || empty($groupID)) {
         $result = true;
     } else {
         $result = false;
