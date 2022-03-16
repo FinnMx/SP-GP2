@@ -56,9 +56,11 @@ require("includes/functions.inc.php")
 
             <?php 
 
-            if (isset($_POST['submit'])){
+        if (isset($_POST['submit'])){
 
             $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
+
+            if($boolCheck !=1 && ){
             
             $db = new SQLite3('C:\xampp\htdocs\myDB.db');
             $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er)";
@@ -66,7 +68,7 @@ require("includes/functions.inc.php")
 
             $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
 
-            echo $boolCheck;
+            echo "work";
 
             $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
             $stmt->bindParam(':fname', $_POST['first_name'], SQLITE3_TEXT);
@@ -77,6 +79,8 @@ require("includes/functions.inc.php")
             $result = $stmt->execute();
 
             }
+        }
+
 
             ?>
 
