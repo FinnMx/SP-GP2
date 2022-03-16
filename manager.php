@@ -1,8 +1,9 @@
 <?php
+//session,header and footer
 require("require.php");
 
 ?>
-
+<!--Basic html 5 setup-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,13 +15,13 @@ require("require.php");
 </head>
 
 <body>
+    <!--Form to create an engineer-->
     <div class="container-fluid">
         <form action="includes/create_engineer.inc.php" method="post">
             <div>
                 <br>
                 <br>
                 <label class="label">Create Engineer</label>
-                <br>
                 <br>
                 <label class="label">First Name:</label>
                 <br>
@@ -51,19 +52,56 @@ require("require.php");
             <div class="form-group col-md-4">
                 <input class="btn btn-primary" type='submit' value="submit" name='submit'>
             </div>
-        </form>
 
+        </form>
+        <!--Form to create projects projects-->
+        <form action="includes/create_project.inc.php" method="post">
+            <div>
+                <br>
+                <br>
+                <label class="label">Create Project</label>
+                <br>
+                <label class="label">Project ID:</label>
+                <br>
+                <input class="form-group col-md-4" type="number" name="project_id" placeholder="Project ID" min="1">
+                <br>
+                <label class="label">Project name:</label>
+                <br>
+                <input class="form-group col-md-4" type="text" name="project_name" placeholder="Project name">
+                <br>
+                <label class="label">Project Value:</label>
+                <br>
+                <input class="form-group col-md-4" type="number" name="project_value" placeholder="Project Value" min="1">
+                <br>
+                <label class="label">Material cost:</label>
+                <br>
+                <input class="form-group col-md-4" type="number" name="material_cost" placeholder="Material cost" min="1">
+                <br>
+                <label class="label">Additional cost:</label>
+                <br>
+                <input class="form-group col-md-4" type="number" name="additional_cost" placeholder="Additional cost" min="1">
+                <br>
+                <label class="label">Comments:</label>
+                <br>
+                <input class="form-control input-lg" type="text" name="comments" placeholder="Comments on cost and job specifics">
+                <br>
+            </div>
+            <div class="form-group col-md-4">
+                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+            </div>
+
+        </form>
+        <!--Form to assign groups to projects-->
         <form action="includes/assign_group.inc.php" method="post">
             <div>
                 <br>
                 <br>
-                <label class="label">Create Group</label>
+                <label class="label">Assign group to project</label>
                 <br>
                 <br>
                 <label class="label">Group ID:</label>
                 <br>
                 <input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">
-                <br>
                 <br>
                 <label class="label">Project ID:</label>
                 <br>
@@ -74,6 +112,48 @@ require("require.php");
                 <input class="btn btn-primary" type='submit' value="submit" name='submit'>
             </div>
         </form>
+        <form action="includes/assign_group.inc.php" method="post">
+            <div>
+                <br>
+                <br>
+                <label class="label">Assign group to project</label>
+                <br>
+                <br>
+                <label class="label">Group ID:</label>
+                <br>
+                <input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">
+                <br>
+                <label class="label">Project ID:</label>
+                <br>
+                <input class="form-group col-md-4" type="number" name="project_id" placeholder="Project ID" min="1">
+                <br>
+            </div>
+            <div class="form-group col-md-4">
+                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+            </div>
+        </form>
+        <!--Form to input customer satisfaction once project is complete -->
+        <form action="customer_satisfaction.inc.php" method="post">
+            <div>
+                <br>
+                <br>
+                <label class="label">Please input customer feedback on project completion</label>
+                <br>
+                <br>
+                <label class="label">Project ID:</label>
+                <br>
+                <input class="form-group col-md-4" type="number" name="group_id" placeholder="Project ID" min="1">
+                <br>
+                <label class="label">Customer satisfaction:</label>
+                <br>
+                <input class="form-group col-md-4" type="text" name="customer_satisfaction" placeholder="Customer satisfaction" min="0" max="10">
+                <br>
+            </div>
+            <div class="form-group col-md-4">
+                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+            </div>
+        </form>
+
 
 
 

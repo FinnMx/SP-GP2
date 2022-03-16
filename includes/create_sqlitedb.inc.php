@@ -26,5 +26,12 @@ $db->exec('CREATE TABLE Project(Project_ID STRING, Project_value MONEY, Engineer
 $db->exec("INSERT INTO Manager VALUES('Martin1', 'Martin', 'D', 'Password1')");
 
 
+/**
+ * Notes for Database
+ * needed - project name in projects
+ * needed - Timescale in "project" so "Pay_rate" (hourly/monthly?) can be converted into "Engineer_cost"
+*/
+
+
 ?>
 
