@@ -6,14 +6,12 @@ $_SESSION['EID'];
 echo $_SESSION['EID'];
 
 $db = new SQLITE3('C:\xampp\htdocs\myDB.db');
-$stmt = $db->prepare($sql);
-
 $sql = "SELECT * 
         FROM Engineer 
-        WHERE EngineerId = :EID";
+        WHERE Engineer_ID = :EID";
 
 $stmt = $db->prepare($sql);
-$stmt->bindParam(':EID', $_POST['EngineerID'], SQLITE3_TEXT);
+$stmt->bindParam(':EID', $_SESSION['EID'], SQLITE3_TEXT);
 $result = $stmt->execute();
 
 $arrayResult = []; //prepare an empty array first
@@ -43,11 +41,11 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
         ?>
             <thead>
 
-                <td>Engineer ID</td>
-                <td>First Name</td>
-                <td>Last Name</td>
-                <td>Group ID</td>
-                <td>Engineer Rate PM</td>
+            <td>Engineer ID</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Group ID</td>
+            <td>Engineer Rate PM</td>
 
 
             </thead>

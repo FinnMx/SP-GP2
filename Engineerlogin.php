@@ -59,7 +59,9 @@
 
       if ($_POST['EngineerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
         $_POST['EngineerID'] = $_SESSION['EID'];
-        header("Location: engineer.php");
+
+        $_SESSION['EID'];
+        //header("Location: engineer.php");
       } else {
 
         echo "invalid login";
