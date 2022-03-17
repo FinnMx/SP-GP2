@@ -5,6 +5,7 @@
 
 
  function SetCustomerSatisfaction($PID,$CS){
+ 	$db = new SQLite3('C:\xampp\htdocs\myDB.db');
  	$sql = "UPDATE Project SET Customer_satisfaction =:cs WHERE Project_ID =:pid";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':cs', $CS, SQLITE3_TEXT);
@@ -12,6 +13,6 @@
     $result = $stmt->execute();
 
 
-    header("Location: Manager.php");
+    header("Location: ..\Manager.php");
  }
 ?>

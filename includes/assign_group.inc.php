@@ -4,8 +4,6 @@ if (isset($_POST['submit'])){
 
 }
 
-
-
 function AssignGroup($GID, $PID){
 	$db = new SQLite3('C:\xampp\htdocs\myDB.db');
     $sql = "UPDATE GROUPS SET Project_ID =:pid WHERE Group_ID =:gid";
@@ -14,6 +12,6 @@ function AssignGroup($GID, $PID){
     $stmt->bindParam(':gid', $GID, SQLITE3_TEXT);
     $result = $stmt->execute();
 
-    header("Location: Manager.php");
+    header("Location: ..\Manager.php");
 }
 ?>
