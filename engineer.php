@@ -53,7 +53,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                 <td><?php echo $arrayResult[$i]['Engineer_ID'] ?></td>
                 <td><?php echo $arrayResult[$i]['F_name'] ?></td>
                 <td><?php echo $arrayResult[$i]['L_name'] ?></td>
-                <td><?php echo $arrayResult[$i]['group_ID'] ?></td>
+                <td><?php echo $arrayResult[$i]['Group_ID'] ?></td>
                 <td><?php echo $arrayResult[$i]['Engineer_rate'] ?></td>
 
 
