@@ -37,16 +37,16 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
         for ($i = 0; $i < count($arrayResult); $i++) :
 
         ?>
-            <thead>
+            <table>
+                <tr>
+                    <th>Engineer ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Group ID</th>
+                    <th>Engineer Rate PM</th>
+                </tr>
 
-                <td>Engineer ID</td>
-                <td>First Name</td>
-                <td>Last Name</td>
-                <td>Group ID</td>
-                <td>Engineer Rate PM</td>
-
-
-            </thead>
+            </table>
 
             <tr>
 
