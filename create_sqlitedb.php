@@ -26,6 +26,3 @@ $db->exec('CREATE TABLE Project(Project_ID STRING, Project_Name STRING Project_v
 $db->exec("INSERT INTO Manager VALUES('Martin1', 'Martin', 'D', 'Password1')");
 
 $db->exec("INSERT INTO Engineer VALUES('Alex1', 'Alex', 'Patterson', 'Password1','1','9.50', 'active')");
-
-?>
-

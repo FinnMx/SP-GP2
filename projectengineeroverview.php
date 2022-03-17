@@ -81,6 +81,10 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
     <table>
     </table>
 
+     <!-- Table displays comparison of engineers in the form of a chart/graph -->
+     <table>
+    </table>
+
 
 
 
