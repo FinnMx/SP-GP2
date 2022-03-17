@@ -53,8 +53,6 @@
 
       $_SESSION['EID'] = $_POST['EngineerID'];
 
-
-
       while ($row = $result->fetchArray(SQLITE3_NUM)) { // how to read the result from the query
         $arrayResult = $row;
       }

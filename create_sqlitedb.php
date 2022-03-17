@@ -21,8 +21,15 @@ $db->exec('CREATE TABLE Manager(Manager_ID STRING, F_name STRING, L_name STRING,
 
 $db->exec('CREATE TABLE Groups (Group_ID STRING, Project_ID STRING)');
 
-$db->exec('CREATE TABLE Project(Project_ID STRING, Project_Name STRING Project_value MONEY, Engineer_cost MONEY, Material_cost MONEY, Additional_cost MONEY, Comments STRING, Customer_satisfaction INTEGER, Status STRING)');
+$db->exec('CREATE TABLE Project(Project_ID STRING, Project_Name STRING, Project_value MONEY, Engineer_cost MONEY, Material_cost MONEY, Additional_cost MONEY, Comments STRING, Customer_satisfaction INTEGER, Status STRING)');
 
 $db->exec("INSERT INTO Manager VALUES('Martin1', 'Martin', 'D', 'Password1')");
 
 $db->exec("INSERT INTO Engineer VALUES('Alex1', 'Alex', 'Patterson', 'Password1','1','9.50', 'active')");
+
+$db->exec("INSERT INTO Groups VALUES('1', '1')");
+
+$db->exec("INSERT INTO Project VALUES('1', 'Self Driving boomchakalaka','100100', '100', '25', '20', 'yeah uknow baby','9' ,'active')");
+
+?>
+

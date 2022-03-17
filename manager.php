@@ -169,9 +169,26 @@ require("require.php");
                 </select>
                 
                 <br>
-                <label class="label">Project ID:</label>
-                <br>
-                <input class="form-group col-md-4" type="number" name="project_id" placeholder="Project ID" min="1">
+                <select class="form-group col-md-4" name="project_id" id="project_id">
+                <?php
+                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+                $sql = "SELECT Project_ID FROM Groups";
+                $stmt = $db->prepare($sql);
+                $result = $stmt->execute();
+
+                $arrayResult = []; //prepare an empty array first
+                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                $arrayResult[] = $row; //adding a record until end of records
+                }
+
+                for ($i = 0; $i < count($arrayResult); $i++) :
+                    $value2 = $arrayResult[$i]['Project_ID'];
+                    echo '<option value="'.$value2.'">'.$value2.'</option>';
+                
+                ?>
+
+                <?php endfor;?>
+                </select>
                 <br>
             </div>
             <div class="form-group col-md-4">
