@@ -155,16 +155,16 @@ require("require.php");
 
                 $arrayResult = []; //prepare an empty array first
                 while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                $arrayResult[] = $row; //adding a record until end of records
+                    $arrayResult[] = $row; //adding a record until end of records
                 }
 
                 print_r($arrayResult);
                 for ($i = 0; $i < count($arrayResult); $i++) :
 
                 ?>
-                <!--<input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">-->
-                <select name="group_id"><?php echo $arrayResult[$i]['Group_ID']?></select>
-                <?php endfor;?>
+                    <!--<input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">-->
+                    <select name="group_id"><?php echo $arrayResult[$i]['Group_ID'] ?></select>
+                <?php endfor; ?>
                 <br>
                 <label class="label">Project ID:</label>
                 <br>

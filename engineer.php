@@ -31,7 +31,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
 <body>
     <!-- Table displays engineers induvidual details-->
-    <table>
+    <table class="table-dark">
         <?php
 
         for ($i = 0; $i < count($arrayResult); $i++) :
@@ -39,11 +39,11 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
         ?>
             <thead>
 
-            <td>Engineer ID</td>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Group ID</td>
-            <td>Engineer Rate PM</td>
+                <td>Engineer ID</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Group ID</td>
+                <td>Engineer Rate PM</td>
 
 
             </thead>
@@ -67,6 +67,9 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
     <!-- Table displays engineers performance details in chart/graph -->
     <table>
+        <thead>
+            <td></td>
+        </thead>
     </table>
 
     <!-- Table displays engineers details compared to others-->
