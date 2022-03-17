@@ -34,25 +34,25 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
 <body>
     <!-- Table displays Project induvidual details-->
-    <table>
+    <table class="table-dark" style="color:aliceblue; border:white; border:3px;">
         <?php
 
         for ($i = 0; $i < count($arrayResult); $i++) :
 
         ?>
-            <thead>
+            <tr>
 
-                <td>Project ID</td>
-                <td>Project Name</td>
-                <td>Project Value</td>
-                <td>Engineer Cost</td>
-                <td>Material Cost</td>
-                <td>Additional Cost</td>
-                <td>Comments</td>
-                <td>Customer satisfaction</td>
+                <th>Project ID</th>
+                <th>Project Name</th>
+                <th>Project Value</th>
+                <th>Engineer Cost</th>
+                <th>Material Cost</th>
+                <th>Additional Cost</th>
+                <th>Comments</th>
+                <th>Customer satisfaction</th>
 
 
-            </thead>
+                </thead>
 
             <tr>
 
@@ -74,15 +74,15 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
     </table>
 
     <!-- Table displays performance of project, and displays it as a chart/graph -->
-    <table>
+    <table class="table-dark" style="color:aliceblue; border:white">
     </table>
 
     <!-- Table displays projects details compared to other projects in the form of a chart/graph -->
     <table>
     </table>
 
-     <!-- Table displays comparison of engineers in the form of a chart/graph -->
-     <table>
+    <!-- Table displays comparison of engineers in the form of a chart/graph -->
+    <table class="table-dark" style="color:aliceblue; border:white">
     </table>
 
 
