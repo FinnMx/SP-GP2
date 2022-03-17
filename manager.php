@@ -147,27 +147,24 @@ require("require.php");
                 <br>
                 <label class="label">Group ID:</label>
                 <br>
-                <input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">
-                <br>
-                <label class="label">Project ID:</label>
-                <br>
-                <input class="form-group col-md-4" type="number" name="project_id" placeholder="Project ID" min="1">
-                <br>
-            </div>
-            <div class="form-group col-md-4">
-                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
-            </div>
-        </form>
-        <form action="includes/assign_group.inc.php" method="post">
-            <div>
-                <br>
-                <br>
-                <label class="label">Assign group to project</label>
-                <br>
-                <br>
-                <label class="label">Group ID:</label>
-                <br>
-                <input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">
+                <?php
+                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+                $sql = "SELECT Group_ID FROM Groups";
+                $stmt = $db->prepare($sql);
+                $result = $stmt->execute();
+
+                $arrayResult = []; //prepare an empty array first
+                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                $arrayResult[] = $row; //adding a record until end of records
+                }
+
+                print_r($arrayResult);
+                for ($i = 0; $i < count($arrayResult); $i++) :
+
+                ?>
+                <!--<input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">-->
+                <select name="group_id"><?php echo $arrayResult[$i]['Group_ID']?></select>
+                <?php endfor;?>
                 <br>
                 <label class="label">Project ID:</label>
                 <br>
