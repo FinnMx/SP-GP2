@@ -7,7 +7,7 @@ echo $_SESSION['PID'];
 
 
 $db = new SQLITE3('C:\xampp\htdocs\myDB.db');
-$sql = "SELECT * 
+$sql = "SELECT *  
         FROM Project 
         WHERE Project_id = :PID";
 
