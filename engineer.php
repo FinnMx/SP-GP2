@@ -31,7 +31,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
 <body style="color:aliceblue">
     <!-- Table displays engineers induvidual details-->
-    <table class="table-dark" style="color:aliceblue">
+    <table class="table-dark" style="color:aliceblue; border:white; border:3px;">
         <?php
 
         for ($i = 0; $i < count($arrayResult); $i++) :
@@ -45,18 +45,18 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                     <th>Group ID</th>
                     <th>Engineer Rate PM</th>
                 </tr>
-              
-            <tr>
 
-                <td><?php echo $arrayResult[$i]['Engineer_ID'] ?></td>
-                <td><?php echo $arrayResult[$i]['F_name'] ?></td>
-                <td><?php echo $arrayResult[$i]['L_name'] ?></td>
-                <td><?php echo $arrayResult[$i]['Group_ID'] ?></td>
-                <td><?php echo $arrayResult[$i]['Engineer_rate'] ?></td>
+                <tr>
+
+                    <td><?php echo $arrayResult[$i]['Engineer_ID'] ?></td>
+                    <td><?php echo $arrayResult[$i]['F_name'] ?></td>
+                    <td><?php echo $arrayResult[$i]['L_name'] ?></td>
+                    <td><?php echo $arrayResult[$i]['Group_ID'] ?></td>
+                    <td><?php echo $arrayResult[$i]['Engineer_rate'] ?></td>
 
 
 
-            </tr>
+                </tr>
             </table>
         <?php endfor;
         ?>
@@ -65,47 +65,47 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
     </table>
 
     <!-- Table displays engineers performance details in chart/graph -->
-    <table>
-            <tr>
-                <th>Engineer Pie Chart</th>
-            </tr>
-            <tr>
-                
-            </tr>
-        
+    <table class="table-dark" style="color:aliceblue; border:white">
+        <tr>
+            <th>Engineer Pie Chart</th>
+        </tr>
+        <tr>
+
+        </tr>
+
 
 
 
     </table>
     <?php // content="text/plain; charset=utf-8"
-        require_once ('jpgraph.php');
-        require_once ('jpgraph_pie.php');
-        // Some data
-        $data = array(40,21,17,14,23);
+    require_once('jpgraph.php');
+    require_once('jpgraph_pie.php');
+    // Some data
+    $data = array(40, 21, 17, 14, 23);
 
-        // Create the Pie Graph. 
-        $graph = new PieGraph(350,250);
+    // Create the Pie Graph. 
+    $graph = new PieGraph(350, 250);
 
-        $theme_class="DefaultTheme";
-        //$graph->SetTheme(new $theme_class());
+    $theme_class = "DefaultTheme";
+    //$graph->SetTheme(new $theme_class());
 
-        // Set A title for the plot
-        $graph->title->Set("A Simple Pie Plot");
-        $graph->SetBox(true);
+    // Set A title for the plot
+    $graph->title->Set("A Simple Pie Plot");
+    $graph->SetBox(true);
 
-        // Create
-        $p1 = new PiePlot($data);
-        $graph->Add($p1);
+    // Create
+    $p1 = new PiePlot($data);
+    $graph->Add($p1);
 
-        $p1->ShowBorder();
-        $p1->SetColor('black');
-        $p1->SetSliceColors(array('#1E90FF','#2E8B57','#ADFF2F','#DC143C','#BA55D3'));
-        $graph->Stroke();
+    $p1->ShowBorder();
+    $p1->SetColor('black');
+    $p1->SetSliceColors(array('#1E90FF', '#2E8B57', '#ADFF2F', '#DC143C', '#BA55D3'));
+    $graph->Stroke();
 
     ?>
 
     <!-- Table displays engineers details compared to others-->
-    <table>
+    <table class="table-dark" style="color:aliceblue; border:white">
     </table>
 
 
