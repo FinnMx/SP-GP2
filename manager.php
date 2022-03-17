@@ -147,6 +147,7 @@ require("require.php");
                 <br>
                 <label class="label">Group ID:</label>
                 <br>
+                <select class="form-group col-md-4" name="group_id"></select> 
                 <?php
                 $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                 $sql = "SELECT Group_ID FROM Groups";
@@ -158,12 +159,11 @@ require("require.php");
                 $arrayResult[] = $row; //adding a record until end of records
                 }
 
-                print_r($arrayResult);
+                
                 for ($i = 0; $i < count($arrayResult); $i++) :
 
                 ?>
-                <!--<input class="form-group col-md-4" type="number" name="group_id" placeholder="Group ID" min="1">-->
-                <select name="group_id"><?php echo $arrayResult[$i]['Group_ID']?></select>
+                <option value="<?php echo $arrayResult[$i]['Group_ID']?>"><?php echo $arrayResult[$i]['Group_ID']?></option>
                 <?php endfor;?>
                 <br>
                 <label class="label">Project ID:</label>
