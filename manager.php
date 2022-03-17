@@ -117,6 +117,10 @@ require("require.php");
                     <br>
                     <input class="form-group col-md-4" type="number" name="project_value" placeholder="Project Value" min="1">
                     <br>
+                    <label class="label">Engineer Cost:</label>
+                    <br>
+                    <input class="form-group col-md-4" type="number" name="engineer_cost" placeholder="Engineer Cost" min="1">
+                    <br>
                     <label class="label">Material cost:</label>
                     <br>
                     <input class="form-group col-md-4" type="number" name="material_cost" placeholder="Material cost" min="1">
