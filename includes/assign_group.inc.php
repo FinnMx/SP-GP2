@@ -13,5 +13,7 @@ function AssignGroup($GID, $PID){
     $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
     $stmt->bindParam(':gid', $GID, SQLITE3_TEXT);
     $result = $stmt->execute();
+
+    header("Location: Manager.php");
 }
 ?>
