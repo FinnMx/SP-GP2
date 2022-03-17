@@ -45,9 +45,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                     <th>Group ID</th>
                     <th>Engineer Rate PM</th>
                 </tr>
-
-            </table>
-
+              
             <tr>
 
                 <td><?php echo $arrayResult[$i]['Engineer_ID'] ?></td>
@@ -59,6 +57,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
 
             </tr>
+            </table>
         <?php endfor;
         ?>
 
@@ -67,9 +66,16 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
     <!-- Table displays engineers performance details in chart/graph -->
     <table>
-        <thead>
-            <td></td>
-        </thead>
+            <tr>
+                <th>Engineer Pie Chart</th>
+            </tr>
+            <tr>
+                
+            </tr>
+        
+
+
+
     </table>
 
     <!-- Table displays engineers details compared to others-->
