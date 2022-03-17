@@ -51,6 +51,8 @@
       $result = $stmt->execute();
       $arrayResult = [];
 
+      $_SESSION['EID'] = $_POST['EngineerID'];
+
 
 
       while ($row = $result->fetchArray(SQLITE3_NUM)) { // how to read the result from the query
@@ -58,10 +60,8 @@
       }
 
       if ($_POST['EngineerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
-        $_POST['EngineerID'] = $_SESSION['EID'];
-
-        $_SESSION['EID'];
-        //header("Location: engineer.php");
+        echo $_SESSION['EID'];
+        header("Location: engineer.php");
       } else {
 
         echo "invalid login";

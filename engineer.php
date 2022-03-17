@@ -3,8 +3,6 @@ require("require.php");
 
 $_SESSION['EID'];
 
-echo $_SESSION['EID'];
-
 $db = new SQLITE3('C:\xampp\htdocs\myDB.db');
 $sql = "SELECT * 
         FROM Engineer 
