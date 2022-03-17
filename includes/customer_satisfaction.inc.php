@@ -1,6 +1,6 @@
 <?php
  if(isset($_POST['submit'])){
- 	SetCustomerSatisfaction($_POST['project_id'],$_POST['customer_satisfaction'])
+ 	SetCustomerSatisfaction($_POST['project_id'],$_POST['customer_satisfaction']);
  }
 
 
