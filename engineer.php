@@ -31,7 +31,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
 <body>
     <!-- Table displays engineers induvidual details-->
-    <table class="table-dark">
+    <table class="table-dark" style="color:aliceblue">
         <?php
 
         for ($i = 0; $i < count($arrayResult); $i++) :
