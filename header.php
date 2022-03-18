@@ -27,13 +27,13 @@
         <ul class="navbar-nav mr-auto">
             <li>
                 <a class="nav-item" href="index.php">
-                    <img border: 0 alt="loconews" src="images/logo-actemium.png" width="90" height="60">
+                    <img border: 0 alt="actemium" src="images/logo-actemium.png" width="90" height="60">
                 </a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="index.php">Logout <span class="sr-only">(current)</span></a>
             </li>
-           <!-- <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="manager.php">Back</a>
             </li>
         -->

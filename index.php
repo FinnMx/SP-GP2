@@ -7,10 +7,10 @@ require("require.php");
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
@@ -25,10 +25,10 @@ require("require.php");
         <div style="text-align:center">
           <div class="row">
             <div class="col">
-              <h2>Manager Login</h2> 
+              <h2>Manager Login</h2>
             </div>
             <div class="col">
-              <a href="Engineerlogin.php"><input type="Button" value="Engineer Login"></a>  
+              <a href="Engineerlogin.php"><input type="Button" value="Engineer Login"></a>
             </div>
           </div>
 
@@ -44,7 +44,7 @@ require("require.php");
               <input type="password" placeholder="Password" name="password" class="form-control">
             </div>
           </div>
-        </div>  
+        </div>
 
         <input type="submit" value="Login" name="submit" class="btn btn-main">
 
@@ -64,7 +64,8 @@ require("require.php");
       echo "Please fill all fields";
     } else {
 
-      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+      //require('connection.php');
+      $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
       $sql = "SELECT Manager_ID, Password FROM Manager WHERE Manager_ID =:MID";
       $stmt = $db->prepare($sql);
       $stmt->bindParam(':MID', $_POST['ManagerID'], SQLITE3_TEXT);
@@ -77,7 +78,7 @@ require("require.php");
 
       if ($_POST['ManagerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
 
-        header("Location: Manager.php");
+        header("Location: manager.php");
       } else {
 
         echo "invalid login";
