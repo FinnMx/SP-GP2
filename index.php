@@ -19,16 +19,16 @@ require("require.php");
 
     <br><br><br>
 
-    <div class="w-box" style="width:50%">
+    <div class="w-box" style="width:40%">
       <form method="post">
 
         <div style="text-align:center">
           <div class="row">
-            <div class="col">
-              <h2>Manager Login</h2>
+          <div class="col">
+              <a href="index.php"><input type="Button" value="MANAGER LOGIN" class="btn btn-main"></a>
             </div>
             <div class="col">
-              <a href="Engineerlogin.php"><input type="Button" value="Engineer Login"></a>
+              <a href="Engineerlogin.php"><input type="Button" value="ENGINEER LOGIN" class="btn btn-inv"></a>
             </div>
           </div>
 

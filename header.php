@@ -19,24 +19,26 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="container">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <!-- Left -->
+        <ul class="navbar-nav flex-grow-1">
             <li>
                 <a class="nav-item" href="index.php">
                     <img border: 0 alt="actemium" src="images/logo-actemium.png" width="90" height="60">
                 </a>
             </li>
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-space flex-grow-1">
             <li class="nav-item active">
-                <a class="nav-link" href="index.php">Logout <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.php">LOGOUT <span class="sr-only">(current)</span></a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link" href="manager.php">Back</a>
-            </li>
-        -->
+            </li> -->
+        </ul>
 
 
     </div>

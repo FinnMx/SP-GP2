@@ -21,37 +21,38 @@ require("require.php");
     <div class="container">
     <div class="row">
 
+        <div class="col-md-2"></div>
         <div class="col-md-4">
         <div class="w-box">
             <form method="post">
                 <div>
                     <h5 style="color:#0C4582; text-align:center">CREATE ENGINEER</h3>
                     <br>
-                    <div class="b-input"></div>
-                        <label class="label">First Name:</label>
-                        <br>
-                        <input class="form-group" type="text" name="first_name" placeholder="First name">
-                    </div>    
+                    
+                    <b style="color:#0C4582">FIRST NAME</b>                        
+                    <input class="form-group b-input" type="text" name="first_name" placeholder="First name">
                     <br>
-                    <label class="label">Last name:</label>
+
+                    <b style="color:#0C4582">LAST NAME</b>
+                    <input class="form-group b-input" type="text" name="last_name" placeholder="Last name">
                     <br>
-                    <input class="form-group" type="text" name="last_name" placeholder="Last name">
+
+                    <b style="color:#0C4582">PASSWORD</b>                    
+                    <input class="form-group b-input" type="password" name="password" placeholder="Password">
                     <br>
-                    <label class="label">Password:</label>
+
+                    <b style="color:#0C4582">RE-ENTER PASSWORD</b>
+                    <input class="form-group b-input" type="password" name="re_password" placeholder="Re-enter password">
                     <br>
-                    <input class="form-group" type="password" name="password" placeholder="Password">
+
+                    <b style="color:#0C4582">PAY RATE</b>
+                    <input class="form-group b-input" type="number" name="engineer_rate" placeholder="Pay rate" min="1">
                     <br>
-                    <label class="label">Re-enter password:</label>
+
+                    <b style="color:#0C4582">ASSIGN TO GROUP</b>
+                    <select class="form-group col-md-12" name="group_id" id="group_id">
                     <br>
-                    <input class="form-group" type="password" name="re_password" placeholder="Re-enter password">
-                    <br>
-                    <label class="label">Pay Rate:</label>
-                    <br>
-                    <input class="form-group" type="number" name="engineer_rate" placeholder="Pay rate" min="1">
-                    <br>
-                    <label class="label">Assign to Group</label>
-                    <br>
-                    <select class="form-group col-md-4" name="group_id" id="group_id">
+
                     <?php
                     $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                     $sql = "SELECT Group_ID FROM Groups";
@@ -66,7 +67,6 @@ require("require.php");
                     for ($i = 0; $i < count($arrayResult); $i++) :
                     $value = $arrayResult[$i]['Group_ID'];
                     echo '<option value="'.$value.'">'.$value.'</option>';
-                
                     ?>
 
                     <?php endfor;?>
@@ -75,7 +75,7 @@ require("require.php");
 
                 </div>
                 <div class="form-group col-md-4">
-                    <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+                    <input class="btn btn-main" type='submit' value="submit" name='submit'>
                 </div>
 
                 <?php 
