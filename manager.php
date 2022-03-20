@@ -21,93 +21,87 @@ require("require.php");
     <div class="container">
     <div class="row">
 
+        <div class="col-md-2"></div>
         <div class="col-md-4">
         <div class="w-box">
             <form method="post">
                 <div>
                     <h5 style="color:#0C4582; text-align:center">CREATE ENGINEER</h3>
                     <br>
-                    <div class="b-input"></div>
-                        <label class="label">First Name:</label>
-                        <br>
-                        <input class="form-group" type="text" name="first_name" placeholder="First name">
-                    </div>    
+                    
+                    <b style="color:#0C4582">FIRST NAME</b>                        
+                    <input class="form-group b-input" type="text" name="first_name" placeholder="First name">
                     <br>
-                    <label class="label">Last name:</label>
-                    <br>
-                    <input class="form-group" type="text" name="last_name" placeholder="Last name">
-                    <br>
-                    <label class="label">Password:</label>
-                    <br>
-                    <input class="form-group" type="password" name="password" placeholder="Password">
-                    <br>
-                    <label class="label">Re-enter password:</label>
-                    <br>
-                    <input class="form-group" type="password" name="re_password" placeholder="Re-enter password">
-                    <br>
-                    <label class="label">Pay Rate:</label>
-                    <br>
-                    <input class="form-group" type="number" name="engineer_rate" placeholder="Pay rate" min="1">
-                    <br>
-                    <label class="label">Assign to Group</label>
-                    <br>
-                    <select class="form-group col-md-4" name="group_id" id="group_id">
-                    <?php
-                    $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-                    $sql = "SELECT Group_ID FROM Groups";
-                    $stmt = $db->prepare($sql);
-                    $result = $stmt->execute();
 
-                    $arrayResult = []; //prepare an empty array first
-                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                    $arrayResult[] = $row; //adding a record until end of records
-                    }
+                    <b style="color:#0C4582">LAST NAME</b>
+                    <input class="form-group b-input" type="text" name="last_name" placeholder="Last name">
+                    <br>
 
-                    for ($i = 0; $i < count($arrayResult); $i++) :
-                    $value = $arrayResult[$i]['Group_ID'];
-                    echo '<option value="'.$value.'">'.$value.'</option>';
-                
-                    ?>
+                    <b style="color:#0C4582">PASSWORD</b>                    
+                    <input class="form-group b-input" type="password" name="password" placeholder="Password">
+                    <br>
 
-                    <?php endfor;?>
+                    <b style="color:#0C4582">RE-ENTER PASSWORD</b>
+                    <input class="form-group b-input" type="password" name="re_password" placeholder="Re-enter password">
+                    <br>
+
+                    <b style="color:#0C4582">PAY RATE</b>
+                    <input class="form-group b-input" type="number" name="engineer_rate" placeholder="Pay rate" min="1">
+                    <br>
+
+                    <b style="color:#0C4582">ASSIGN TO GROUP</b>
+                    <select class="form-group col-md-12" name="group_id" id="group_id">
+                        <?php
+                        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+                        $sql = "SELECT Group_ID FROM Groups";
+                        $stmt = $db->prepare($sql);
+                        $result = $stmt->execute();
+
+                        $arrayResult = []; //prepare an empty array first
+                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                        $arrayResult[] = $row; //adding a record until end of records
+                        }
+
+                        for ($i = 0; $i < count($arrayResult); $i++) :
+                        $value = $arrayResult[$i]['Group_ID'];
+                        echo '<option value="'.$value.'">'.$value.'</option>';
+                        ?>
+
+                        <?php endfor;?>
                     </select>
                     <br>
 
+                    <div class="form-group col-md-4">
+                        <input class="btn btn-main" type='submit' value="submit" name='submit'>
+                    </div>
+                    <?php 
+                        if (isset($_POST['submit'])){
+
+                            $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
+
+                            if($boolCheck !=1){
+                            
+                                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+                                $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er)";
+                                $stmt = $db->prepare($sql);
+
+                                $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
+
+                                $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
+                                $stmt->bindParam(':fname', $_POST['first_name'], SQLITE3_TEXT);
+                                $stmt->bindParam(':lname', $_POST['last_name'], SQLITE3_TEXT);
+                                $stmt->bindParam(':pwd', $_POST['password'], SQLITE3_TEXT);
+                                $stmt->bindParam(':gid',$_POST['group_id'], SQLITE3_TEXT);
+                                $stmt->bindParam(':er', $_POST['engineer_rate'], SQLITE3_TEXT);
+                                $result = $stmt->execute();
+
+                                echo "account succesfully created";
+
+                            }
+                        }
+                    ?>
+
                 </div>
-                <div class="form-group col-md-4">
-                    <input class="btn btn-primary" type='submit' value="submit" name='submit'>
-                </div>
-
-                <?php 
-
-                if (isset($_POST['submit'])){
-
-                    $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
-
-                    if($boolCheck !=1){
-                    
-                    $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-                    $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er)";
-                    $stmt = $db->prepare($sql);
-
-                    $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
-
-                    $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
-                    $stmt->bindParam(':fname', $_POST['first_name'], SQLITE3_TEXT);
-                    $stmt->bindParam(':lname', $_POST['last_name'], SQLITE3_TEXT);
-                    $stmt->bindParam(':pwd', $_POST['password'], SQLITE3_TEXT);
-                    $stmt->bindParam(':gid',$_POST['group_id'], SQLITE3_TEXT);
-                    $stmt->bindParam(':er', $_POST['engineer_rate'], SQLITE3_TEXT);
-                    $result = $stmt->execute();
-
-                    echo "account succesfully created";
-
-                    }
-
-                }
-
-                ?>
-
             </form>
         </div>
         </div>

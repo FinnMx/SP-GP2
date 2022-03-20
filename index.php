@@ -19,31 +19,30 @@ require("require.php");
 
     <br><br><br>
 
-    <div class="w-box" style="width:50%">
+    <div class="w-box" style="width:40%">
       <form method="post">
 
         <div style="text-align:center">
           <div class="row">
-            <div class="col">
-              <h2>Manager Login</h2>
+          <div class="col">
+              <a href="index.php"><input type="Button" value="MANAGER LOGIN" class="btn btn-main"></a>
             </div>
             <div class="col">
-              <a href="Engineerlogin.php"><input type="Button" value="Engineer Login"></a>
+              <a href="Engineerlogin.php"><input type="Button" value="ENGINEER LOGIN" class="btn btn-inv"></a>
             </div>
           </div>
 
           <br>
 
-          <div style="b-box">
-            <b style="color:#0C4582">USERNAME</b>
-            <div class="form-group">
-              <input type="text" placeholder="ManagerID" name="ManagerID" class="form-control">
-            </div>
-            <b style="color:#0C4582">PASSWORD</b>
-            <div class="form-group">
-              <input type="password" placeholder="Password" name="password" class="form-control">
-            </div>
+          <b style="color:#0C4582">USERNAME</b>
+          <div class="form-group">
+            <input type="text" placeholder="ManagerID" name="ManagerID" class="form-control b-input">
           </div>
+          <b style="color:#0C4582">PASSWORD</b>
+          <div class="form-group">
+            <input type="password" placeholder="Password" name="password" class="form-control b-input">
+          </div>
+          
         </div>
 
         <input type="submit" value="Login" name="submit" class="btn btn-main">
