@@ -64,17 +64,36 @@ require("require.php");
 
                         for ($i = 0; $i < count($arrayResult); $i++) :
                         $value = $arrayResult[$i]['Group_ID'];
-                        echo '<option value="'.$value.'">'.$value.'</option>';
+                        echo '<option value="'.$value.'" selected>'.$value.'</option>';        
                         ?>
 
                         <?php endfor;?>
                     </select>
                     <br>
+                    <input class="btn btn-main" type='submit' value="New group" name='create_new_group'>
+                    <br>
 
                     <div class="form-group col-md-4">
-                        <input class="btn btn-main" type='submit' value="submitE" name='submitE'>
+                        <input class="btn btn-main" type='submit' value="submit" name='submitE'>
                     </div>
                     <?php 
+
+                    if (isset($_POST['create_new_group'])){ //method to create new group ID from largest
+                        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+                        $sql = "SELECT MAX(group_id) FROM Groups";
+                        $stmt = $db->prepare($sql);
+                        $result = $stmt->execute();
+                        $arrayResult = []; //prepare an empty array first
+                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                        $arrayResult[] = $row; //adding a record until end of records
+                        }
+                        $sql = "INSERT INTO Groups VALUES(:gid +1,0)";
+                        $stmt = $db->prepare($sql);
+                        $stmt->bindParam(':gid', $arrayResult[0][0], SQLITE3_TEXT);
+
+                        $result = $stmt->execute();
+
+                    }
                         if (isset($_POST['submitE'])){
 
                             $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
