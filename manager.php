@@ -130,40 +130,38 @@ require("require.php");
         </div>
 
 
-        <!--Form to create projects projects-->
+        <!--Form to create projects-->
         <div class="col-md-4">
         <div class="w-box">
             <form action="includes/create_project.inc.php" method="post">
                 <div>
+                    <h5 style="color:#0C4582; text-align:center">CREATE PROJECT</h3>
                     <br>
+                    <b style="color:#0C4582">Project ID:</b>
                     <br>
-                    <label class="label">Create Project</label>
+                    <input class="form-group b-input" type="number" name="project_id" placeholder="Project ID" min="1">
                     <br>
-                    <label class="label">Project ID:</label>
+                    <b style="color:#0C4582">Project name:</b>
                     <br>
-                    <input class="form-group col-md-4" type="number" name="project_id" placeholder="Project ID" min="1">
+                    <input class="form-group b-input" type="text" name="project_name" placeholder="Project name">
                     <br>
-                    <label class="label">Project name:</label>
+                    <b class="label">Project Value:</b>
                     <br>
-                    <input class="form-group col-md-4" type="text" name="project_name" placeholder="Project name">
+                    <input class="form-group b-input" type="number" name="project_value" placeholder="Project Value" min="1">
                     <br>
-                    <label class="label">Project Value:</label>
+                    <b class="label">Engineer Cost:</b>
                     <br>
-                    <input class="form-group col-md-4" type="number" name="project_value" placeholder="Project Value" min="1">
+                    <input class="form-group b-input" type="number" name="engineer_cost" placeholder="Engineer Cost" min="1">
                     <br>
-                    <label class="label">Engineer Cost:</label>
+                    <b class="label">Material cost:</b>
                     <br>
-                    <input class="form-group col-md-4" type="number" name="engineer_cost" placeholder="Engineer Cost" min="1">
+                    <input class="form-group b-input" type="number" name="material_cost" placeholder="Material cost" min="1">
                     <br>
-                    <label class="label">Material cost:</label>
+                    <b class="label">Additional cost:</b>
                     <br>
-                    <input class="form-group col-md-4" type="number" name="material_cost" placeholder="Material cost" min="1">
+                    <input class="form-group b-input" type="number" name="additional_cost" placeholder="Additional cost" min="1">
                     <br>
-                    <label class="label">Additional cost:</label>
-                    <br>
-                    <input class="form-group col-md-4" type="number" name="additional_cost" placeholder="Additional cost" min="1">
-                    <br>
-                    <label class="label">Comments:</label>
+                    <b class="label">Comments:</b>
                     <br>
                     <input class="form-control input-lg" type="text" name="comments" placeholder="Comments on cost and job specifics">
                     <br>
@@ -178,14 +176,13 @@ require("require.php");
 
 
         <!--Form to assign groups to projects-->
+        <div class="col-md-4">
+        <div class="w-box">
         <form action="includes/assign_group.inc.php" method="post">
             <div>
+                <h5 style="color:#0C4582; text-align:center">ASSIGN GROUPS</h5>
                 <br>
-                <br>
-                <label class="label">Assign group to project</label>
-                <br>
-                <br>
-                <label class="label">Group ID:</label>
+                <b>Group ID:</b>
                 <br>
                 <select class="form-group col-md-4" name="group_id" id="group_id">
                 <?php
@@ -234,8 +231,13 @@ require("require.php");
                 <input class="btn btn-primary" type='submit' value="submit" name='submit'>
             </div>
         </form>
+    </div>
+    </div>
+
         <!--Form to input customer satisfaction once project is complete -->
         <form action="includes/customer_satisfaction.inc.php" method="post">
+        <div class="col-md-4">
+        <div class="w-box">
             <div>
                 <br>
                 <br>
