@@ -72,18 +72,21 @@ require("require.php");
                     <br>
 
                     <div class="form-group col-md-4">
-                        <input class="btn btn-main" type='submit' value="submit" name='submit'>
+                        <input class="btn btn-main" type='submit' value="submitE" name='submitE'>
                     </div>
                     <?php 
-                        if (isset($_POST['submit'])){
+                        if (isset($_POST['submitE'])){
 
                             $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
+                            echo $boolCheck;
 
                             if($boolCheck !=1){
                             
                                 $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-                                $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er)";
+                                $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er,:st)";
                                 $stmt = $db->prepare($sql);
+
+                                $status = "active";
 
                                 $EngineerID = substr($_POST['first_name'], 0).rand(1000,9999);
 
@@ -93,6 +96,7 @@ require("require.php");
                                 $stmt->bindParam(':pwd', $_POST['password'], SQLITE3_TEXT);
                                 $stmt->bindParam(':gid',$_POST['group_id'], SQLITE3_TEXT);
                                 $stmt->bindParam(':er', $_POST['engineer_rate'], SQLITE3_TEXT);
+                                $stmt->bindParam(':st', $status, SQLITE3_TEXT);
                                 $result = $stmt->execute();
 
                                 echo "account succesfully created";
