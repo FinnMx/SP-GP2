@@ -17,7 +17,7 @@ h5,h4,b {
 /* Buttons 
 -------------------------------------------------- */
 .btn-main {
-    border-radius: 25%;
+    border-radius: 15px;
     color: #fff;
     background-color: #D3E239;
     border-color: #D3E239;
@@ -29,7 +29,7 @@ h5,h4,b {
 }
 
 .btn-inv {
-    border-radius: 25%;
+    border-radius: 15px;
     color: #D3E239;
     background-color: #fff;
     border-color: #D3E239;
@@ -70,7 +70,7 @@ h5,h4,b {
 }
 
 .b-input {
-    border-radius: 25%;
+    border-radius: 15px;
     padding: 5px;
     background-color: #0C458220;
     margin: auto;

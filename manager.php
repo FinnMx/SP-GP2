@@ -137,37 +137,37 @@ require("require.php");
                 <div>
                     <h5 style="color:#0C4582; text-align:center">CREATE PROJECT</h3>
                     <br>
-                    <b style="color:#0C4582">Project ID:</b>
-                    <br>
+
+                    <b style="color:#0C4582">PROJECT ID</b>
                     <input class="form-group b-input" type="number" name="project_id" placeholder="Project ID" min="1">
                     <br>
-                    <b style="color:#0C4582">Project name:</b>
-                    <br>
+
+                    <b style="color:#0C4582">PROJECT NAME</b>
                     <input class="form-group b-input" type="text" name="project_name" placeholder="Project name">
                     <br>
-                    <b class="label">Project Value:</b>
-                    <br>
+
+                    <b class="label">PROJECT VALUE</b>
                     <input class="form-group b-input" type="number" name="project_value" placeholder="Project Value" min="1">
                     <br>
-                    <b class="label">Engineer Cost:</b>
-                    <br>
+
+                    <b class="label">ENGINEER COST</b>
                     <input class="form-group b-input" type="number" name="engineer_cost" placeholder="Engineer Cost" min="1">
                     <br>
-                    <b class="label">Material cost:</b>
-                    <br>
+
+                    <b class="label">MATERIAL COST</b>
                     <input class="form-group b-input" type="number" name="material_cost" placeholder="Material cost" min="1">
                     <br>
-                    <b class="label">Additional cost:</b>
-                    <br>
+
+                    <b class="label">ADDITIONAL COST</b>
                     <input class="form-group b-input" type="number" name="additional_cost" placeholder="Additional cost" min="1">
                     <br>
-                    <b class="label">Comments:</b>
-                    <br>
+
+                    <b class="label">COMMENTS</b>
                     <input class="form-control input-lg" type="text" name="comments" placeholder="Comments on cost and job specifics">
                     <br>
                 </div>
                 <div class="form-group col-md-4">
-                    <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+                    <input class="btn btn-main" type='submit' value="submit" name='submit'>
                 </div>
 
             </form>
