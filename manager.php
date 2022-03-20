@@ -181,7 +181,6 @@ require("require.php");
         <form action="includes/assign_group.inc.php" method="post">
             <div>
                 <h5 style="color:#0C4582; text-align:center">ASSIGN GROUPS</h5>
-                <br>
                 <b>Group ID:</b>
                 <br>
                 <select class="form-group col-md-4" name="group_id" id="group_id">
@@ -232,18 +231,13 @@ require("require.php");
             </div>
         </form>
     </div>
-    </div>
-
+</div>
         <!--Form to input customer satisfaction once project is complete -->
         <form action="includes/customer_satisfaction.inc.php" method="post">
         <div class="col-md-4">
         <div class="w-box">
             <div>
-                <br>
-                <br>
-                <label class="label">Please input customer feedback on project completion</label>
-                <br>
-                <br>
+                <h5>Please input customer feedback on project completion</h5>
                 <label class="label">Project ID:</label>
                 <br>
                 <select class="form-group col-md-4" name="project_id" id="project_id">
@@ -276,8 +270,40 @@ require("require.php");
             </div>
         </form>
 
+        </div>
+        </div>
+        <form method="post">
+            <div class="col-md-4">
+                <div class="w-box">
+                <h5>View Group</h5>
+                <b class="label">Group ID:</b>
+                <br>
+                <select class="form-group col-md-4" name="group_id" id="group_id">
+                <?php
+                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+                $sql = "SELECT Group_ID FROM Groups";
+                $stmt = $db->prepare($sql);
+                $result = $stmt->execute();
 
+                $arrayResult = []; //prepare an empty array first
+                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                $arrayResult[] = $row; //adding a record until end of records
+                }
 
+                for ($i = 0; $i < count($arrayResult); $i++) :
+                    $value = $arrayResult[$i]['Group_ID'];
+                    echo '<option value="'.$value.'">'.$value.'</option>';
+                
+                ?>
+
+                <?php endfor;?>
+                </select>                
+                <div class="form-group col-md-4">
+                    <input class="btn btn-primary" type='submit' value="View" name='submitG'>
+                </div>
+                </div>
+            </div>
+        </form>
 
 </body>
 
