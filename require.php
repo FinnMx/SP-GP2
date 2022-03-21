@@ -10,3 +10,20 @@ require("includes/connection.inc.php");
 require("includes/create_project.inc.php");
 require("includes/customer_satisfaction.inc.php");
 require("includes/reassign_member.inc.php");
+
+$user_agent = getenv("HTTP_USER_AGENT");
+
+if(strpos($user_agent, "Win") !== FALSE)
+$os = "Windows";
+elseif(strpos($user_agent, "Mac") !== FALSE)
+$os = "Mac"
+
+if($os === "Windows")
+{
+//win dir
+}
+elseif($os === "Mac")
+{
+// mac dir
+} 
+;
