@@ -24,7 +24,7 @@ require("require.php");
 
         <div style="text-align:center">
           <div class="row">
-          <div class="col">
+            <div class="col">
               <a href="index.php"><input type="Button" value="MANAGER LOGIN" class="btn btn-main" style="width:100%"></a>
             </div>
             <div class="col">
@@ -42,7 +42,7 @@ require("require.php");
           <div class="form-group">
             <input type="password" placeholder="Password" name="password" class="form-control b-input">
           </div>
-          
+
         </div>
 
         <input type="submit" value="Login" name="submit" class="btn btn-main">
@@ -77,7 +77,7 @@ require("require.php");
 
       if ($_POST['ManagerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
 
-        header("Location: manager.php");
+        header("Location: Manager.php");
       } else {
 
         echo "invalid login";
