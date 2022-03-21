@@ -29,7 +29,7 @@ $db->exec("INSERT INTO Engineer VALUES('Alex1', 'Alex', 'Patterson', 'Password1'
 
 $db->exec("INSERT INTO Groups VALUES('1', '1')");
 
-$db->exec("INSERT INTO Project VALUES('1', 'Self Driving boomchakalaka','100100', '100', '25', '20', 'yeah uknow baby','9' ,'active')");
+$db->exec("INSERT INTO Project VALUES('1', 'Self Driving Project','100100', '100', '25', '20', 'yeah uknow baby','9' ,'Active')");
 
 ?>
 
