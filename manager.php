@@ -71,7 +71,7 @@ require("require.php");
                     </select>
                     <br>
                     <input class="btn btn-main" type='submit' value="New group" name='create_new_group'>
-                    <br>
+                    <br><br>
 
                     <div class="form-group col-md-4">
                         <input class="btn btn-main" type='submit' value="submit" name='submitE'>
@@ -173,7 +173,9 @@ require("require.php");
             </form>
         </div>
         </div>
+    </div>
 
+    <div class="row">
 
         <!--Form to assign groups to projects-->
         <div class="col-md-4">
@@ -230,8 +232,9 @@ require("require.php");
                 <input class="btn btn-primary" type='submit' value="submit" name='submit'>
             </div>
         </form>
-    </div>
-</div>
+        </div>
+        </div>
+
         <!--Form to input customer satisfaction once project is complete -->
         <form action="includes/customer_satisfaction.inc.php" method="post">
         <div class="col-md-4">
@@ -269,9 +272,9 @@ require("require.php");
                 <input class="btn btn-primary" type='submit' value="submit" name='submit'>
             </div>
         </form>
+        </div>
+        </div>
 
-        </div>
-        </div>
         <form method="post">
             <div class="col-md-4">
                 <div class="w-box">
@@ -304,6 +307,9 @@ require("require.php");
                 </div>
             </div>
         </form>
+        </div>
+        </div>
+    </div>
 
 </body>
 
