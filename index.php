@@ -25,10 +25,10 @@ require("require.php");
         <div style="text-align:center">
           <div class="row">
           <div class="col">
-              <a href="index.php"><input type="Button" value="MANAGER LOGIN" class="btn btn-main"></a>
+              <a href="index.php"><input type="Button" value="MANAGER LOGIN" class="btn btn-main" style="width:100%"></a>
             </div>
             <div class="col">
-              <a href="Engineerlogin.php"><input type="Button" value="ENGINEER LOGIN" class="btn btn-inv"></a>
+              <a href="Engineerlogin.php"><input type="Button" value="ENGINEER LOGIN" class="btn btn-inv" style="width:100%"></a>
             </div>
           </div>
 
