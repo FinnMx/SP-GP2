@@ -32,7 +32,7 @@ require("require.php");
             </div>
           </div>
 
-          <br>
+          <br><br>
 
           <b style="color:#0C4582">USERNAME</b>
           <div class="form-group">
@@ -45,7 +45,8 @@ require("require.php");
 
         </div>
 
-        <input type="submit" value="submit" name="submit" class="btn btn-main">
+        <br>
+        <input type="submit" value="LOGIN" name="submit" class="btn btn-main">
 
       </form>
     </div>
