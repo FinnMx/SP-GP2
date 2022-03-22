@@ -3,6 +3,7 @@
 require("require.php");
 
 session_start();
+error_reporting(0);
 ?>
 <!--Basic html 5 setup-->
 <!DOCTYPE html>
@@ -207,7 +208,9 @@ session_start();
                 ?>
 
                 <?php endfor;?>
-                </select>                
+                </select>
+                <br>
+                <b>Project ID:</b>                
                 <br>
                 <select class="form-group col-md-4" name="project_id" id="project_id">
                 <?php
