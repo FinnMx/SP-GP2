@@ -3,7 +3,6 @@
 require("require.php");
 
 $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
-$db = new SQLite3('C:\xampp\htdocs\myDB.db');
 $sql = "SELECT Project_ID FROM Groups WHERE Group_ID =:gid";
 $stmt = $db->prepare($sql);
 $stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
@@ -85,7 +84,6 @@ $EarrayResult[] = $row; //adding a record until end of records
         		<form action="ViewGroups.php" method="post">
 				<select class="form-group col-md-4" name="group_id_selected" id="group_id_selected">
                 <?php
-                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                 $sql = "SELECT Group_ID FROM Groups";
                 $stmt = $db->prepare($sql);
                 $result = $stmt->execute();
