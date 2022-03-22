@@ -42,4 +42,3 @@ function CreateProject($ProjectID, $ProjectName, $ProjectVal, $EngineerCost, $Ma
 
     header("Location: ../manager.php");
 }
-?>

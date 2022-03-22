@@ -24,7 +24,7 @@ require("require.php");
 
         <div style="text-align:center">
           <div class="row">
-          <div class="col">
+            <div class="col">
               <a href="index.php"><input type="Button" value="MANAGER LOGIN" class="btn btn-inv" style="width:100%"></a>
             </div>
             <div class="col">
@@ -42,7 +42,7 @@ require("require.php");
           <div class="form-group">
             <input type="password" placeholder="Password" name="password" class="form-control b-input">
           </div>
-          
+
         </div>
 
         <input type="submit" value="Login" name="submit" class="btn btn-main">
@@ -62,8 +62,7 @@ require("require.php");
 
     if ($_POST['EngineerID'] == '' || $_POST['password'] == '') {
       echo "Please fill all fields";
-    } 
-    else {
+    } else {
 
       $sql = "SELECT Engineer_ID, Password FROM Engineer WHERE Engineer_ID =:EID";
       $stmt = $db->prepare($sql);
