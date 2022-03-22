@@ -1,6 +1,8 @@
 <?php
 require("require.php");
 
+session_start();
+
 $_SESSION['EID'];
 
 $sql = "SELECT * 
