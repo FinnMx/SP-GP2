@@ -11,7 +11,6 @@ require("includes/create_project.inc.php");
 require("includes/customer_satisfaction.inc.php");
 require("includes/reassign_member.inc.php");
 
-/*
 $user_agent = getenv("HTTP_USER_AGENT");
 
 if(strpos($user_agent, "Win") !== FALSE)
@@ -21,12 +20,13 @@ $os = "Mac";
 
 if($os === "Windows")
 {
-	$db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    $db = new SQLite3('C:\xampp\htdocs\myDB.db');
 }
 elseif($os === "Mac")
 {
-	$db = new SQLite3('/Applications/MAMP/htdocs');
+    $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
 } 
-*/
 
 ;
+
+?>

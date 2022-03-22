@@ -54,9 +54,7 @@ require("require.php");
 
   <?php
 
-  
 
-  echo $_POST['ManagerID'];
   if (isset($_POST['submit'])) {
 
     //Manager login routine
@@ -67,7 +65,6 @@ require("require.php");
 
       //require('connection.php');
       $sql = "SELECT Manager_ID, Password FROM Manager WHERE Manager_ID =:MID";
-      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
       $stmt = $db->prepare($sql);
       $stmt->bindParam(':MID', $_POST['ManagerID'], SQLITE3_TEXT);
       $result = $stmt->execute();
@@ -77,6 +74,8 @@ require("require.php");
         $arrayResult = $row;
       }
 
+      print_r($arrayResult);
+
       if ($_POST['ManagerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
 
         header("Location: Manager.php");
@@ -85,9 +84,8 @@ require("require.php");
         echo "invalid login";
       }
     }
-    
   }
-  
+
   ?>
 
 </body>
