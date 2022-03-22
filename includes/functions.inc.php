@@ -78,7 +78,7 @@ function createEngineer($fName, $lName, $pword, $groupID, $engineerRate)
     $stmt->bindParam(':fName', $fName, SQLITE3_TEXT);
     $stmt->bindParam(':lName', $lName, SQLITE3_TEXT);
     $stmt->bindParam(':pword', $pword, SQLITE3_TEXT);
-    $stmt->bindParam(':groupId',$groupID , SQLITE3_TEXT);
+    $stmt->bindParam(':groupId', $groupID, SQLITE3_TEXT);
     $stmt->bindParam(':engineerRate', $adminId, SQLITE3_TEXT);
 
 
@@ -96,4 +96,3 @@ function createEngineer($fName, $lName, $pword, $groupID, $engineerRate)
 
     return $created;
 }
-

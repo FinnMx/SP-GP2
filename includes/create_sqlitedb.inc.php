@@ -31,7 +31,3 @@ $db->exec("INSERT INTO Manager VALUES('Martin1', 'Martin', 'D', 'Password1')");
  * needed - project name in projects
  * needed - Timescale in "project" so "Pay_rate" (hourly/monthly?) can be converted into "Engineer_cost"
 */
-
-
-?>
-

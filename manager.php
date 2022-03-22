@@ -1,8 +1,6 @@
 <?php
 //session,header and footer
 require("require.php");
-
-session_start();
 ?>
 <!--Basic html 5 setup-->
 <!DOCTYPE html>
@@ -33,49 +31,57 @@ session_start();
                     
                     <b style="color:#0C4582">FIRST NAME</b>                        
                     <input class="form-group b-input" type="text" name="first_name" placeholder="First name">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">LAST NAME</b>
                     <input class="form-group b-input" type="text" name="last_name" placeholder="Last name">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">PASSWORD</b>                    
                     <input class="form-group b-input" type="password" name="password" placeholder="Password">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">RE-ENTER PASSWORD</b>
                     <input class="form-group b-input" type="password" name="re_password" placeholder="Re-enter password">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">PAY RATE</b>
                     <input class="form-group b-input" type="number" name="engineer_rate" placeholder="Pay rate" min="1">
-                    <br>
-
-                    <b style="color:#0C4582">ASSIGN TO GROUP</b>
-                    <select class="form-group col-md-12" name="group_id" id="group_id">
-                        <?php
-                        $sql = "SELECT Group_ID FROM Groups";
-                        $stmt = $db->prepare($sql);
-                        $result = $stmt->execute();
-
-                        $arrayResult = []; //prepare an empty array first
-                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                        $arrayResult[] = $row; //adding a record until end of records
-                        }
-
-                        for ($i = 0; $i < count($arrayResult); $i++) :
-                        $value = $arrayResult[$i]['Group_ID'];
-                        echo '<option value="'.$value.'" selected>'.$value.'</option>';        
-                        ?>
-
-                        <?php endfor;?>
-                    </select>
-                    <br>
-                    <input class="btn btn-main" type='submit' value="New group" name='create_new_group'>
                     <br><br>
 
+                    <b style="color:#0C4582">ASSIGN TO GROUP</b>
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-group b-select" name="group_id" id="group_id">
+                                <?php
+                                $sql = "SELECT Group_ID FROM Groups";
+                                $stmt = $db->prepare($sql);
+                                $result = $stmt->execute();
+
+                                $arrayResult = []; //prepare an empty array first
+                                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                $arrayResult[] = $row; //adding a record until end of records
+                                }
+
+                                for ($i = 0; $i < count($arrayResult); $i++) :
+                                $value = $arrayResult[$i]['Group_ID'];
+                                echo '<option value="'.$value.'" selected>'.$value.'</option>';        
+                                ?>
+                                <?php endfor;?>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="col">
+                            <input class="btn btn-main" type='submit' value="CREATE NEW GROUP" name='create_new_group'>
+                        </div>
+                    </div>
+
+
+                    <br>
+                    
+
                     <div class="form-group col-md-4">
-                        <input class="btn btn-main" type='submit' value="submit" name='submitE'>
+                        <input class="btn btn-main" type='submit' value="CREATE ENGINEER" name='submitE'>
                     </div>
                     <?php 
 
@@ -139,34 +145,35 @@ session_start();
 
                     <b style="color:#0C4582">PROJECT ID</b>
                     <input class="form-group b-input" type="number" name="project_id" placeholder="Project ID" min="1">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">PROJECT NAME</b>
                     <input class="form-group b-input" type="text" name="project_name" placeholder="Project name">
-                    <br>
+                    <br><br>
 
                     <b class="label">PROJECT VALUE</b>
                     <input class="form-group b-input" type="number" name="project_value" placeholder="Project Value" min="1">
-                    <br>
+                    <br><br>
 
                     <b class="label">ENGINEER COST</b>
                     <input class="form-group b-input" type="number" name="engineer_cost" placeholder="Engineer Cost" min="1">
-                    <br>
+                    <br><br>
 
                     <b class="label">MATERIAL COST</b>
                     <input class="form-group b-input" type="number" name="material_cost" placeholder="Material cost" min="1">
-                    <br>
+                    <br><br>
 
                     <b class="label">ADDITIONAL COST</b>
                     <input class="form-group b-input" type="number" name="additional_cost" placeholder="Additional cost" min="1">
-                    <br>
+                    <br><br>
 
                     <b class="label">COMMENTS</b>
-                    <input class="form-control input-lg" type="text" name="comments" placeholder="Comments on cost and job specifics">
-                    <br>
-                </div>
-                <div class="form-group col-md-4">
-                    <input class="btn btn-main" type='submit' value="submit" name='submitCP'>
+                    <input class="form-control b-input" type="text" name="comments" placeholder="Comments on cost and job specifics">
+                    <br><br>
+
+                    <div class="form-group col-md-4">
+                        <input class="btn btn-main" type='submit' value="submit" name='submitCP'>
+                    </div>
                 </div>
 
             </form>
@@ -271,13 +278,13 @@ session_start();
         </div>
         </div>
 
-        <form action="ViewGroups.php" method="post">
+        <form method="post">
             <div class="col-md-4">
                 <div class="w-box">
                 <h5>View Group</h5>
                 <b class="label">Group ID:</b>
                 <br>
-                <select class="form-group col-md-4" name="group_id_selected" id="group_id">
+                <select class="form-group col-md-4" name="group_id" id="group_id">
                 <?php
                 $sql = "SELECT Group_ID FROM Groups";
                 $stmt = $db->prepare($sql);
@@ -298,11 +305,6 @@ session_start();
                 </select>                
                 <div class="form-group col-md-4">
                     <input class="btn btn-primary" type='submit' value="View" name='submitG'>
-                    <?php
-                    if(isset($_POST['submitG'])){
-                    $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
-                    }  
-                    ?>
                 </div>
                 </div>
             </div>
