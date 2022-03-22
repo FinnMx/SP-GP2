@@ -1,4 +1,18 @@
 <?php
+
+/* 
+Group page should display above graph:
+displays all projects related to that group.
+
+-------------------------------------------------------------------------
+*/
+
+
+
+
+
+
+
 //session,header and footer
 require("require.php");
 
