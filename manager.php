@@ -31,26 +31,26 @@ require("require.php");
                     
                     <b style="color:#0C4582">FIRST NAME</b>                        
                     <input class="form-group b-input" type="text" name="first_name" placeholder="First name">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">LAST NAME</b>
                     <input class="form-group b-input" type="text" name="last_name" placeholder="Last name">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">PASSWORD</b>                    
                     <input class="form-group b-input" type="password" name="password" placeholder="Password">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">RE-ENTER PASSWORD</b>
                     <input class="form-group b-input" type="password" name="re_password" placeholder="Re-enter password">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">PAY RATE</b>
                     <input class="form-group b-input" type="number" name="engineer_rate" placeholder="Pay rate" min="1">
-                    <br>
+                    <br><br>
 
-                    <b style="color:#0C4582">ASSIGN TO GROUP</b>
-                    <select class="form-group col-md-12" name="group_id" id="group_id">
+                    <b style="color:#0C4582">ASSIGN TO GROUP</b><br>
+                    <select class="form-group col-md-6" name="group_id" id="group_id">
                         <?php
                         $sql = "SELECT Group_ID FROM Groups";
                         $stmt = $db->prepare($sql);
@@ -73,7 +73,7 @@ require("require.php");
                     <br><br>
 
                     <div class="form-group col-md-4">
-                        <input class="btn btn-main" type='submit' value="submit" name='submitE'>
+                        <input class="btn btn-main" type='submit' value="CREATE ENGINEER" name='submitE'>
                     </div>
                     <?php 
 
@@ -137,31 +137,31 @@ require("require.php");
 
                     <b style="color:#0C4582">PROJECT ID</b>
                     <input class="form-group b-input" type="number" name="project_id" placeholder="Project ID" min="1">
-                    <br>
+                    <br><br>
 
                     <b style="color:#0C4582">PROJECT NAME</b>
                     <input class="form-group b-input" type="text" name="project_name" placeholder="Project name">
-                    <br>
+                    <br><br>
 
                     <b class="label">PROJECT VALUE</b>
                     <input class="form-group b-input" type="number" name="project_value" placeholder="Project Value" min="1">
-                    <br>
+                    <br><br>
 
                     <b class="label">ENGINEER COST</b>
                     <input class="form-group b-input" type="number" name="engineer_cost" placeholder="Engineer Cost" min="1">
-                    <br>
+                    <br><br>
 
                     <b class="label">MATERIAL COST</b>
                     <input class="form-group b-input" type="number" name="material_cost" placeholder="Material cost" min="1">
-                    <br>
+                    <br><br>
 
                     <b class="label">ADDITIONAL COST</b>
                     <input class="form-group b-input" type="number" name="additional_cost" placeholder="Additional cost" min="1">
-                    <br>
+                    <br><br>
 
                     <b class="label">COMMENTS</b>
                     <input class="form-control input-lg" type="text" name="comments" placeholder="Comments on cost and job specifics">
-                    <br>
+                    <br><br>
                 </div>
                 <div class="form-group col-md-4">
                     <input class="btn btn-main" type='submit' value="submit" name='submitCP'>
