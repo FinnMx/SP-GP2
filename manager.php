@@ -1,6 +1,9 @@
 <?php
 //session,header and footer
 require("require.php");
+
+session_start();
+error_reporting(0);
 ?>
 <!--Basic html 5 setup-->
 <!DOCTYPE html>
@@ -200,7 +203,9 @@ require("require.php");
                 ?>
 
                 <?php endfor;?>
-                </select>                
+                </select>
+                <br>
+                <b>Project ID:</b>                
                 <br>
                 <select class="form-group col-md-4" name="project_id" id="project_id">
                 <?php
@@ -269,13 +274,13 @@ require("require.php");
         </div>
         </div>
 
-        <form method="post">
+        <form action="ViewGroups.php" method="post">
             <div class="col-md-4">
                 <div class="w-box">
                 <h5>View Group</h5>
                 <b class="label">Group ID:</b>
                 <br>
-                <select class="form-group col-md-4" name="group_id" id="group_id">
+                <select class="form-group col-md-4" name="group_id_selected" id="group_id">
                 <?php
                 $sql = "SELECT Group_ID FROM Groups";
                 $stmt = $db->prepare($sql);
@@ -296,6 +301,11 @@ require("require.php");
                 </select>                
                 <div class="form-group col-md-4">
                     <input class="btn btn-primary" type='submit' value="View" name='submitG'>
+                    <?php
+                    if(isset($_POST['submitG'])){
+                    $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
+                    }  
+                    ?>
                 </div>
                 </div>
             </div>

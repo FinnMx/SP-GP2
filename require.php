@@ -14,24 +14,17 @@ require("includes/reassign_member.inc.php");
 
 $user_agent = getenv("HTTP_USER_AGENT");
 
-if(strpos($user_agent, "Win") !== FALSE)
-$os = "Windows";
-elseif(strpos($user_agent, "Mac") !== FALSE)
-$os = "Mac";
+if (strpos($user_agent, "Win") !== FALSE)
+    $os = "Windows";
+elseif (strpos($user_agent, "Mac") !== FALSE)
+    $os = "Mac";
 
-if($os === "Windows")
-{
-	$db = new SQLite3('C:\xampp\htdocs\myDB.db');
-}
-elseif($os === "Mac")
-{
-	try{
+if ($os === "Windows") {
+    $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+} elseif ($os === "Mac") {
+    try {
         $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
-    } catch(Exception $e){
+    } catch (Exception $e) {
         $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
-        
     }
-} 
-
-
-;
+};
