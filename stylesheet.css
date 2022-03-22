@@ -1,79 +1,80 @@
-
-colour scheme { /* These are just color swatches to use as a theme, copy to where you want to use */
-    color: #0C4582;
-    color: #D3E239;
-    color: #CAD7E4;
-    color: #0C458220;
+colour scheme {
+  /* These are just color swatches to use as a theme, copy to where you want to use */
+  color: #0c4582;
+  color: #d3e239;
+  color: #cad7e4;
+  color: #0c458220;
 }
 
-body { /* Edit colour for background on all pages */
-    background-color: #0C4582;
+body {
+  /* Edit colour for background on all pages */
+  background-color: #0c4582;
 }
 
-h5,h4,b {
-    color: #0C4582; 
+h5,
+h4,
+b {
+  color: #0c4582;
 }
 
 /* Buttons 
 -------------------------------------------------- */
 .btn-main {
-    border-radius: 15px;
-    color: #fff;
-    background-color: #D3E239;
-    border-color: #D3E239;
-    border-width: 2px;
+  border-radius: 15px;
+  color: #fff;
+  background-color: #d3e239;
+  border-color: #d3e239;
+  border-width: 2px;
 }
 .btn-main:hover {
-    color: #D3E239;
-    background-color: #D3E23950;
+  color: #d3e239;
+  background-color: #d3e23950;
 }
 
 .btn-inv {
-    border-radius: 15px;
-    color: #D3E239;
-    background-color: #fff;
-    border-color: #D3E239;
-    border-width: 2px;
+  border-radius: 15px;
+  color: #d3e239;
+  background-color: #fff;
+  border-color: #d3e239;
+  border-width: 2px;
 }
 .btn-inv:hover {
-    color: #D3E239;
-    background-color: #D3E23950;
+  color: #d3e239;
+  background-color: #d3e23950;
 }
-
-
 
 /* Boxes 
 -------------------------------------------------- */
 .w-box {
-    border-radius: 15px;
-    padding: 25px;
-    background-color: #ffffff;
-    margin: auto;
-    width: 100%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  padding: 25px;
+  background-color: #ffffff;
+  margin: auto;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 .b-box {
-    border-radius: 15px;
-    padding: 25px;
-    background-color: #0C458220;
-    margin: auto;
-    width: 100%;
+  border-radius: 15px;
+  padding: 25px;
+  background-color: #0c458220;
+  margin: auto;
+  width: 100%;
 }
 
 .g-box {
-    border-radius: 10px;
-    padding: 25px;
-    background-color: #D3E239;
-    margin: auto;
-    width: 100%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 25px;
+  background-color: #d3e239;
+  margin: auto;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .b-input {
-    border-radius: 15px;
-    padding: 5px;
-    background-color: #0C458220;
-    margin: auto;
-    width: 100%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  padding: 5px;
+  background-color: #0c458220;
+  margin: auto;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
