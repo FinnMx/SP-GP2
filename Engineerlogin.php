@@ -62,9 +62,9 @@ require("require.php");
 
     if ($_POST['EngineerID'] == '' || $_POST['password'] == '') {
       echo "Please fill all fields";
-    } else {
+    } 
+    else {
 
-      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
       $sql = "SELECT Engineer_ID, Password FROM Engineer WHERE Engineer_ID =:EID";
       $stmt = $db->prepare($sql);
       $stmt->bindParam(':EID', $_POST['EngineerID'], SQLITE3_TEXT);
