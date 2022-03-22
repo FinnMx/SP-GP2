@@ -17,12 +17,17 @@ error_reporting(0);
 </head>
 
 <br>
-<p>FUCKED IT</p>
 
 <body>
 
+    <!-- CREATE -->
+
     <!--Form to create an engineer-->
     <div class="container">
+
+    <h1 style="color:#fff">CREATE</h1>
+    <hr style="border:2px; color:white"><br>
+
     <div class="row">
 
         <div class="col-md-2"></div>
@@ -172,14 +177,20 @@ error_reporting(0);
                     <input class="form-control b-input" type="text" name="comments" placeholder="Comments on cost and job specifics">
                     <br>
                 </div>
+                <br>
                 <div class="form-group col-md-4">
-                    <input class="btn btn-main" type='submit' value="submit" name='submitCP'>
+                    <input class="btn btn-main" type='submit' value="CREATE PROJECT" name='submitCP'>
                 </div>
 
             </form>
         </div>
         </div>
     </div>
+
+    <!-- GROUPS -->
+
+    <h1 style="color:#fff">GROUPS</h1>
+    <hr style="border:2px; color:white"><br>
 
     <div class="row">
 
