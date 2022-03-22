@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['submit'])){
+if (isset($_POST['submitCP'])){
     CreateProject($_POST['project_id'], $_POST['project_name'], $_POST['project_value'], $_POST['engineer_cost'], $_POST['material_cost'], $_POST['additional_cost'], $_POST['comments'], 0, "Active");
 }
 

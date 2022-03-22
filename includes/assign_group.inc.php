@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['submit'])){
+if (isset($_POST['submitAG'])){
 	AssignGroup($_POST['group_id'], $_POST['project_id']);
 
 }

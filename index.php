@@ -45,7 +45,7 @@ require("require.php");
 
         </div>
 
-        <input type="submit" value="Login" name="submit" class="btn btn-main">
+        <input type="submit" value="submit" name="submit" class="btn btn-main">
 
       </form>
     </div>
@@ -53,8 +53,10 @@ require("require.php");
   </div>
 
   <?php
-  error_reporting(0);
 
+  
+
+  echo $_POST['ManagerID'];
   if (isset($_POST['submit'])) {
 
     //Manager login routine
@@ -64,8 +66,8 @@ require("require.php");
     } else {
 
       //require('connection.php');
-      $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
       $sql = "SELECT Manager_ID, Password FROM Manager WHERE Manager_ID =:MID";
+      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
       $stmt = $db->prepare($sql);
       $stmt->bindParam(':MID', $_POST['ManagerID'], SQLITE3_TEXT);
       $result = $stmt->execute();
@@ -83,7 +85,9 @@ require("require.php");
         echo "invalid login";
       }
     }
+    
   }
+  
   ?>
 
 </body>

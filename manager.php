@@ -167,7 +167,7 @@ require("require.php");
                     <br>
                 </div>
                 <div class="form-group col-md-4">
-                    <input class="btn btn-main" type='submit' value="submit" name='submit'>
+                    <input class="btn btn-main" type='submit' value="submit" name='submitCP'>
                 </div>
 
             </form>
@@ -229,7 +229,7 @@ require("require.php");
                 <br>
             </div>
             <div class="form-group col-md-4">
-                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+                <input class="btn btn-primary" type='submit' value="submit" name='submitAG'>
             </div>
         </form>
         </div>
@@ -269,7 +269,7 @@ require("require.php");
                 <br>
             </div>
             <div class="form-group col-md-4">
-                <input class="btn btn-primary" type='submit' value="submit" name='submit'>
+                <input class="btn btn-primary" type='submit' value="submit" name='submitCS'>
             </div>
         </form>
         </div>
