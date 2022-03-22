@@ -5,12 +5,28 @@
 
 
  function SetCustomerSatisfaction($PID,$CS){
- 	$db = new SQLite3('C:\xampp\htdocs\myDB.db');
+   $user_agent = getenv("HTTP_USER_AGENT");
+
+   if(strpos($user_agent, "Win") !== FALSE)
+   $os = "Windows";
+   elseif(strpos($user_agent, "Mac") !== FALSE)
+   $os = "Mac";
+
+   if($os === "Windows")
+   {
+      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+   }
+   elseif($os === "Mac")
+   {
+      $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+   } 
+   ;
+
  	$sql = "UPDATE Project SET Customer_satisfaction =:cs WHERE Project_ID =:pid";
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':cs', $CS, SQLITE3_TEXT);
-    $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
-    $result = $stmt->execute();
+   $stmt = $db->prepare($sql);
+   $stmt->bindParam(':cs', $CS, SQLITE3_TEXT);
+   $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
+   $result = $stmt->execute();
 
 
     header("Location: ..\Manager.php");

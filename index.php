@@ -53,7 +53,7 @@ require("require.php");
   </div>
 
   <?php
-
+  error_reporting(0);
 
   if (isset($_POST['submit'])) {
 
@@ -74,8 +74,6 @@ require("require.php");
         $arrayResult = $row;
       }
 
-      print_r($arrayResult);
-
       if ($_POST['ManagerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
 
         header("Location: Manager.php");
@@ -84,8 +82,9 @@ require("require.php");
         echo "invalid login";
       }
     }
+    
   }
-
+  
   ?>
 
 </body>

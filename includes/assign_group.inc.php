@@ -5,7 +5,23 @@ if (isset($_POST['submitAG'])){
 }
 
 function AssignGroup($GID, $PID){
-	$db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    $user_agent = getenv("HTTP_USER_AGENT");
+
+    if(strpos($user_agent, "Win") !== FALSE)
+    $os = "Windows";
+    elseif(strpos($user_agent, "Mac") !== FALSE)
+    $os = "Mac";
+
+    if($os === "Windows")
+    {
+        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    }
+    elseif($os === "Mac")
+    {
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    } 
+    ;
+
     $sql = "UPDATE GROUPS SET Project_ID =:pid WHERE Group_ID =:gid";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);

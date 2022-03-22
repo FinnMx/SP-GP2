@@ -52,7 +52,6 @@ require("require.php");
                     <b style="color:#0C4582">ASSIGN TO GROUP</b>
                     <select class="form-group col-md-12" name="group_id" id="group_id">
                         <?php
-                        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                         $sql = "SELECT Group_ID FROM Groups";
                         $stmt = $db->prepare($sql);
                         $result = $stmt->execute();
@@ -79,7 +78,6 @@ require("require.php");
                     <?php 
 
                     if (isset($_POST['create_new_group'])){ //method to create new group ID from largest
-                        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                         $sql = "SELECT MAX(group_id) FROM Groups";
                         $stmt = $db->prepare($sql);
                         $result = $stmt->execute();
@@ -101,7 +99,6 @@ require("require.php");
 
                             if($boolCheck !=1){
                             
-                                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                                 $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er,:st)";
                                 $stmt = $db->prepare($sql);
 
@@ -187,7 +184,6 @@ require("require.php");
                 <br>
                 <select class="form-group col-md-4" name="group_id" id="group_id">
                 <?php
-                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                 $sql = "SELECT Group_ID FROM Groups";
                 $stmt = $db->prepare($sql);
                 $result = $stmt->execute();
@@ -208,7 +204,6 @@ require("require.php");
                 <br>
                 <select class="form-group col-md-4" name="project_id" id="project_id">
                 <?php
-                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                 $sql = "SELECT Project_ID FROM Project";
                 $stmt = $db->prepare($sql);
                 $result = $stmt->execute();
@@ -245,7 +240,6 @@ require("require.php");
                 <br>
                 <select class="form-group col-md-4" name="project_id" id="project_id">
                 <?php
-                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                 $sql = "SELECT Project_ID FROM Project";
                 $stmt = $db->prepare($sql);
                 $result = $stmt->execute();
@@ -283,7 +277,6 @@ require("require.php");
                 <br>
                 <select class="form-group col-md-4" name="group_id" id="group_id">
                 <?php
-                $db = new SQLite3('C:\xampp\htdocs\myDB.db');
                 $sql = "SELECT Group_ID FROM Groups";
                 $stmt = $db->prepare($sql);
                 $result = $stmt->execute();

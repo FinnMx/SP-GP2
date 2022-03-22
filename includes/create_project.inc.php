@@ -5,7 +5,24 @@ if (isset($_POST['submitCP'])){
 
 function CreateProject($ProjectID, $ProjectName, $ProjectVal, $EngineerCost, $MaterialCost, $AdditionalCost, $Comments, $CustomerSatisfaction, $Status){
 
-	$db = new SQLite3('C:\xampp\htdocs\myDB.db');
+
+    $user_agent = getenv("HTTP_USER_AGENT");
+
+    if(strpos($user_agent, "Win") !== FALSE)
+    $os = "Windows";
+    elseif(strpos($user_agent, "Mac") !== FALSE)
+    $os = "Mac";
+
+    if($os === "Windows")
+    {
+        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    }
+    elseif($os === "Mac")
+    {
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    } 
+    ;
+    
     $sql = "INSERT INTO Project VALUES(:pid,:pname,:pval,:ecost,:mcost,:addcost,:comments,:cs,:status)";
     $stmt = $db->prepare($sql);
 
