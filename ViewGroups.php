@@ -2,6 +2,8 @@
 //session,header and footer
 require("require.php");
 
+session_start();
+
 $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
 $sql = "SELECT Project_ID FROM Groups WHERE Group_ID =:gid";
 $stmt = $db->prepare($sql);
