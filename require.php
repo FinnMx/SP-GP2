@@ -25,7 +25,12 @@ if($os === "Windows")
 }
 elseif($os === "Mac")
 {
-	$db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+	try{
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    } catch(Exception $e){
+        $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
+        
+    }
 } 
 
 
