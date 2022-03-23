@@ -11,7 +11,6 @@ body {
   background-color: #0c4582;
 }
 
-
 /* Buttons 
 -------------------------------------------------- */
 .btn-main {
@@ -80,4 +79,18 @@ body {
   margin: auto;
   width: 100%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+/* viewgroups.php table css */
+.vg-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.vg-head {
+  background-color: #d3e239;
+  color: #fff;
+  text-align: left;
 }
