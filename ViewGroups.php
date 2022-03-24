@@ -126,11 +126,9 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
     </form>
   </div>
 
-  <table class="table-dark" style="color:aliceblue; border:white; border:3px; position: absolute; left: 43.5%;">
 
-    <?php
-    for ($i = 0; $i < count($EarrayResult); $i++) :
-    ?>
+  <table style="border-collapse: collapse; margin: 25px 0; font-size: 0.9em; min-width: 400px; margin-left: auto; margin-right: auto;">
+    <thead style="background-color: #d3e239; color: #fff; text-align: left;">
       <tr>
         <th>Engineer ID</th>
         <th>First Name</th>
@@ -138,19 +136,25 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
         <th>Group ID</th>
         <th>Engineer Rate PM</th>
       </tr>
-      <tr>
-        <td><?php echo $EarrayResult[$i]['Engineer_ID'] ?></td>
-        <td><?php echo $EarrayResult[$i]['F_name'] ?></td>
-        <td><?php echo $EarrayResult[$i]['L_name'] ?></td>
-        <td><?php echo $EarrayResult[$i]['Group_ID'] ?></td>
-        <td><?php echo $EarrayResult[$i]['Engineer_rate'] ?></td>
-      </tr>
+    </thead>
+    <?php
+    for ($i = 0; $i < count($EarrayResult); $i++) :
+    ?>
+      <tbody style="background-color:#fff; color:#000; text-align:left">
+        <tr>
+          <td><?php echo $EarrayResult[$i]['Engineer_ID'] ?></td>
+          <td><?php echo $EarrayResult[$i]['F_name'] ?></td>
+          <td><?php echo $EarrayResult[$i]['L_name'] ?></td>
+          <td><?php echo $EarrayResult[$i]['Group_ID'] ?></td>
+          <td><?php echo $EarrayResult[$i]['Engineer_rate'] ?></td>
+        </tr>
+      </tbody>
+    <?php endfor; ?>
   </table>
-<?php endfor;
-?>
 
 
-</table>
+
+  </table>
 
 </body>
 
