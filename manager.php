@@ -176,6 +176,9 @@ error_reporting(0);
                     <b class="label">COMMENTS</b>
                     <input class="form-control b-input" type="text" name="comments" placeholder="Comments on cost and job specifics">
                     <br>
+                    <b class="label">TIME SCALE</b>
+                    <input class="form-control b-input" type="text" name="timescale" placeholder="Time scale in days">
+                    <br>
                 </div>
                 <br>
                 <div class="form-group col-md-4">

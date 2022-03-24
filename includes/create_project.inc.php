@@ -1,9 +1,9 @@
 <?php
 if (isset($_POST['submitCP'])){
-    CreateProject($_POST['project_id'], $_POST['project_name'], $_POST['project_value'], $_POST['engineer_cost'], $_POST['material_cost'], $_POST['additional_cost'], $_POST['comments'], 0, "Active");
+    CreateProject($_POST['project_id'], $_POST['project_name'], $_POST['project_value'], $_POST['engineer_cost'], $_POST['material_cost'], $_POST['additional_cost'], $_POST['comments'], 0, "Active",$_POST['Timescale']);
 }
 
-function CreateProject($ProjectID, $ProjectName, $ProjectVal, $EngineerCost, $MaterialCost, $AdditionalCost, $Comments, $CustomerSatisfaction, $Status){
+function CreateProject($ProjectID, $ProjectName, $ProjectVal, $EngineerCost, $MaterialCost, $AdditionalCost, $Comments, $CustomerSatisfaction, $Status, $Timescale){
 
 
     $user_agent = getenv("HTTP_USER_AGENT");
@@ -23,7 +23,7 @@ function CreateProject($ProjectID, $ProjectName, $ProjectVal, $EngineerCost, $Ma
     } 
     ;
     
-    $sql = "INSERT INTO Project VALUES(:pid,:pname,:pval,:ecost,:mcost,:addcost,:comments,:cs,:status)";
+    $sql = "INSERT INTO Project VALUES(:pid,:pname,:pval,:ecost,:mcost,:addcost,:comments,:cs,:status,:ts)";
     $stmt = $db->prepare($sql);
 
 
@@ -37,6 +37,7 @@ function CreateProject($ProjectID, $ProjectName, $ProjectVal, $EngineerCost, $Ma
     $stmt->bindParam(':comments', $Comments, SQLITE3_TEXT);
     $stmt->bindParam(':cs', $CustomerSatisfaction, SQLITE3_TEXT);
     $stmt->bindParam(':status', $Status, SQLITE3_TEXT);
+    $stmt->bindParam(':ts', $Timescale, SQLITE3_TEXT);
 
     $result = $stmt->execute();
 
