@@ -31,9 +31,9 @@
         </ul>
 
         <!-- Right -->
-        <ul class="navbar-nav nav-space flex-grow-1">
+        <ul class="navbar-nav nav-space float:right">
             <li class="nav-item active">
-                <a class="nav-link" href="index.php">LOGOUT <span class="sr-only">(current)</span></a>
+                <a class="nav-link btn-main" href="index.php">LOGOUT <span class="sr-only">(current)</span></a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link" href="manager.php">Back</a>
