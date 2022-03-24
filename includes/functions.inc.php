@@ -96,6 +96,34 @@ function createEngineer($fName, $lName, $pword, $groupID, $engineerRate)
 
     return $created;
 }
+//function to count number of engineers with a project
+function countEngineers($projectID)
+{
+    $user_agent = getenv("HTTP_USER_AGENT");
+
+    if (strpos($user_agent, "Win") !== FALSE)
+        $os = "Windows";
+    elseif (strpos($user_agent, "Mac") !== FALSE)
+        $os = "Mac";
+
+    if ($os === "Windows") {
+        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    } elseif ($os === "Mac") {
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    };
+
+    $sql = "SELECT * from Project WHERE Project_ID = :pid";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':pid', $projectId, SQLITE3_TEXT);
+    $stmt->execute();
+
+    $rowCount = mysqli_num_rows($db);
+
+    // Display result
+    printf("Total rows in this table :  %d\n", $rowCount);
+
+    return $rowCount;
+}
 //Function to convert Engineer_rate and Timescale into Engineer_cost
 function calculateEngineerCost($projectId, $engineerRate, $timescale, $engineersAssigned)
 {
