@@ -97,18 +97,52 @@ function createEngineer($fName, $lName, $pword, $groupID, $engineerRate)
     return $created;
 }
 //Function to convert Engineer_rate and Timescale into Engineer_cost
-function calculateEngineerCost($engineerRate, $timescale, $engineersAssigned)
+function calculateEngineerCost($projectId, $engineerRate, $timescale, $engineersAssigned)
 {
     $engineersContribution = $timescale / $engineersAssigned;
     $engineerCost = $engineersContribution * $engineerRate;
 
-    return $engineerCost;
+    $user_agent = getenv("HTTP_USER_AGENT");
+
+    if (strpos($user_agent, "Win") !== FALSE)
+        $os = "Windows";
+    elseif (strpos($user_agent, "Mac") !== FALSE)
+        $os = "Mac";
+
+    if ($os === "Windows") {
+        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    } elseif ($os === "Mac") {
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    };
+
+    $sql = "UPDATE Project SET Engineer_cost =:ec  WHERE Project_ID =:pid";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':ec', $engineerCost, SQLITE3_TEXT);
+    $stmt->bindParam(':pid', $projectId, SQLITE3_TEXT);
+    $stmt->execute();
 }
 //function to calculate profit from other project metrics
-function calculateProfit($projectValue, $engineerCost, $materialCost, $additionalCost)
+function calculateProfit($projectId, $projectValue, $engineerCost, $materialCost, $additionalCost)
 {
     $cost = $engineerCost + $materialCost + $additionalCost;
     $profit = $projectValue - $cost;
 
-    return $profit;
+    $user_agent = getenv("HTTP_USER_AGENT");
+
+    if (strpos($user_agent, "Win") !== FALSE)
+        $os = "Windows";
+    elseif (strpos($user_agent, "Mac") !== FALSE)
+        $os = "Mac";
+
+    if ($os === "Windows") {
+        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    } elseif ($os === "Mac") {
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    };
+
+    $sql = "UPDATE Project SET Profit =:p  WHERE Project_ID =:pid";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':p', $profit, SQLITE3_TEXT);
+    $stmt->bindParam(':pid', $projectId, SQLITE3_TEXT);
+    $stmt->execute();
 }
