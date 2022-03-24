@@ -94,3 +94,29 @@ body {
   color: #fff;
   text-align: left;
 }
+
+/* Table
+-------------------------------------------------- */
+
+.styled-table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  white-space: nowrap;
+}
+.styled-table thead tr {
+  background-color: #ffffff15;
+  color: white;
+}
+.styled-table th,
+.styled-table td {
+  padding: 5px 20px;
+  width: 100%;
+  text-align: center;
+}
+.styled-table tbody tr {
+  border-bottom: 1px solid #ffffff;
+}
+.styled-table tbody tr:last-of-type {
+  border-bottom: 1px solid #ffffff;
+}
