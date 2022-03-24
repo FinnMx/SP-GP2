@@ -7,12 +7,6 @@ displays all projects related to that group.
 -------------------------------------------------------------------------
 */
 
-
-
-
-
-
-
 //session,header and footer
 require("require.php");
 
@@ -24,37 +18,25 @@ $stmt = $db->prepare($sql);
 $stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
 $result = $stmt->execute();
 
-$arrayResult = []; //prepare an empty array first
+$GarrayResult = []; //prepare an empty array first
 while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-  $arrayResult[] = $row; //adding a record until end of records
+  $GarrayResult[] = $row; //adding a record until end of records
 }
 
-$sql = "SELECT * FROM Project WHERE Project_ID=:pid AND Status = 'Active'";
-$stmt = $db->prepare($sql);
-$stmt->bindParam(':pid', $arrayResult[0][0], SQLITE3_TEXT);
-$result = $stmt->execute();
+$Values = array();
 
-$arrayResult = []; //prepare an empty array first
-while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-  $arrayResult[] = $row; //adding a record until end of records
-}
+for ($i = 0; $i < count($GarrayResult); $i++) {
+  $sql = "SELECT * FROM Project WHERE Project_ID=:pid AND Status = 'Active'";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam(':pid', $GarrayResult[$i][0], SQLITE3_TEXT);
+  $result = $stmt->execute();
 
-$ProjectName = $arrayResult[0]['Project_Name'];
-$ProjectVal = $arrayResult[0]['Project_value'];
-$EngineerCost = $arrayResult[0]['Engineer_cost'];
-$MaterialCost = $arrayResult[0]['Material_cost'];
-$AdditionalCost = $arrayResult[0]['Additional_cost'];
 
-//getting engineer data
-
-$sql = "SELECT * FROM Engineer WHERE Group_ID =:gid";
-$stmt = $db->prepare($sql);
-$stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
-$result = $stmt->execute();
-
-$EarrayResult = []; //prepare an empty array first
-while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-  $EarrayResult[] = $row; //adding a record until end of records
+  $arrayResult = []; //prepare an empty array first
+  while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+    $arrayResult[] = $row; //adding a record until end of records
+  }
+  array_push($Values, $arrayResult);
 }
 ?>
 <!DOCTYPE html>
@@ -77,7 +59,16 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ['Project Name', 'Value', 'Engineer Cost', 'Material Cost', 'Additional Cost'],
-        ['<?= $ProjectName ?>', <?= $ProjectVal ?>, <?= $EngineerCost ?>, <?= $MaterialCost ?>, <?= $AdditionalCost ?>]
+        
+        <?php 
+        for ($i = 0; $i < count($GarrayResult); $i++){
+          $xarray = array($Values[$i][0]['Project_Name'],$Values[$i][0]['Project_value'], $Values[$i][0]['Engineer_cost'], $Values[$i][0]['Material_cost'], $Values[$i][0]['Additional_cost']);
+          echo json_encode($xarray);
+          echo ",";
+        }
+        ?>
+      
+
       ]);
 
       var options = {
@@ -138,6 +129,17 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
       </tr>
     </thead>
     <?php
+    //getting engineer data
+    $sql = "SELECT * FROM Engineer WHERE Group_ID =:gid";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
+    $result = $stmt->execute();
+
+    $EarrayResult = []; //prepare an empty array first
+    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+      $EarrayResult[] = $row; //adding a record until end of records
+    }
+
     for ($i = 0; $i < count($EarrayResult); $i++) :
     ?>
       <tbody style="background-color:#fff; color:#000; text-align:left">

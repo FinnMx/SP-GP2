@@ -3,7 +3,6 @@ if (isset($_POST['submitCS'])) {
    SetCustomerSatisfaction($_POST['project_id'], $_POST['customer_satisfaction']);
 }
 
-
 function SetCustomerSatisfaction($PID, $CS)
 {
    $user_agent = getenv("HTTP_USER_AGENT");
@@ -19,14 +18,14 @@ function SetCustomerSatisfaction($PID, $CS)
       $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
    };
 
-   $status = "complete";
+   $status = "Complete";
 
-   $sql = "UPDATE Project SET Customer_satisfaction =:cs AND Status =:status WHERE Project_ID =:pid";
+   $sql = "UPDATE Project SET Customer_satisfaction =:cs, Status =:status WHERE Project_ID =:pid";
    $stmt = $db->prepare($sql);
    $stmt->bindParam(':cs', $CS, SQLITE3_TEXT);
    $stmt->bindParam(':status', $status, SQLITE3_TEXT);
    $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
-   $result = $stmt->execute();
+   $stmt->execute();
 
 
    header("Location: ../manager.php");

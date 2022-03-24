@@ -18,11 +18,13 @@ function AssignGroup($GID, $PID)
         $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
     };
 
-    $sql = "UPDATE GROUPS SET Project_ID =:pid WHERE Group_ID =:gid";
+    $sql = "INSERT INTO Groups VALUES(:gid,:pid)";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
     $stmt->bindParam(':gid', $GID, SQLITE3_TEXT);
     $result = $stmt->execute();
 
-    header("Location: ..\Manager.php");
+    echo $GID;
+
+    //header("Location: ..\Manager.php");
 }
