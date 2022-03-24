@@ -19,11 +19,10 @@ error_reporting(0);
 <br>
 
 <body>
-
-    <!-- CREATE -->
-
-    <!--Form to create an engineer-->
     <div class="container">
+
+        <!-- CREATE
+        ----------------------------------------------------------------------------------------------------->
 
         <h1 style="color:#fff">CREATE</h1>
         <hr style="border:2px; color:white"><br>
@@ -31,11 +30,14 @@ error_reporting(0);
         <div class="row">
 
             <div class="col-md-2"></div>
+
+            <!-- CREATE ENGINEER -->
             <div class="col-md-4">
                 <div class="w-box">
+                    <!--Form to create an engineer-->
                     <form method="post">
                         <div>
-                            <h5 style="color:#0C4582; text-align:center">CREATE ENGINEER</h3>
+                            <h3 style="color:#0C4582; text-align:center">CREATE ENGINEER</h3>
                                 <br>
 
                                 <b style="color:#0C4582">FIRST NAME</b>
@@ -86,7 +88,7 @@ error_reporting(0);
 
                                 <br><br>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group">
                                     <input class="btn btn-main" type='submit' value="CREATE NEW ENGINEER" name='submitE'>
                                 </div>
                                 <?php
@@ -139,13 +141,13 @@ error_reporting(0);
                 </div>
             </div>
 
-
-            <!--Form to create projects-->
+            <!-- CREATE PROJECT -->
             <div class="col-md-4">
                 <div class="w-box">
+                    <!--Form to create projects-->
                     <form action="includes/create_project.inc.php" method="post">
                         <div>
-                            <h5 style="color:#0C4582; text-align:center">CREATE PROJECT</h3>
+                            <h3 style="color:#0C4582; text-align:center">CREATE PROJECT</h3>
                                 <br>
 
                                 <b style="color:#0C4582">PROJECT ID</b>
@@ -156,28 +158,28 @@ error_reporting(0);
                                 <input class="form-group b-input" type="text" name="project_name" placeholder="Project name">
                                 <br><br>
 
-                                <b class="label">PROJECT VALUE</b>
+                                <b style="color:#0C4582">PROJECT VALUE</b>
                                 <input class="form-group b-input" type="number" name="project_value" placeholder="Project Value" min="1">
                                 <br><br>
 
-                                <b class="label">TIMESCALE</b>
+                                <b style="color:#0C4582">TIMESCALE</b>
                                 <input class="form-group b-input" type="number" name="timescale" placeholder="Timescale" min="1">
                                 <br><br>
 
-                                <b class="label">MATERIAL COST</b>
+                                <b style="color:#0C4582">MATERIAL COST</b>
                                 <input class="form-group b-input" type="number" name="material_cost" placeholder="Material cost" min="1">
                                 <br><br>
 
-                                <b class="label">ADDITIONAL COST</b>
+                                <b style="color:#0C4582">ADDITIONAL COST</b>
                                 <input class="form-group b-input" type="number" name="additional_cost" placeholder="Additional cost" min="1">
                                 <br><br>
 
-                                <b class="label">COMMENTS</b>
+                                <b style="color:#0C4582">COMMENTS</b>
                                 <input class="form-control b-input" type="text" name="comments" placeholder="Comments on cost and job specifics">
                                 <br>
                         </div>
                         <br>
-                        <div class="form-group col-md-4">
+                        <div class="form-group">
                             <input class="btn btn-main" type='submit' value="CREATE PROJECT" name='submitCP'>
                         </div>
 
@@ -185,189 +187,247 @@ error_reporting(0);
                 </div>
             </div>
         </div>
+        <br>
 
-        <!-- GROUPS -->
 
-        <h1 style="color:#fff">GROUPS</h1>
+        <!-- GROUPS 
+        ----------------------------------------------------------------------------------------------------->
+
+        <h1 style="color:#fff">GROUPS & PROJECTS</h1>
         <hr style="border:2px; color:white"><br>
 
         <div class="row">
+            <div class="col-md-2"></div>
 
-            <!--Form to assign groups to projects-->
             <div class="col-md-4">
+
+                <!-- VIEW GROUP -->
                 <div class="w-box">
+
+                    <!--Form to view groups assigned projects -->
+                    <form action="ViewGroups.php" method="post">
+                        <h3 style="color:#0C4582; text-align:center">VIEW GROUP</h3>
+                        <br>
+                        <div class="row" style="text-align:center">
+                            <div class="col">
+                                <b style="color:#0C4582">SELECT GROUP</b>
+                                <br>
+                                <select class="form-group" name="group_id_selected" id="group_id">
+                                    <?php
+                                    $sql = "SELECT Group_ID FROM Groups";
+                                    $stmt = $db->prepare($sql);
+                                    $result = $stmt->execute();
+
+                                    $arrayResult = []; //prepare an empty array first
+                                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                        $arrayResult[] = $row; //adding a record until end of records
+                                    }
+
+                                    for ($i = 0; $i < count($arrayResult); $i++) :
+                                        $value = $arrayResult[$i]['Group_ID'];
+                                        echo '<option value="' . $value . '">' . $value . '</option>';
+
+                                    ?>
+
+                                    <?php endfor; ?>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input class="btn btn-main" type='submit' value="VIEW" name='submitG'>
+                                    <?php
+                                    if (isset($_POST['submitG'])) {
+                                        $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>    
+                    </form>
+                </div>
+                <br>
+
+                <!-- VIEW PROJECT -->
+                <div class="w-box">
+
+                    <!--Form to view groups assigned projects -->
+                    <form action="ViewProject.php" method="post">
+                        <h3 style="color:#0C4582; text-align:center">VIEW PROJECT</h3>
+                        <br>
+                        <div class="row" style="text-align:center">
+                            <div class="col">
+                                <b style="color:#0C4582">SELECT PROJECT</b>
+                                <br>
+                                <select class="form-group" name="project_id_selected" id="project_id">
+                                    <?php
+                                    $sql = "SELECT Project_ID FROM Project";
+                                    $stmt = $db->prepare($sql);
+                                    $result = $stmt->execute();
+
+                                    $arrayResult = []; //prepare an empty array first
+                                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                        $arrayResult[] = $row; //adding a record until end of records
+                                    }
+
+                                    for ($i = 0; $i < count($arrayResult); $i++) :
+                                        $value = $arrayResult[$i]['Project_ID'];
+                                        echo '<option value="' . $value . '">' . $value . '</option>';
+
+                                    ?>
+
+                                    <?php endfor; ?>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input class="btn btn-main" type='submit' value="VIEW" name='submitP'>
+                                    <?php
+                                    if (isset($_POST['submitP'])) {
+                                        $_SESSION['project_id_selected'] = $_POST['project_id_selected'];
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>    
+                    </form>
+                </div>
+                <br>
+
+            </div>
+
+            <!-- ASSIGN GROUPS -->
+            <div class="col-md-4">
+                <div class="w-box" style="text-align:center">
+
+                    <!--Form to assign groups to projects-->
                     <form action="includes/assign_group.inc.php" method="post">
                         <div>
-                            <h5 style="color:#0C4582; text-align:center">ASSIGN GROUPS</h5>
-                            <b>Group ID:</b>
+                            <h3 style="color:#0C4582; text-align:center">ASSIGN GROUPS</h5>
                             <br>
-                            <select class="form-group col-md-4" name="group_id" id="group_id">
-                                <?php
-                                $sql = "SELECT Group_ID FROM Groups";
-                                $stmt = $db->prepare($sql);
-                                $result = $stmt->execute();
+                            <div class="row">
+                                <div class="col">
+                                    <b style="color:#0C4582">ASSIGN GROUP</b>
+                                    <br>
+                                    <select class="form-group" name="group_id" id="group_id">
+                                        <?php
+                                        $sql = "SELECT Group_ID FROM Groups";
+                                        $stmt = $db->prepare($sql);
+                                        $result = $stmt->execute();
 
-                                $arrayResult = []; //prepare an empty array first
-                                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                    $arrayResult[] = $row; //adding a record until end of records
-                                }
+                                        $arrayResult = []; //prepare an empty array first
+                                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                            $arrayResult[] = $row; //adding a record until end of records
+                                        }
 
-                                for ($i = 0; $i < count($arrayResult); $i++) :
-                                    $value = $arrayResult[$i]['Group_ID'];
-                                    echo '<option value="' . $value . '">' . $value . '</option>';
+                                        for ($i = 0; $i < count($arrayResult); $i++) :
+                                            $value = $arrayResult[$i]['Group_ID'];
+                                            echo '<option value="' . $value . '">' . $value . '</option>';
 
-                                ?>
+                                        ?>
 
-                                <?php endfor; ?>
-                            </select>
-                            <br>
-                            <b>Project ID:</b>
-                            <br>
-                            <select class="form-group col-md-4" name="project_id" id="project_id">
-                                <?php
-                                $sql = "SELECT Project_ID FROM Project";
-                                $stmt = $db->prepare($sql);
-                                $result = $stmt->execute();
+                                        <?php endfor; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-1"><b style="color:#0C4582">TO</b></div>
+                                <div class="col">
+                                    <b style="color:#0C4582">PROJECT</b>
+                                    <br>
+                                    <select class="form-group" name="project_id" id="project_id">
+                                        <?php
+                                        $sql = "SELECT Project_ID FROM Project";
+                                        $stmt = $db->prepare($sql);
+                                        $result = $stmt->execute();
 
-                                $arrayResult = []; //prepare an empty array first
-                                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                    $arrayResult[] = $row; //adding a record until end of records
-                                }
+                                        $arrayResult = []; //prepare an empty array first
+                                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                            $arrayResult[] = $row; //adding a record until end of records
+                                        }
 
-                                for ($i = 0; $i < count($arrayResult); $i++) :
-                                    $value2 = $arrayResult[$i]['Project_ID'];
-                                    echo '<option value="' . $value2 . '">' . $value2 . '</option>';
+                                        for ($i = 0; $i < count($arrayResult); $i++) :
+                                            $value2 = $arrayResult[$i]['Project_ID'];
+                                            echo '<option value="' . $value2 . '">' . $value2 . '</option>';
 
-                                ?>
+                                        ?>
 
-                                <?php endfor; ?>
-                            </select>
-                            <br>
+                                        <?php endfor; ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group col-md-4">
-                            <input class="btn btn-primary" type='submit' value="submit" name='submitAG'>
+                        <br>
+                        <div class="form-group">
+                            <input class="btn btn-main" type='submit' value="CONFIRM ASSIGNMENT" name='submitAG'>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+
+        </div>
+        <br>
+
+
+        <!-- CUSTOMER FEEDBACK
+        ----------------------------------------------------------------------------------------------------->
+
+        <h1 style="color:#fff">CUSTOMER FEEDBACK</h1>
+        <hr style="border:2px; color:white"><br>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+
+            <!-- CUSTOMER FEEDBACK -->
+            <div class="col-md-8">
+                <div class="w-box">
+                    <!--Form to input customer satisfaction once project is complete -->
+                    <form action="includes/customer_satisfaction.inc.php" method="post">
+                        <h3 style="color:#0C4582; text-align:center">CUSTOMER FEEDBACK</h5>
+                        <br>
+                        <div class="row" style="text-align:center">
+                            <div class="col">
+                                <b style="color:#0C4582">PROJECT ID</b>
+                                <br>
+                                <select class="form-group" name="project_id" id="project_id">
+                                    <?php
+                                    $sql = "SELECT Project_ID FROM Project";
+                                    $stmt = $db->prepare($sql);
+                                    $result = $stmt->execute();
+
+                                    $arrayResult = []; //prepare an empty array first
+                                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                        $arrayResult[] = $row; //adding a record until end of records
+                                    }
+
+                                    for ($i = 0; $i < count($arrayResult); $i++) :
+                                        $value3 = $arrayResult[$i]['Project_ID'];
+                                        echo '<option value="' . $value3 . '">' . $value3 . '</option>';
+
+                                    ?>
+                                    <?php endfor; ?>
+                                </select>                                
+                            </div>
+                            <div class="col">
+                                <b style="color:#0C4582">CUSTOMER SATISFACTION (1-10)</b>
+                                <br>
+                                <input class="form-group" type="number" name="customer_satisfaction" min="0" max="10">                                                               
+                            </div>
+                        </div>
+
+                        <b style="color:#0C4582">COMMENTS</b>
+                        <br>
+                        <input class="form-control b-input" type="text" name="xxxxx" placeholder="Comments and notes on customer satisfaction with project">
+                        <br>
+                        <div class="form-group">
+                            <input class="btn btn-main" type='submit' value="SUBMIT" name='submitCS'>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!--Form to input customer satisfaction once project is complete -->
-            <form action="includes/customer_satisfaction.inc.php" method="post">
-                <div class="col-md-4">
-                    <div class="w-box">
-                        <div>
-                            <h5>Please input customer feedback on project completion</h5>
-                            <label class="label">Project ID:</label>
-                            <br>
-                            <select class="form-group col-md-4" name="project_id" id="project_id">
-                                <?php
-                                $sql = "SELECT Project_ID FROM Project";
-                                $stmt = $db->prepare($sql);
-                                $result = $stmt->execute();
+        <div class="row">
 
-                                $arrayResult = []; //prepare an empty array first
-                                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                    $arrayResult[] = $row; //adding a record until end of records
-                                }
-
-                                for ($i = 0; $i < count($arrayResult); $i++) :
-                                    $value3 = $arrayResult[$i]['Project_ID'];
-                                    echo '<option value="' . $value3 . '">' . $value3 . '</option>';
-
-                                ?>
-                                <?php endfor; ?>
-                            </select>
-                            <br>
-                            <label class="label">Customer satisfaction (1-10):</label>
-                            <br>
-                            <input class="form-group col-md-4" type="number" name="customer_satisfaction" placeholder="Customer satisfaction" min="0" max="10">
-                            <br>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <input class="btn btn-primary" type='submit' value="submit" name='submitCS'>
-                        </div>
-            </form>
-        </div>
-    </div>
-
-    <!--Form to view groups assigned projects -->
-    <form action="ViewGroups.php" method="post">
-        <div class="col-md-4">
-            <div class="w-box">
-                <h5>View Group</h5>
-                <b class="label">Group ID:</b>
-                <br>
-                <select class="form-group col-md-4" name="group_id_selected" id="group_id">
-                    <?php
-                    $sql = "SELECT Group_ID FROM Groups";
-                    $stmt = $db->prepare($sql);
-                    $result = $stmt->execute();
-
-                    $arrayResult = []; //prepare an empty array first
-                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                        $arrayResult[] = $row; //adding a record until end of records
-                    }
-
-                    for ($i = 0; $i < count($arrayResult); $i++) :
-                        $value = $arrayResult[$i]['Group_ID'];
-                        echo '<option value="' . $value . '">' . $value . '</option>';
-
-                    ?>
-
-                    <?php endfor; ?>
-                </select>
-                <div class="form-group col-md-4">
-                    <input class="btn btn-primary" type='submit' value="View" name='submitG'>
-                    <?php
-                    if (isset($_POST['submitG'])) {
-                        $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </form>
-    </div>
-    <!--Form to view projects -->
-    <form action="ViewProject.php" method="post">
-        <div class="col-md-4">
-            <div class="w-box">
-                <h5>View Project</h5>
-                <b class="label">Project ID:</b>
-                <br>
-                <select class="form-group col-md-4" name="project_id_selected" id="project_id">
-                    <?php
-                    $sql = "SELECT Project_ID FROM Project";
-                    $stmt = $db->prepare($sql);
-                    $result = $stmt->execute();
-
-                    $arrayResult = []; //prepare an empty array first
-                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                        $arrayResult[] = $row; //adding a record until end of records
-                    }
-
-                    for ($i = 0; $i < count($arrayResult); $i++) :
-                        $value = $arrayResult[$i]['Project_ID'];
-                        echo '<option value="' . $value . '">' . $value . '</option>';
-
-                    ?>
-
-                    <?php endfor; ?>
-                </select>
-                <div class="form-group col-md-4">
-                    <input class="btn btn-primary" type='submit' value="View" name='submitP'>
-                    <?php
-                    if (isset($_POST['submitP'])) {
-                        $_SESSION['project_id_selected'] = $_POST['project_id_selected'];
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </form>
-    </div>
-    </div>
-
+    </div> <!-- container -->
+    <br><br>
 </body>
 
 </html>
