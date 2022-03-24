@@ -96,3 +96,19 @@ function createEngineer($fName, $lName, $pword, $groupID, $engineerRate)
 
     return $created;
 }
+//Function to convert Engineer_rate and Timescale into Engineer_cost
+function calculateEngineerCost($engineerRate, $timescale, $engineersAssigned)
+{
+    $engineersContribution = $timescale / $engineersAssigned;
+    $engineerCost = $engineersContribution * $engineerRate;
+
+    return $engineerCost;
+}
+//function to calculate profit from other project metrics
+function calculateProfit($projectValue, $engineerCost, $materialCost, $additionalCost)
+{
+    $cost = $engineerCost + $materialCost + $additionalCost;
+    $profit = $projectValue - $cost;
+
+    return $profit;
+}
