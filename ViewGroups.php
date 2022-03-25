@@ -5,30 +5,40 @@ Group page should display above graph:
 displays all projects related to that group.
 
 -------------------------------------------------------------------------
+
+This whole block of php practically just pulls all the projects that the selected 
+group is managing, it then stores all of this in an multidimentional array and
+then converts it into a json JavaScript format. Once its been converted to a JS array 
+a for loop is then started in-line php to echo out and generate the graphs from the 
+array.
 */
 
 //session,header and footer
+
 require("require.php");
 
 session_start();
 
-$_SESSION['group_id_selected'] = $_POST['group_id_selected'];
+
+//---------------------Selects projects----------------------------
+$_SESSION['group_id_selected'] = $_POST['group_id_selected']; 
 $sql = "SELECT Project_ID FROM Groups WHERE Group_ID =:gid";
 $stmt = $db->prepare($sql);
 $stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
-$result = $stmt->execute();
+$result = $stmt->execute(); 
 
 $GarrayResult = []; //prepare an empty array first
 while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
   $GarrayResult[] = $row; //adding a record until end of records
 }
 
+//---------------------Retrieves project data-----------------------
 $Values = array();
 
 for ($i = 0; $i < count($GarrayResult); $i++) {
-  $sql = "SELECT * FROM Project WHERE Project_ID=:pid AND Status = 'Active'";
+  $sql = "SELECT * FROM Project WHERE Project_ID=:pid AND Status = 'Active'"; 
   $stmt = $db->prepare($sql);
-  $stmt->bindParam(':pid', $GarrayResult[$i][0], SQLITE3_TEXT);
+  $stmt->bindParam(':pid', $GarrayResult[$i][0], SQLITE3_TEXT); //sets the current projectID based on the counter $i.
   $result = $stmt->execute();
 
 
@@ -36,6 +46,7 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
   while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
     $arrayResult[] = $row; //adding a record until end of records
   }
+//---------------------Pushes each data into big arary---------------
   array_push($Values, $arrayResult);
 }
 ?>
@@ -67,7 +78,6 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
                     <div>
                         <h3 style="color:#0C4582; text-align:center">GROUP DETAILS</h3>
                         <br>
-
                         <b style="color:#0C4582">DESCRIPTION</b>
                         <input class="form-group b-input" type="text" name="first_name" placeholder="First name">
                         <br><br>
@@ -133,7 +143,7 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
                     <b style="color:#0C4582">SELECT NEW GROUP</b>
                     <select class="form-group" name="group_id_selected" id="group_id_selected">
                       <?php
-                      $sql = "SELECT Group_ID FROM Groups";
+                      $sql = "SELECT DISTINCT Group_ID FROM Groups";
                       $stmt = $db->prepare($sql);
                       $result = $stmt->execute();
 

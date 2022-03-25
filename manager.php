@@ -2,7 +2,7 @@
 //session,header and footer
 require("require.php");
 
-session_start();
+session_start(); // start session allows us to transfer data through pages.
 error_reporting(0);
 ?>
 <!--Basic html 5 setup-->
@@ -65,7 +65,7 @@ error_reporting(0);
                                     <div class="col">
                                         <select class="form-group col-md-12" name="group_id" id="group_id">
                                             <?php
-                                            $sql = "SELECT Group_ID FROM Groups";
+                                            $sql = "SELECT DISTINCT Group_ID FROM Groups"; // selecting only unique group_ID's from the table.
                                             $stmt = $db->prepare($sql);
                                             $result = $stmt->execute();
 
@@ -74,7 +74,7 @@ error_reporting(0);
                                                 $arrayResult[] = $row; //adding a record until end of records
                                             }
 
-                                            for ($i = 0; $i < count($arrayResult); $i++) :
+                                            for ($i = 0; $i < count($arrayResult); $i++) : //for loop to echo out each group ID into the select box 
                                                 $value = $arrayResult[$i]['Group_ID'];
                                                 echo '<option value="' . $value . '" selected>' . $value . '</option>';
                                             ?>
@@ -95,14 +95,14 @@ error_reporting(0);
 
                                 if (isset($_POST['create_new_group'])) { //method to create new group ID from largest
 
-                                    $sql = "SELECT MAX(group_id) FROM Groups";
+                                    $sql = "SELECT MAX(group_id) FROM Groups"; // the MAX(..) function selects the highest value in the column
                                     $stmt = $db->prepare($sql);
                                     $result = $stmt->execute();
                                     $arrayResult = []; //prepare an empty array first
                                     while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
                                         $arrayResult[] = $row; //adding a record until end of records
                                     }
-                                    $sql = "INSERT INTO Groups VALUES(:gid +1,0)";
+                                    $sql = "INSERT INTO Groups VALUES(:gid +1,0)"; // inserts a new group into the database
                                     $stmt = $db->prepare($sql);
                                     $stmt->bindParam(':gid', $arrayResult[0][0], SQLITE3_TEXT);
 
@@ -110,17 +110,16 @@ error_reporting(0);
                                 }
                                 if (isset($_POST['submitE'])) {
 
-                                    $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']);
-                                    echo $boolCheck;
+                                    $boolCheck = passwordMismatch($_POST['password'], $_POST['re_password']); // function called to compare strings.
+                                    echo $boolCheck; 
 
                                     if ($boolCheck != 1) {
 
                                         $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er,:st)";
                                         $stmt = $db->prepare($sql);
-
                                         $status = "active";
 
-                                        $EngineerID = substr($_POST['first_name'], 0) . rand(1000, 9999);
+                                        $EngineerID = substr($_POST['first_name'], 0) . rand(1000, 9999); // generates the EngineerID with a random number.
 
                                         $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
                                         $stmt->bindParam(':fname', $_POST['first_name'], SQLITE3_TEXT);
@@ -214,7 +213,7 @@ error_reporting(0);
                                 <br>
                                 <select class="form-group" name="group_id_selected" id="group_id">
                                     <?php
-                                    $sql = "SELECT Group_ID FROM Groups";
+                                    $sql = "SELECT DISTINCT Group_ID FROM Groups";
                                     $stmt = $db->prepare($sql);
                                     $result = $stmt->execute();
 
@@ -283,7 +282,7 @@ error_reporting(0);
                                     <input class="btn btn-main" type='submit' value="VIEW" name='submitP'>
                                     <?php
                                     if (isset($_POST['submitP'])) {
-                                        $_SESSION['project_id_selected'] = $_POST['project_id_selected'];
+                                        $_SESSION['project_id_selected'] = $_POST['project_id_selected']; // sets the SESSION variable to the POST input
                                     }
                                     ?>
                                 </div>
