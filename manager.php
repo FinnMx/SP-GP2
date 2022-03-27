@@ -2,8 +2,8 @@
 //session,header and footer
 require("require.php");
 
-session_start(); // start session allows us to transfer data through pages.
 error_reporting(0);
+session_start(); // start session allows us to transfer data through pages. 
 ?>
 <!--Basic html 5 setup-->
 <!DOCTYPE html>
@@ -283,6 +283,7 @@ error_reporting(0);
                                     <?php
                                     if (isset($_POST['submitP'])) {
                                         $_SESSION['project_id_selected'] = $_POST['project_id_selected']; // sets the SESSION variable to the POST input
+                                    
                                     }
                                     ?>
                                 </div>
