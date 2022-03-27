@@ -1,11 +1,12 @@
 <?php
 if (isset($_POST['submitCP'])) {
-    CreateProject($_POST['project_id'], $_POST['project_name'], $_POST['project_value'], $_POST['material_cost'], $_POST['additional_cost'], $_POST['comments'], 0, "Active", $_POST['Timescale']);
+    CreateProject($_POST['project_id'], $_POST['project_name'], $_POST['project_value'], $_POST['material_cost'], $_POST['additional_cost'], $_POST['comments'], 0, "Active", $_POST['timescale']);
 }
 
 function CreateProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $AdditionalCost, $Comments, $CustomerSatisfaction, $Status, $Timescale)
 {
 
+        echo $Timescale;
 
     $user_agent = getenv("HTTP_USER_AGENT");
 
@@ -20,7 +21,7 @@ function CreateProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $Ad
         $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
     }
 
-    $sql = "SELECT Engineer_rate FROM Engineer 
+    /*$sql = "SELECT Engineer_rate FROM Engineer 
             INNER JOIN Groups 
             ON Engineer.Group_ID = Groups.Group_ID
             INNER JOIN Project 
@@ -28,15 +29,17 @@ function CreateProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $Ad
             WHERE Project.Project_ID = ':pid'";
 
 
+
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':pid', $ProjectID, SQLITE3_TEXT);
 
+    */
 
     $sql = "INSERT INTO Project VALUES(:pid,:pname,:pval,:ecost,:mcost,:addcost,:comments,:cs,:status,:ts)";
     $stmt = $db->prepare($sql);
+    $EngineerCost = 0;
 
 
-    echo $ProjectID;
     $stmt->bindParam(':pid', $ProjectID, SQLITE3_TEXT);
     $stmt->bindParam(':pname', $ProjectName, SQLITE3_TEXT);
     $stmt->bindParam(':pval', $ProjectVal, SQLITE3_TEXT);

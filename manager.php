@@ -249,7 +249,7 @@ session_start(); // start session allows us to transfer data through pages.
                 <!-- VIEW PROJECT -->
                 <div class="w-box">
 
-                    <!--Form to view groups assigned projects -->
+                    <!--Form to view projects -->
                     <form action="ViewProject.php" method="post">
                         <h3 style="color:#0C4582; text-align:center">VIEW PROJECT</h3>
                         <br>
@@ -283,7 +283,6 @@ session_start(); // start session allows us to transfer data through pages.
                                     <?php
                                     if (isset($_POST['submitP'])) {
                                         $_SESSION['project_id_selected'] = $_POST['project_id_selected']; // sets the SESSION variable to the POST input
-                                        calculateEngineerCost($_POST['project_id_selected']);
                                     }
                                     ?>
                                 </div>

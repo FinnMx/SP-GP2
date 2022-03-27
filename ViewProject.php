@@ -26,6 +26,7 @@ Database should hold timescale/length of project:
 require("require.php");
 
 session_start();
+calculateEngineerCost($_POST['project_id_selected']);
 
 $_SESSION['project_id_selected'] = $_POST['project_id_selected'];
 
