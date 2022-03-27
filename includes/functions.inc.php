@@ -125,10 +125,8 @@ function countEngineers($projectID)
     return $rowCount;
 }
 //Function to convert Engineer_rate and Timescale into Engineer_cost
-function calculateEngineerCost($projectId, $engineerRate, $timescale, $engineersAssigned)
+function calculateEngineerCost($projectId)
 {
-    $engineersContribution = $timescale / $engineersAssigned;
-    $engineerCost = $engineersContribution * $engineerRate;
 
     $user_agent = getenv("HTTP_USER_AGENT");
 
@@ -142,13 +140,60 @@ function calculateEngineerCost($projectId, $engineerRate, $timescale, $engineers
     } elseif ($os === "Mac") {
         $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
     };
+    $sql = "SELECT Timescale FROM Project WHERE Project_ID =:pid";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':pid', $projectId, SQLITE3_TEXT);
+    $result = $stmt->execute();
 
+    $arrayResult = []; //prepare an empty array first
+    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+        $arrayResult[] = $row; //adding a record until end of records
+    }
+    //stores the timescale
+    $timescale = $arrayResult[0][0];
+    $firstTotal = 0;
+    $Zarray = array();
+    $total = 0;
+
+    //selects each group_ID working on the given project
+    $sql = "SELECT DISTINCT Group_ID FROM Groups WHERE Project_ID=:pid";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':pid', $projectId, SQLITE3_TEXT);
+    $result = $stmt->execute();
+
+    $G2arrayResult = []; //prepare an empty array first
+    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+        $G2arrayResult[] = $row; //adding a record until end of records
+    }
+
+    for($i = 0; $i < count($G2arrayResult); $i++){
+        $sql = "SELECT Engineer_rate FROM Engineer WHERE Group_ID = :gid";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':gid', $G2arrayResult[$i][0], SQLITE3_TEXT);
+        $result = $stmt->execute();
+
+        $AggregateEngineerRate = []; //prepare an empty array first
+        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+        $AggregateEngineerRate[] = $row; //adding a record until end of records
+        }
+
+        $AggregateEngineerRate = call_user_func_array('array_merge', $AggregateEngineerRate);
+        array_pop($AggregateEngineerRate);
+        $total += array_sum($AggregateEngineerRate);
+    }
+
+    $total = $total * 8;
+    $totalEngineerCost = $total * $timescale;
+    
     $sql = "UPDATE Project SET Engineer_cost =:ec  WHERE Project_ID =:pid";
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(':ec', $engineerCost, SQLITE3_TEXT);
+    $stmt->bindParam(':ec', $totalEngineerCost, SQLITE3_TEXT);
     $stmt->bindParam(':pid', $projectId, SQLITE3_TEXT);
-    $stmt->execute();
+    $stmt->execute(); 
 }
+
+
+
 //function to calculate profit from other project metrics
 function calculateProfit($projectId, $projectValue, $engineerCost, $materialCost, $additionalCost)
 {

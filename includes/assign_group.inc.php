@@ -26,5 +26,5 @@ function AssignGroup($GID, $PID)
 
     echo $GID;
 
-    //header("Location: ..\Manager.php");
+    header("Location: ..\Manager.php");
 }

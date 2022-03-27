@@ -42,6 +42,8 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 }
 
 
+
+
 //------------------------------------this section grabs and sets the data------------------------------------
 
 $ProjectName = $arrayResult[0]['Project_Name'];
