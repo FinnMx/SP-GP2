@@ -81,7 +81,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 <body>
   <div class="container">  
 
-    <h1 style="color:#fff; text-align:center">Project</h1>
+    <h1 style="color:#fff; text-align:center">Project <?= $_POST['project_id_selected'] ?></h1>
     <br>
 
     <div class="row">
@@ -114,25 +114,32 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                             </thead>
                             <?php
                             //getting engineer data
-                            $sql = "SELECT * FROM Engineer WHERE Group_ID =:gid";
-                            $stmt = $db->prepare($sql);
-                            $stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
-                            $result = $stmt->execute();
+                            //method to get all engineers dont know why doesnt work in the functions
+                            $sql = "SELECT DISTINCT Engineer_ID, F_name, L_name, Engineer.Group_ID, Engineer_rate FROM Engineer  
+                            INNER JOIN Groups
+                            ON Groups.Group_ID = Engineer.Group_ID
+                            INNER JOIN Project 
+                            ON Groups.Project_ID = Project.Project_ID
+                            WHERE Project.Project_ID = :pid"; //epic way to inner join everything
 
-                            $EarrayResult = []; //prepare an empty array first
+                            $stmt = $db->prepare($sql);
+                            $stmt->bindParam(':pid', $_POST['project_id_selected'], SQLITE3_TEXT);
+                            $result = $stmt->execute(); 
+
+                            $EFINALarrayResult = []; //prepare an empty array first
                             while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                              $EarrayResult[] = $row; //adding a record until end of records
+                                $EFINALarrayResult[] = $row; //adding a record until end of records
                             }
 
-                            for ($i = 0; $i < count($EarrayResult); $i++) :
+                            for ($i = 0; $i < count($EFINALarrayResult); $i++) :
                             ?>
                               <tbody>
                                 <tr>
-                                  <td><?php echo $EarrayResult[$i]['Engineer_ID'] ?></td>
-                                  <td><?php echo $EarrayResult[$i]['F_name'] ?></td>
-                                  <td><?php echo $EarrayResult[$i]['L_name'] ?></td>
-                                  <td><?php echo $EarrayResult[$i]['Group_ID'] ?></td>
-                                  <td><?php echo $EarrayResult[$i]['Engineer_rate'] ?></td>
+                                  <td><?php echo $EFINALarrayResult[$i]['Engineer_ID'] ?></td>
+                                  <td><?php echo $EFINALarrayResult[$i]['F_name'] ?></td>
+                                  <td><?php echo $EFINALarrayResult[$i]['L_name'] ?></td>
+                                  <td><?php echo $EFINALarrayResult[$i]['Group_ID'] ?></td>
+                                  <td><?php echo $EFINALarrayResult[$i]['Engineer_rate'] ?></td>
                                 </tr>
                               </tbody>
                             <?php endfor; ?>

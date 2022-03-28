@@ -192,6 +192,41 @@ function calculateEngineerCost($projectId)
     $stmt->execute(); 
 }
 
+/*function GetAllEngineers($ProjectID){
+    $user_agent = getenv("HTTP_USER_AGENT");
+
+    if (strpos($user_agent, "Win") !== FALSE)
+        $os = "Windows";
+    elseif (strpos($user_agent, "Mac") !== FALSE)
+        $os = "Mac";
+
+    if ($os === "Windows") {
+        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    } elseif ($os === "Mac") {
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    };
+
+    $sql = "SELECT DISTINCT Engineer_ID, F_name, L_name, Engineer.Group_ID, Engineer_rate FROM Engineer  
+    INNER JOIN Groups
+    ON Groups.Group_ID = Engineer.Group_ID
+    INNER JOIN Project 
+    ON Groups.Project_ID = Project.Project_ID
+    WHERE Project.Project_ID = :pid"; //epic way to inner join everything
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':pid', $projectID, SQLITE3_TEXT);
+    $result = $stmt->execute(); 
+
+    $EarrayResult = []; //prepare an empty array first
+    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+        $EarrayResult[] = $row; //adding a record until end of records
+    }
+
+    $finalResult = $EarrayResult;
+
+    return $finalResult;
+
+}dont know why this wont work as a function but works on the page bruh*/
 
 
 //function to calculate profit from other project metrics
