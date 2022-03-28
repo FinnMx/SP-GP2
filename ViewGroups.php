@@ -88,11 +88,11 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
                           <table class="styled-table" style="display:block; height:140px; overflow:auto;">
                             <thead >
                               <tr>
-                                <th>Engineer ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Group ID</th>
-                                <th>Engineer Rate PM</th>
+                                <th>ID</th>
+                                <th>FIRST NAME</th>
+                                <th>LAST NAME</th>
+                                <th>GROUP ID</th>
+                                <th>PAY RATE P/M</th>
                               </tr>
                             </thead>
                             <?php
