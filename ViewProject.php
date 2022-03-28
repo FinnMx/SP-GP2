@@ -52,6 +52,8 @@ $ProjectVal = $arrayResult[0]['Project_value'];
 $EngineerCost = $arrayResult[0]['Engineer_cost'];
 $MaterialCost = $arrayResult[0]['Material_cost'];
 $AdditionalCost = $arrayResult[0]['Additional_cost'];
+//profit calculated
+$estProfit = $ProjectVal - $EngineerCost - $MaterialCost - $AdditionalCost;
 
 //getting engineer data
 
@@ -147,8 +149,8 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
             </div>
             <br>
 
-            <!-- CHANGE GROUP needs changing
-            ----------------------------------------------------------------------------------------------------->
+            <!--  CHANGE GROUP needs changing
+            --------------------------------------------------------------------------------------------------
             <div class="w-box">
               <h3 style="color:#0C4582; text-align:center">ADD/REMOVE GROUPS</h3>
               <br>
@@ -157,7 +159,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                   <div class="col">
                     <b style="color:#0C4582">SELECT NEW GROUP</b>
                     <select class="form-group" name="group_id_selected2" id="group_id_selected">
-                      <?php
+                      <//?php
                       $sql = "SELECT DISTINCT Group_ID FROM Groups";
                       $stmt = $db->prepare($sql);
                       $result = $stmt->execute();
@@ -172,7 +174,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                         echo '<option value="' . $value . '">' . $value . '</option>';
                       ?>
 
-                      <?php endfor; ?>
+                      <//?php endfor; ?>
                     </select>
                   </div>
                   <div class="col">
@@ -182,7 +184,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                     <div class="form-group">
                       <input class="btn btn-main" type='submit' value="REMOVE" name='RemoveG'>
                     </div>
-                    <?php
+                    <//?php
                     if(isset($_POST['RemoveG'])){
                       $sql = "DELETE FROM Groups WHERE Group_ID =:gid AND Project_ID =:pid";
                       $stmt = $db->prepare($sql);
@@ -204,6 +206,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
               </form>
             </div>
         </div>
+        --->
 
         <!-- INPUT PERFORMANCE         
         ----------------------------------------------------------------------------------------------------->
@@ -260,8 +263,8 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Project Name', 'Value', 'Engineer Cost', 'Material Cost', 'Additional Cost'],
-                ['<?= $ProjectName ?>', <?= $ProjectVal ?>, <?= $EngineerCost ?>, <?= $MaterialCost ?>, <?= $AdditionalCost ?>]
+                ['Project Name', 'Value', 'Engineer Cost', 'Material Cost', 'Additional Cost', 'est. Profit'],
+                ['<?= $ProjectName ?>', <?= $ProjectVal ?>, <?= $EngineerCost ?>, <?= $MaterialCost ?>, <?= $AdditionalCost ?>, <?= $estProfit ?> ]
             ]);
 
             var options = {
