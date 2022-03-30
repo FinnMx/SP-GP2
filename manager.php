@@ -3,7 +3,8 @@
 require("require.php");
 
 //error_reporting(0);
-session_start(); // start session allows us to transfer data through pages. 
+
+ob_start(); // start session allows us to transfer data through pages. 
 ?>
 <!--Basic html 5 setup-->
 <!DOCTYPE html>
@@ -204,7 +205,7 @@ session_start(); // start session allows us to transfer data through pages.
                 <div class="w-box">
 
                     <!--Form to view groups assigned projects -->
-                    <form action="ViewGroups.php" method="post">
+                    <form method="post">
                         <h3 style="color:#0C4582; text-align:center">VIEW GROUP</h3>
                         <br>
                         <div class="row" style="text-align:center">
@@ -233,10 +234,12 @@ session_start(); // start session allows us to transfer data through pages.
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <input class="btn btn-main" type='submit' value="VIEW" name='submitG'>
+                                    <input class="btn btn-main" type='submit' value="VIEW" name='submitG'/>
                                     <?php
                                     if (isset($_POST['submitG'])) {
                                         $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
+                                        header("Location: ViewGroups.php?gid=". $_POST['group_id_selected']);
+                                        ob_end_flush();
                                     }
                                     ?>
                                 </div>
@@ -250,7 +253,7 @@ session_start(); // start session allows us to transfer data through pages.
                 <div class="w-box">
 
                     <!--Form to view projects -->
-                    <form action="ViewProject.php" method="post">
+                    <form method="post">
                         <h3 style="color:#0C4582; text-align:center">VIEW PROJECT</h3>
                         <br>
                         <div class="row" style="text-align:center">
@@ -283,6 +286,8 @@ session_start(); // start session allows us to transfer data through pages.
                                     <?php
                                     if (isset($_POST['submitP'])) {
                                         $_SESSION['project_id_selected'] = $_POST['project_id_selected']; // sets the SESSION variable to the POST input
+                                        header("Location: ViewProject.php?pid=". $_POST['project_id_selected']);
+                                        ob_end_flush();
                                     }
                                     ?>
                                 </div>

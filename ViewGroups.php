@@ -17,14 +17,14 @@ array.
 
 require("require.php");
 
-session_start();
-
+//session_start();
+ob_start();
 
 //---------------------Selects projects----------------------------
-$_SESSION['group_id_selected'] = $_POST['group_id_selected']; 
+$group_id_selected = $_GET['gid'];
 $sql = "SELECT Project_ID FROM Groups WHERE Group_ID =:gid";
 $stmt = $db->prepare($sql);
-$stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
+$stmt->bindParam(':gid', $group_id_selected, SQLITE3_TEXT);
 $result = $stmt->execute(); 
 
 $GarrayResult = []; //prepare an empty array first
@@ -97,9 +97,9 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
                             </thead>
                             <?php
                             //getting engineer data
-                            $sql = "SELECT * FROM Engineer WHERE Group_ID =:gid";
+                            $sql = "SELECT * FROM Engineer WHERE Group_ID =:gid AND Status = 'active'";
                             $stmt = $db->prepare($sql);
-                            $stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
+                            $stmt->bindParam(':gid', $group_id_selected, SQLITE3_TEXT);
                             $result = $stmt->execute();
 
                             $EarrayResult = []; //prepare an empty array first
@@ -137,7 +137,7 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
             <div class="w-box">
               <h3 style="color:#0C4582; text-align:center">CHANGE GROUP</h3>
               <br>
-              <form action="ViewGroups.php" method="post">
+              <form action="manager.php" method="post">
                 <div class="row" style="text-align:center">
                   <div class="col">
                     <b style="color:#0C4582">SELECT NEW GROUP</b>
@@ -170,39 +170,85 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
             </div>
         </div>
 
-        <!-- INPUT PERFORMANCE         
+        <!-- Remove engineers/Add engineers         
         ----------------------------------------------------------------------------------------------------->
         <div class="col-md-4">
             <div class="w-box">
                 <!--Form to create projects-->
-                <form action="includes/create_project.inc.php" method="post">
+                <form method="post">
                     <div>
-                        <h3 style="color:#0C4582; text-align:center">INPUT PERFORMANCE</h3>
+                        <h3 style="color:#0C4582; text-align:center">REMOVE/ADD ENGINEERS</h3>
                         <br>
-
-                        <b style="color:#0C4582">PROJECT VALUE</b>
-                        <input class="form-group b-input" type="number" name="project_value" placeholder="Project Value" min="1">
-                        <br><br>
-
-                        <b style="color:#0C4582">TIMESCALE</b>
-                        <input class="form-group b-input" type="number" name="timescale" placeholder="Timescale" min="1">
-                        <br><br>
-
-                        <b style="color:#0C4582">MATERIAL COST</b>
-                        <input class="form-group b-input" type="number" name="material_cost" placeholder="Material cost" min="1">
-                        <br><br>
-
-                        <b style="color:#0C4582">ADDITIONAL COST</b>
-                        <input class="form-group b-input" type="number" name="additional_cost" placeholder="Additional cost" min="1">
-                        <br><br>
-
-                        <b style="color:#0C4582">COMMENTS</b>
-                        <input class="form-control b-input" type="text" name="comments" placeholder="Comments on cost and job specifics">
+                        <b style="color:#0C4582">CURRENT ENGINEERS</b>
                         <br>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input class="btn btn-main" type='submit' value="SUBMIT" name='submitCP'>
+                        <select class="form-group" name="current_engineers" id="current_engineers">
+                        <?php
+                        $sql = "SELECT Engineer_ID FROM Engineer WHERE Group_ID =:gid AND Status = 'active'";
+                        $stmt = $db->prepare($sql);
+                        $stmt->bindParam(':gid', $group_id_selected, SQLITE3_TEXT);
+                        $result = $stmt->execute();
+
+                        $arrayResult = []; //prepare an empty array first
+                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                          $arrayResult[] = $row; //adding a record until end of records
+                        }
+
+                        for ($i = 0; $i < count($arrayResult); $i++) :
+                          $value = $arrayResult[$i]['Engineer_ID'];
+                          echo '<option value="' . $value . '">' . $value . '</option>';
+                        ?>
+
+                        <?php endfor; ?>
+                        </select>
+                        <input class="btn btn-main" type='submit' value="REMOVE" name='removeE'>
+                        <?php
+                        if(isset($_POST['removeE'])){
+                          $sql = "UPDATE Engineer SET Status = 'inactive' WHERE Engineer_ID =:eid";
+                          $stmt = $db->prepare($sql);
+                          $stmt->bindParam(':eid', $_POST['current_engineers'], SQLITE3_TEXT);
+                          $result = $stmt->execute();
+                          
+                          header("Location: ViewGroups.php?gid=". $group_id_selected);
+                          ob_end_flush();
+                        }
+                        ?>
+
+                        <br><br>
+
+                        <b style="color:#0C4582">UNASSIGNED ENGINEERS</b>
+                        <br>
+                        <select class="form-group" name="unassigned_engineers" id="unassigned_engineers">
+                        <?php
+                        $sql = "SELECT Engineer_ID FROM Engineer WHERE Status = 'inactive'";
+                        $stmt = $db->prepare($sql);
+                        $result = $stmt->execute();
+
+                        $arrayResult = []; //prepare an empty array first
+                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                          $arrayResult[] = $row; //adding a record until end of records
+                        }
+
+                        for ($i = 0; $i < count($arrayResult); $i++) :
+                          $value = $arrayResult[$i]['Engineer_ID'];
+                          echo '<option value="' . $value . '">' . $value . '</option>';
+                        ?>
+
+                        <?php endfor; ?>
+                        </select>
+                        <input class="btn btn-main" type='submit' value="ADD" name='addE'>
+                        <?php
+                        if(isset($_POST['addE'])){
+                          $sql = "UPDATE Engineer SET Status = 'active', Group_ID =:gid WHERE Engineer_ID =:eid";
+                          $stmt = $db->prepare($sql);
+                          $stmt->bindParam(':gid', $group_id_selected, SQLITE3_TEXT);
+                          $stmt->bindParam(':eid', $_POST['unassigned_engineers'], SQLITE3_TEXT);
+                          $result = $stmt->execute();
+
+                                                    header("Location: ViewGroups.php?gid=". $group_id_selected);
+                          ob_end_flush();
+                        }
+                        ?>
+                        <br><br>
                     </div>
 
                 </form>

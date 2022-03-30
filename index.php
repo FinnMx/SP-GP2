@@ -1,6 +1,7 @@
 <?php
 //session,header and footer
 require("require.php");
+ob_start();
 ?>
 <!--Basic html 5 setup-->
 <!DOCTYPE html>
@@ -78,6 +79,7 @@ require("require.php");
       if ($_POST['ManagerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
 
         header("Location: manager.php");
+        ob_end_flush();
       } else {
 
         echo "invalid login";

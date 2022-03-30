@@ -24,17 +24,16 @@ Database should hold timescale/length of project:
 */
 
 require("require.php");
+$project_id_selected = $_GET['pid'];
 
-session_start();
-calculateEngineerCost($_POST['project_id_selected']);
+calculateEngineerCost($project_id_selected);
 
-$_SESSION['project_id_selected'] = $_POST['project_id_selected'];
 
 //------------------this section will set all the costs and other factors that are needed to generate the graph.------------------
 
 $sql = "SELECT * FROM Project WHERE Project_ID=:pid AND Status = 'Active'";
 $stmt = $db->prepare($sql);
-$stmt->bindParam(':pid', $_SESSION['project_id_selected'], SQLITE3_TEXT);
+$stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
 $result = $stmt->execute();
 
 $arrayResult = []; //prepare an empty array first
@@ -59,7 +58,7 @@ $estProfit = $ProjectVal - $EngineerCost - $MaterialCost - $AdditionalCost;
 
 $sql = "SELECT * FROM Engineer WHERE Group_ID =:gid";
 $stmt = $db->prepare($sql);
-$stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
+$stmt->bindParam(':gid', $project_id_selected, SQLITE3_TEXT);
 $result = $stmt->execute();
 
 $EarrayResult = []; //prepare an empty array first
@@ -81,7 +80,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 <body>
   <div class="container">  
 
-    <h1 style="color:#fff; text-align:center">Project <?= $_POST['project_id_selected'] ?></h1>
+    <h1 style="color:#fff; text-align:center">Project <?= $project_id_selected ?></h1>
     <br>
 
     <div class="row">
@@ -123,7 +122,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                             WHERE Project.Project_ID = :pid"; //epic way to inner join everything
 
                             $stmt = $db->prepare($sql);
-                            $stmt->bindParam(':pid', $_POST['project_id_selected'], SQLITE3_TEXT);
+                            $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
                             $result = $stmt->execute(); 
 
                             $EFINALarrayResult = []; //prepare an empty array first
@@ -196,14 +195,14 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                       $sql = "DELETE FROM Groups WHERE Group_ID =:gid AND Project_ID =:pid";
                       $stmt = $db->prepare($sql);
                       $stmt->bindParam(':gid', $_POST['group_id_selected2'], SQLITE3_TEXT);
-                      $stmt->bindParam(':pid', $_SESSION['project_id_selected'], SQLITE3_TEXT);
+                      $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
                       $result = $stmt->execute();
                     }
                     if (isset($_POST['AddG'])) {
                       $sql = "INSERT INTO Groups VALUES(:gid,:pid)";
                       $stmt = $db->prepare($sql);
                       $stmt->bindParam(':gid', $_POST['group_id_selected2'], SQLITE3_TEXT);
-                      $stmt->bindParam(':pid', $_SESSION['project_id_selected'], SQLITE3_TEXT);
+                      $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
                       $result = $stmt->execute();
                     }
 
