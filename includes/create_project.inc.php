@@ -1,57 +1,38 @@
 <?php
-if (isset($_POST['submitCP'])) {
-    CreateProject($_POST['project_id'], $_POST['project_name'], $_POST['project_value'], $_POST['material_cost'], $_POST['additional_cost'], $_POST['comments'], 0, "Active", $_POST['timescale']);
-}
+require("functions.php");
 
-function CreateProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $AdditionalCost, $Comments, $CustomerSatisfaction, $Status, $Timescale)
+if (isset($_POST['submitCP'])) 
 {
+    $ProjectID = $_POST['project_id'];
+    $ProjectName = $_POST['project_name'];
+    $ProjectVal = $_POST["project_value"];
+    $MaterialCost = $_POST["material_cost"];
+    $AdditionalCost = $_POST["additional_cost" ];
+    $Comments = $_POST["comments"];
+    $CustomerSatisfaction = "" ;
+    $Status = "active";
+    $Timescale = $_POST["timescale"];
 
-        echo $Timescale;
 
-    $user_agent = getenv("HTTP_USER_AGENT");
-
-    if (strpos($user_agent, "Win") !== FALSE)
-        $os = "Windows";
-    elseif (strpos($user_agent, "Mac") !== FALSE)
-        $os = "Mac";
-
-    if ($os === "Windows") {
-        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-    } elseif ($os === "Mac") {
-        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    if(emptyInputProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $Timescale)!==false)
+    {
+        header("Location:../manager.php?error=emptyinput");
+        exit();
+    }
+    if(CreateProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $AdditionalCost, $Comments, $CustomerSatisfaction, $Status, $Timescale)!==true)
+    {
+        header("Location:../manager.php?error=stmtfailed");
+        exit();
+    }
+    else {
+        header("location:../manager.php?success=createdsuccessfully");
+        exit();
     }
 
-    /*$sql = "SELECT Engineer_rate FROM Engineer 
-            INNER JOIN Groups 
-            ON Engineer.Group_ID = Groups.Group_ID
-            INNER JOIN Project 
-            ON Groups.Group_ID = Project.Project_ID
-            WHERE Project.Project_ID = ':pid'";
-
-
-
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':pid', $ProjectID, SQLITE3_TEXT);
-
-    */
-
-    $sql = "INSERT INTO Project VALUES(:pid,:pname,:pval,:ecost,:mcost,:addcost,:comments,:cs,:status,:ts)";
-    $stmt = $db->prepare($sql);
-    $EngineerCost = 0;
-
-
-    $stmt->bindParam(':pid', $ProjectID, SQLITE3_TEXT);
-    $stmt->bindParam(':pname', $ProjectName, SQLITE3_TEXT);
-    $stmt->bindParam(':pval', $ProjectVal, SQLITE3_TEXT);
-    $stmt->bindParam(':ecost', $EngineerCost, SQLITE3_TEXT);
-    $stmt->bindParam(':mcost', $MaterialCost, SQLITE3_TEXT);
-    $stmt->bindParam(':addcost', $AdditionalCost, SQLITE3_TEXT);
-    $stmt->bindParam(':comments', $Comments, SQLITE3_TEXT);
-    $stmt->bindParam(':cs', $CustomerSatisfaction, SQLITE3_TEXT);
-    $stmt->bindParam(':status', $Status, SQLITE3_TEXT);
-    $stmt->bindParam(':ts', $Timescale, SQLITE3_TEXT);
-
-    $result = $stmt->execute();
-
-    header("Location: ../manager.php");
 }
+else 
+{
+    header("Location:../Manager.php?error=unauthorisedentry");
+    exit();
+}
+

@@ -7,12 +7,13 @@
  */
 
 
-//The following functions apply to the registration form
+//------------------------------ The following functions apply to the engineer creation form -----------------------------------------------------------
+
 //Function to check for empty inputs.
-function emptyInputApply($fName, $lName, $pword, $rePassword, $engineerRate, $groupID)
+function emptyInputEngineer($fName, $lName, $pword, $rePword, $eRate)
 {
 
-    if (empty($fName) || empty($lName) ||  empty($pword) || empty($rePassword) || empty($engineerRate) || empty($groupID)) {
+    if (empty($fName) || empty($lName) ||  empty($pword) || empty($rePword) || empty($eRate)) {
         $result = true;
     } else {
         $result = false;
@@ -51,38 +52,39 @@ function passwordMismatch($pword, $rePassword)
     }
     return $result;
 }
-
-//Function to create a customer and assign to member table in the database.
-function createEngineer($fName, $lName, $pword, $groupID, $engineerRate)
+//Function to create a engineer and insert into engineer table in the database.
+function createEngineer($fName, $lName, $pword, $GID, $eRate)
 {
+    $user_agent = getenv("HTTP_USER_AGENT");
 
-    //this variable is used to indicate the creation is successfull or not.
-    $sqliteDebug = true;
-    try {
-        // attempt connection.
+    if (strpos($user_agent, "Win") !== FALSE)
+        $os = "Windows";
+    elseif (strpos($user_agent, "Mac") !== FALSE)
+        $os = "Mac";
+
+    if ($os === "Windows") {
         $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-    }
-    //catch exceptions.
-    catch (Exception $exception) {
-        // sqlite3 throws an exception when it is unable to connect.
-        echo '<p>There was an error connecting to the database!</p>';
-        if ($sqliteDebug) {
-            echo $exception->getMessage();
+    } elseif ($os === "Mac") {
+        try {
+            $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+        } catch (Exception $e) {
+            $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
         }
-    }
-    //SQL insert statement for insertion into the member table of the database.
-    $sql = "INSERT INTO Engineer(F_name,L_name, Password, Group_ID, Engineer_rate) VALUES (:fName, :lName, :pword, groupId :engineerRate, )";
-    //prepare the SQL statement.
+    };
+
+    $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er,:st)";
     $stmt = $db->prepare($sql);
-    //give the values for the parameters.
-    $stmt->bindParam(':fName', $fName, SQLITE3_TEXT);
-    $stmt->bindParam(':lName', $lName, SQLITE3_TEXT);
-    $stmt->bindParam(':pword', $pword, SQLITE3_TEXT);
-    $stmt->bindParam(':groupId', $groupID, SQLITE3_TEXT);
-    $stmt->bindParam(':engineerRate', $adminId, SQLITE3_TEXT);
+    $status = "active";
 
+    $EngineerID = substr($_POST['first_name'], 0) . rand(1000, 9999); // generates the EngineerID with a random number.
 
-    //execute the sql statement.
+    $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
+    $stmt->bindParam(':fname', $fName, SQLITE3_TEXT);
+    $stmt->bindParam(':lname', $lName, SQLITE3_TEXT);
+    $stmt->bindParam(':pwd', $pword, SQLITE3_TEXT);
+    $stmt->bindParam(':gid', $GID, SQLITE3_TEXT);
+    $stmt->bindParam(':er', $eRate, SQLITE3_TEXT);
+    $stmt->bindParam(':st', $status, SQLITE3_TEXT);
     $stmt->execute();
 
     //the logic.
@@ -96,6 +98,73 @@ function createEngineer($fName, $lName, $pword, $groupID, $engineerRate)
 
     return $created;
 }
+//------------------------------ The following functions apply to the project creation form -----------------------------------------------------------
+//Checking for empty inputs.AdditionalCost, Comments, CustomerSatisfaction and Status can be left blank or are auto-assigned, so are not checked.
+function emptyInputProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $Timescale)
+{
+
+    if (empty($ProjectID) || empty($ProjectName) ||  empty($ProjectVal) || empty($MaterialCost) || empty($Timescale)) {
+        $result = true;
+    } else {
+        $result = false;
+    }
+    return $result;
+}
+//function to create a new project.
+function CreateProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $AdditionalCost, $Comments, $CustomerSatisfaction, $Status, $Timescale)
+{
+
+        
+
+    $user_agent = getenv("HTTP_USER_AGENT");
+
+    if (strpos($user_agent, "Win") !== FALSE)
+        $os = "Windows";
+    elseif (strpos($user_agent, "Mac") !== FALSE)
+        $os = "Mac";
+
+    if ($os === "Windows") {
+        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    } elseif ($os === "Mac") {
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    }
+
+    $sql = "INSERT INTO Project VALUES(:pid,:pname,:pval,:ecost,:mcost,:addcost,:comments,:cs,:status,:ts)";
+    $stmt = $db->prepare($sql);
+    $EngineerCost = 0;
+
+
+    $stmt->bindParam(':pid', $ProjectID, SQLITE3_TEXT);
+    $stmt->bindParam(':pname', $ProjectName, SQLITE3_TEXT);
+    $stmt->bindParam(':pval', $ProjectVal, SQLITE3_TEXT);
+    $stmt->bindParam(':ecost', $EngineerCost, SQLITE3_TEXT);
+    $stmt->bindParam(':mcost', $MaterialCost, SQLITE3_TEXT);
+    $stmt->bindParam(':addcost', $AdditionalCost, SQLITE3_TEXT);
+    $stmt->bindParam(':comments', $Comments, SQLITE3_TEXT);
+    $stmt->bindParam(':cs', $CustomerSatisfaction, SQLITE3_TEXT);
+    $stmt->bindParam(':status', $Status, SQLITE3_TEXT);
+    $stmt->bindParam(':ts', $Timescale, SQLITE3_TEXT);
+
+    $stmt->execute();
+
+    if ($stmt) {
+
+        $created = true;
+    } else {
+
+        $created = false;
+    }
+
+    return $created;
+
+}
+
+
+
+
+
+
+
 //function to count number of engineers with a project
 function countEngineers($projectID)
 {
@@ -166,7 +235,7 @@ function calculateEngineerCost($projectId)
         $G2arrayResult[] = $row; //adding a record until end of records
     }
 
-    for($i = 0; $i < count($G2arrayResult); $i++){
+    for ($i = 0; $i < count($G2arrayResult); $i++) {
         $sql = "SELECT Engineer_rate FROM Engineer WHERE Group_ID = :gid";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':gid', $G2arrayResult[$i][0], SQLITE3_TEXT);
@@ -174,7 +243,7 @@ function calculateEngineerCost($projectId)
 
         $AggregateEngineerRate = []; //prepare an empty array first
         while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-        $AggregateEngineerRate[] = $row; //adding a record until end of records
+            $AggregateEngineerRate[] = $row; //adding a record until end of records
         }
 
         $AggregateEngineerRate = call_user_func_array('array_merge', $AggregateEngineerRate);
@@ -184,12 +253,12 @@ function calculateEngineerCost($projectId)
 
     $total = $total * 8;
     $totalEngineerCost = $total * $timescale;
-    
+
     $sql = "UPDATE Project SET Engineer_cost =:ec  WHERE Project_ID =:pid";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':ec', $totalEngineerCost, SQLITE3_TEXT);
     $stmt->bindParam(':pid', $projectId, SQLITE3_TEXT);
-    $stmt->execute(); 
+    $stmt->execute();
 }
 
 /*function GetAllEngineers($ProjectID){
