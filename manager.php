@@ -314,7 +314,7 @@ ob_start(); // start session allows us to transfer data through pages.
                                     <br>
                                     <select class="form-group" name="group_id" id="group_id">
                                         <?php
-                                        $sql = "SELECT Group_ID FROM Groups";
+                                        $sql = "SELECT DISTINCT Group_ID FROM Groups";
                                         $stmt = $db->prepare($sql);
                                         $result = $stmt->execute();
 
