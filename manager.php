@@ -262,8 +262,10 @@ ob_start(); // start session allows us to transfer data through pages.
                                 <br>
                                 <select class="form-group" name="project_id_selected" id="project_id">
                                     <?php
-                                    $sql = "SELECT Project_ID FROM Project";
+                                    $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
                                     $stmt = $db->prepare($sql);
+                                    $status = 'Active';
+                                    $stmt->bindParam(':st',$status, SQLITE3_TEXT);
                                     $result = $stmt->execute();
 
                                     $arrayResult = []; //prepare an empty array first
@@ -393,7 +395,9 @@ ob_start(); // start session allows us to transfer data through pages.
                                 <br>
                                 <select class="form-group" name="project_id" id="project_id">
                                     <?php
-                                    $sql = "SELECT Project_ID FROM Project";
+                                    $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                                    $status = 'Active';
+                                    $stmt->bindParam(':st',$status, SQLITE3_TEXT);
                                     $stmt = $db->prepare($sql);
                                     $result = $stmt->execute();
 
