@@ -18,89 +18,155 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
   $arrayResult[] = $row; //adding a record until end of records
 }
 
-?>
+//---------------------Selects projects----------------------------
+$_SESSION['group_id_selected'] = $_POST['group_id_selected']; 
+$sql = "SELECT Project_ID FROM Groups WHERE Group_ID =:gid";
+$stmt = $db->prepare($sql);
+$stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
+$result = $stmt->execute(); 
 
+$GarrayResult = []; //prepare an empty array first
+while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+  $GarrayResult[] = $row; //adding a record until end of records
+}
+
+//---------------------Retrieves project data-----------------------
+$Values = array();
+
+for ($i = 0; $i < count($GarrayResult); $i++) {
+  $sql = "SELECT * FROM Project WHERE Project_ID=:pid AND Status = 'Active'"; 
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam(':pid', $GarrayResult[$i][0], SQLITE3_TEXT); //sets the current projectID based on the counter $i.
+  $result = $stmt->execute();
+
+
+  $arrayResult = []; //prepare an empty array first
+  while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+    $arrayResult[] = $row; //adding a record until end of records
+  }
+//---------------------Pushes each data into big arary---------------
+  array_push($Values, $arrayResult);
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    google.charts.load('current', {
-      'packages': ['bar']
-    });
-    google.charts.setOnLoadCallback(drawChart);
-
-    /*function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Year', 'Sales', 'Expenses', 'Profit'],
-        ['2014', 1000, 400, 200],
-        ['2015', 1170, 460, 250],
-        ['2016', 660, 1120, 300],
-        ['2017', 1030, 540, 350]
-      ]);
-
-      var options = {
-        chart: {
-          title: 'Company Performance',
-          subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-        }
-      };
-
-      var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-      chart.draw(data, google.charts.Bar.convertOptions(options));
-    }*/
-  </script>
-
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
 </head>
 
-<body style="color:aliceblue">
-  <!-- Table displays engineers induvidual details-->
-  <table class="table-dark" style="color:aliceblue; border:white; border:3px;">
-    <?php
+<br>
 
-    for ($i = 0; $i < count($arrayResult); $i++) :
+<body>
+  <div class="container">  
 
-    ?>
-      <table>
-        <tr>
-          <th>Engineer ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Group ID</th>
-          <th>Engineer Rate PM</th>
-        </tr>
+    <h1 style="color:#fff; text-align:center">WELCOME "ENGINEER NAME"</h1>
+    <br>
 
-        <tr>
+    <div class="row">
+      <div class="col-md-1"></div>
 
-          <td><?php echo $arrayResult[$i]['Engineer_ID'] ?></td>
-          <td><?php echo $arrayResult[$i]['F_name'] ?></td>
-          <td><?php echo $arrayResult[$i]['L_name'] ?></td>
-          <td><?php echo $arrayResult[$i]['Group_ID'] ?></td>
-          <td><?php echo $arrayResult[$i]['Engineer_rate'] ?></td>
+      <!-- GROUP DETAILS
+      ----------------------------------------------------------------------------------------------------->
+      <div class="col-md-10">
+      <div class="w-box">
 
+        <div class="row">
 
+          <div class="col-md-6">
+            <h3 style="color:#0C4582; text-align:center">TABLE</h3>
+            <br>
+            <!-- TABLE -->
+            <div class="b-box">
+              <table class="styled-table" style="display:block; height:140px; overflow:auto;">
+                <thead >
+                  <tr>
+                    <th>ID</th>
+                    <th>FIRST NAME</th>
+                    <th>LAST NAME</th>
+                    <th>GROUP ID</th>
+                    <th>PAY RATE P/M</th>
+                  </tr>
+                </thead>
+                <?php
+                //getting engineer data
+                $sql = "SELECT * FROM Engineer WHERE Group_ID =:gid";
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':gid', $_SESSION['group_id_selected'], SQLITE3_TEXT);
+                $result = $stmt->execute();
 
-        </tr>
-      </table>
-    <?php endfor;
-    ?>
+                $EarrayResult = []; //prepare an empty array first
+                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                  $EarrayResult[] = $row; //adding a record until end of records
+                }
 
+                for ($i = 0; $i < count($EarrayResult); $i++) :
+                ?>
+                  <tbody>
+                    <tr>
+                      <td><?php echo $EarrayResult[$i]['Engineer_ID'] ?></td>
+                      <td><?php echo $EarrayResult[$i]['F_name'] ?></td>
+                      <td><?php echo $EarrayResult[$i]['L_name'] ?></td>
+                      <td><?php echo $EarrayResult[$i]['Group_ID'] ?></td>
+                      <td><?php echo $EarrayResult[$i]['Engineer_rate'] ?></td>
+                    </tr>
+                  </tbody>
+                <?php endfor; ?>
+              </table>
+            </div>
+            <!-- END OF TABLE -->    
+          </div>
 
-  </table>
+          <!-- GOOGLE BAR CHART
+          ----------------------------------------------------------------------------------------------------->
+          <div class="col-md-6" style="text-align:center">
+            <h3 style="color:#0C4582; text-align:center">CHART</h3>
+            <br>
+            <!-- SCRIPT FOR CHART -->
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+              google.charts.load('current', {
+                'packages': ['bar']
+              });
+              google.charts.setOnLoadCallback(drawChart);
 
-  <!-- chart from google charts -->
-  <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+              function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Project Name', 'Value', 'Engineer Cost', 'Material Cost', 'Additional Cost'],
+                  
+                  <?php 
+                  for ($i = 0; $i < count($GarrayResult); $i++){
+                    $xarray = array($Values[$i][0]['Project_Name'],$Values[$i][0]['Project_value'], $Values[$i][0]['Engineer_cost'], $Values[$i][0]['Material_cost'], $Values[$i][0]['Additional_cost']);
+                    echo json_encode($xarray);
+                    echo ",";
+                  }
+                  ?>
+                ]);
 
+                var options = {
+                  chart: {
+                    title: 'Group Projects',
+                    subtitle: 'Displaying all projects that are being managed by the group',
+                  }
+                };
 
+                var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
+                chart.draw(data, google.charts.Bar.convertOptions(options));
+              }
+            </script>
+            
+            <!-- DISPLAYING THE CHART -->
+            <div id="columnchart_material" style="width: 500px; height: 300px; "></div>
+          </div>
+  
+        </div><!-- end of row -->
+      </div>
+      </div>
+  </div><!-- container -->
+  <br><br>
 </body>
 
 </html>
