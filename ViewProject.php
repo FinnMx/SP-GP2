@@ -88,7 +88,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
         <!-- Project NEEDS CHANGING
         ----------------------------------------------------------------------------------------------------->
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="w-box">
                 <form method="post">
                     <div>
@@ -214,6 +214,43 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
         </div>
         --->
 
+        
+    </div>
+    <br>
+  
+    <!-- GOOGLE BAR CHART fixed
+    ----------------------------------------------------------------------------------------------------->
+    <!-- SCRIPT FOR CHART -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['bar']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Project Name', 'Value', 'Engineer Cost', 'Material Cost', 'Additional Cost', 'est. Profit'],
+                ['<?= $ProjectName ?>', <?= $ProjectVal ?>, <?= $EngineerCost ?>, <?= $MaterialCost ?>, <?= $AdditionalCost ?>, <?= $estProfit ?> ]
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Group Projects',
+                    subtitle: 'Displaying all projects that are being managed by the group',
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+    
+    <div class="row">
+
         <!-- INPUT PERFORMANCE         
         ----------------------------------------------------------------------------------------------------->
         <div class="col-md-4">
@@ -252,44 +289,8 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                 </form>
             </div>
         </div>
-    </div>
-    <br>
-  
-    <!-- GOOGLE BAR CHART fixed
-    ----------------------------------------------------------------------------------------------------->
-    <!-- SCRIPT FOR CHART -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['bar']
-        });
-        google.charts.setOnLoadCallback(drawChart);
 
-
-
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Project Name', 'Value', 'Engineer Cost', 'Material Cost', 'Additional Cost', 'est. Profit'],
-                ['<?= $ProjectName ?>', <?= $ProjectVal ?>, <?= $EngineerCost ?>, <?= $MaterialCost ?>, <?= $AdditionalCost ?>, <?= $estProfit ?> ]
-            ]);
-
-            var options = {
-                chart: {
-                    title: 'Group Projects',
-                    subtitle: 'Displaying all projects that are being managed by the group',
-                }
-            };
-
-            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-            chart.draw(data, google.charts.Bar.convertOptions(options));
-        }
-    </script>
-    
-    <!-- DISPLAYING THE CHART -->
-    <div class="row">
-        <div class="col-md-2"></div>
-
+        <!-- DISPLAYING THE CHART -->
         <div class="col-md-8">
           <div class="w-box">
             <h3 style="color:#0C4582; text-align:center">CURRENT PROJECT PERFORMANCE</h3>

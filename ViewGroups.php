@@ -64,7 +64,7 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
 <body>
   <div class="container">  
 
-    <h1 style="color:#fff; text-align:center">GROUP </h1>
+    <h1 style="color:#fff; text-align:center">GROUP <?php echo $group_id_selected ?></h1>
     <br>
 
     <div class="row">
@@ -72,7 +72,7 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
 
         <!-- GROUP DETAILS
         ----------------------------------------------------------------------------------------------------->
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="w-box">
                 <form method="post">
                     <div>
@@ -85,7 +85,7 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
                         <b style="color:#0C4582">TEAM MEMBERS:</b>
                         <!-- TABLE -->
                         <div class="b-box">
-                          <table class="styled-table" style="display:block; height:140px; overflow:auto;">
+                          <table class="styled-table" style="display:block; height:200px; overflow:auto;">
                             <thead >
                               <tr>
                                 <th>ID</th>
@@ -131,7 +131,13 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
                 </form>
             </div>
             <br>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        <div class="col-md-4">
             <!-- CHANGE GROUP
             ----------------------------------------------------------------------------------------------------->
             <div class="w-box">
@@ -169,6 +175,7 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
               </form>
             </div>
         </div>
+
 
         <!-- Remove engineers/Add engineers         
         ----------------------------------------------------------------------------------------------------->
