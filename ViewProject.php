@@ -22,7 +22,7 @@ Database should hold timescale/length of project:
 
 -------------------------------------------------------------------------
 */
-
+ob_start();
 require("require.php");
 $project_id_selected = $_GET['pid'];
 
@@ -263,23 +263,23 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                         <br>
 
                         <b style="color:#0C4582">PROJECT VALUE</b>
-                        <input class="form-group b-input" type="number" name="project_value" placeholder="<?= $ProjectVal ?>">
+                        <input class="form-group b-input" type="number" name="project_value" value="<?= $ProjectVal ?>" min="1">
                         <br><br>
 
                         <b style="color:#0C4582">TIMESCALE</b>
-                        <input class="form-group b-input" type="number" name="timescale" placeholder="<?= $Timescale ?>">
+                        <input class="form-group b-input" type="number" name="timescale" value="<?= $Timescale ?>" min="1">
                         <br><br>
 
                         <b style="color:#0C4582">MATERIAL COST</b>
-                        <input class="form-group b-input" type="number" name="material_cost" placeholder="<?= $MaterialCost ?>">
+                        <input class="form-group b-input" type="number" name="material_cost" value="<?= $MaterialCost ?>" min="1">
                         <br><br>
 
                         <b style="color:#0C4582">ADDITIONAL COST</b>
-                        <input class="form-group b-input" type="number" name="additional_cost" placeholder="<?= $AdditionalCost ?>">
+                        <input class="form-group b-input" type="number" name="additional_cost" value="<?= $AdditionalCost ?>" min="1">
                         <br><br>
 
                         <b style="color:#0C4582">ENGINEER COST</b>
-                        <input class="form-group b-input" type="number" name="engineer_cost" placeholder="<?= $EngineerCost ?>" readonly>
+                        <input class="form-group b-input" type="number" name="engineer_cost" value="<?= $EngineerCost ?>" readonly>
                         <br><br>
                     </div>
                     <br>
@@ -287,16 +287,18 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                         <input class="btn btn-main" type='submit' value="UPDATE" name='submitDS'>
                     </div>
                     <?php
-
                     if(isset($_POST['submitDS'])){
                     $sql = "UPDATE Project SET Project_value =:pv, Timescale =:ts, Material_cost =:mc, Additional_cost =:ac WHERE Project_ID =:pid";
                     $stmt = $db->prepare($sql);
                     $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
-                    $stmt->bindParam(':pv', $ProjectVal, SQLITE3_TEXT);
-                    $stmt->bindParam(':ts', $Timescale, SQLITE3_TEXT);
-                    $stmt->bindParam(':mc', $MaterialCost, SQLITE3_TEXT);
-                    $stmt->bindParam(':ac', $AdditionalCost, SQLITE3_TEXT);
+                    $stmt->bindParam(':pv', $_POST['project_value'], SQLITE3_TEXT);
+                    $stmt->bindParam(':ts', $_POST['timescale'], SQLITE3_TEXT);
+                    $stmt->bindParam(':mc', $_POST['material_cost'], SQLITE3_TEXT);
+                    $stmt->bindParam(':ac', $_POST['additional_cost'], SQLITE3_TEXT);
                     $result = $stmt->execute();
+
+                    header("Location: ViewProject.php?pid=".$project_id_selected);
+                    ob_end_flush();
                     }
                     ?>
 
