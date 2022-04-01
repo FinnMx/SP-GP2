@@ -160,7 +160,44 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
       ----------------------------------------------------------------------------------------------------->
       <div class="col-md-4">
         <div class="w-box">
-          <p>Box for Finn :)</p>
+          <form method="post">
+          <h3 style="color:#0C4582; text-align:center">UNNASIGN GROUPS</h3>
+          <br>
+          <b style="color:#0C4582">CURRENTLY ASSIGNED GROUPS</b>
+          <br>
+          <select class="form-group" name="current_groups" id="current_groups">
+          <?php
+          $sql = "SELECT DISTINCT Group_ID FROM Groups WHERE Project_ID =:pid";
+          $stmt = $db->prepare($sql);
+          $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
+          $result = $stmt->execute();
+
+          $arrayResult = []; //prepare an empty array first
+          while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+              $arrayResult[] = $row; //adding a record until end of records
+          }
+          for ($i = 0; $i < count($arrayResult); $i++) :
+          $value = $arrayResult[$i]['Group_ID'];
+          echo '<option value="' . $value . '">' . $value . '</option>';
+          ?>
+
+          <?php endfor; ?>
+          </select>
+          <input class="btn btn-main" type='submit' value="REMOVE" name='removeE'>
+          <?php
+          if(isset($_POST['removeE'])){
+            $sql = "DELETE FROM Groups WHERE Group_ID =:gid AND Project_ID =:pid";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':gid', $_POST['current_groups'], SQLITE3_TEXT);
+            $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
+            $result = $stmt->execute();
+                          
+            header("Location: ViewProject.php?pid=". $project_id_selected);
+            ob_end_flush();
+            }
+            ?>
+          </form>
+
         </div>
       </div>
 
