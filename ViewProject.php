@@ -85,138 +85,86 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
     <br>
 
     <div class="row">
-        <div class="col-md-2"></div>
 
-        <!-- Project NEEDS CHANGING
-        ----------------------------------------------------------------------------------------------------->
-        <div class="col-md-8">
-            <div class="w-box">
-                <form method="post">
-                    <div>
-                        <h3 style="color:#0C4582; text-align:center">PROJECT DETAILS</h3>
-                        <br>
-                        <b style="color:#0C4582">DESCRIPTION</b>
-                        <input class="form-group b-input" type="text" name="first_name" placeholder="First name">
-                        <br><br>
+      <!-- Project NEEDS CHANGING
+      ----------------------------------------------------------------------------------------------------->
+      <div class="col-md-8">
+        <div class="w-box">
 
-                        <b style="color:#0C4582">TEAM MEMBERS:</b>
-                        <!-- TABLE -->
-                        <div class="b-box">
-                          <table class="styled-table" style="display:block; height:140px; overflow:auto;">
-                            <thead >
-                              <tr>
-                                <th>Engineer ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Group ID</th>
-                                <th>Engineer Rate PM</th>
-                              </tr>
-                            </thead>
-                            <?php
-                            //getting engineer data
-                            //method to get all engineers dont know why doesnt work in the functions
-                            $sql = "SELECT DISTINCT Engineer_ID, F_name, L_name, Engineer.Group_ID, Engineer_rate FROM Engineer  
-                            INNER JOIN Groups
-                            ON Groups.Group_ID = Engineer.Group_ID
-                            INNER JOIN Project 
-                            ON Groups.Project_ID = Project.Project_ID
-                            WHERE Project.Project_ID = :pid"; //epic way to inner join everything
-
-                            $stmt = $db->prepare($sql);
-                            $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
-                            $result = $stmt->execute(); 
-
-                            $EFINALarrayResult = []; //prepare an empty array first
-                            while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                $EFINALarrayResult[] = $row; //adding a record until end of records
-                            }
-
-                            for ($i = 0; $i < count($EFINALarrayResult); $i++) :
-                            ?>
-                              <tbody>
-                                <tr>
-                                  <td><?php echo $EFINALarrayResult[$i]['Engineer_ID'] ?></td>
-                                  <td><?php echo $EFINALarrayResult[$i]['F_name'] ?></td>
-                                  <td><?php echo $EFINALarrayResult[$i]['L_name'] ?></td>
-                                  <td><?php echo $EFINALarrayResult[$i]['Group_ID'] ?></td>
-                                  <td><?php echo $EFINALarrayResult[$i]['Engineer_rate'] ?></td>
-                                </tr>
-                              </tbody>
-                            <?php endfor; ?>
-                          </table>
-                        </div>
-                        <!-- END OF TABLE -->
-                        <br>
-                        <div class="form-group">
-                            <input class="btn btn-main" type='submit' value="UPDATE" name='submitPM'>
-                        </div>
-                      
-                    </div>
-                </form>
-            </div>
+          <form method="post">
+                  
+            <h3 style="color:#0C4582; text-align:center">PROJECT DETAILS</h3>
             <br>
+            <b style="color:#0C4582">DESCRIPTION</b>
+            <input class="form-group b-input" type="text" name="first_name" placeholder="First name">
+            <br><br>
 
-            <!--  CHANGE GROUP needs changing
-            --------------------------------------------------------------------------------------------------
-            <div class="w-box">
-              <h3 style="color:#0C4582; text-align:center">ADD/REMOVE GROUPS</h3>
-              <br>
-              <form action="manager.php" method="post">
-                <div class="row" style="text-align:center">
-                  <div class="col">
-                    <b style="color:#0C4582">SELECT NEW GROUP</b>
-                    <select class="form-group" name="group_id_selected2" id="group_id_selected">
-                      <//?php
-                      $sql = "SELECT DISTINCT Group_ID FROM Groups";
-                      $stmt = $db->prepare($sql);
-                      $result = $stmt->execute();
+            <b style="color:#0C4582">TEAM MEMBERS:</b>
+            <!-- TABLE -->
+            <div class="b-box">
+              <table class="styled-table" style="display:block; height:140px; overflow:auto;">
+                <thead >
+                  <tr>
+                    <th>Engineer ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Group ID</th>
+                    <th>Engineer Rate PM</th>
+                  </tr>
+                </thead>
+                <?php
+                //getting engineer data
+                //method to get all engineers dont know why doesnt work in the functions
+                $sql = "SELECT DISTINCT Engineer_ID, F_name, L_name, Engineer.Group_ID, Engineer_rate FROM Engineer  
+                INNER JOIN Groups
+                ON Groups.Group_ID = Engineer.Group_ID
+                INNER JOIN Project 
+                ON Groups.Project_ID = Project.Project_ID
+                WHERE Project.Project_ID = :pid"; //epic way to inner join everything
 
-                      $arrayResult = []; //prepare an empty array first
-                      while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                        $arrayResult[] = $row; //adding a record until end of records
-                      }
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
+                $result = $stmt->execute(); 
 
-                      for ($i = 0; $i < count($arrayResult); $i++) :
-                        $value = $arrayResult[$i]['Group_ID'];
-                        echo '<option value="' . $value . '">' . $value . '</option>';
-                      ?>
+                $EFINALarrayResult = []; //prepare an empty array first
+                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                    $EFINALarrayResult[] = $row; //adding a record until end of records
+                }
 
-                      <//?php endfor; ?>
-                    </select>
-                  </div>
-                  <div class="col">
-                    <div class="form-group">
-                      <input class="btn btn-main" type='submit' value="ADD" name='AddG'>
-                    </div>
-                    <div class="form-group">
-                      <input class="btn btn-main" type='submit' value="REMOVE" name='RemoveG'>
-                    </div>
-                    <//?php
-                    if(isset($_POST['RemoveG'])){
-                      $sql = "DELETE FROM Groups WHERE Group_ID =:gid AND Project_ID =:pid";
-                      $stmt = $db->prepare($sql);
-                      $stmt->bindParam(':gid', $_POST['group_id_selected2'], SQLITE3_TEXT);
-                      $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
-                      $result = $stmt->execute();
-                    }
-                    if (isset($_POST['AddG'])) {
-                      $sql = "INSERT INTO Groups VALUES(:gid,:pid)";
-                      $stmt = $db->prepare($sql);
-                      $stmt->bindParam(':gid', $_POST['group_id_selected2'], SQLITE3_TEXT);
-                      $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
-                      $result = $stmt->execute();
-                    }
-
-                    ?>
-                  </div>
-                </div>
-              </form>
+                for ($i = 0; $i < count($EFINALarrayResult); $i++) :
+                ?>
+                  <tbody>
+                    <tr>
+                      <td><?php echo $EFINALarrayResult[$i]['Engineer_ID'] ?></td>
+                      <td><?php echo $EFINALarrayResult[$i]['F_name'] ?></td>
+                      <td><?php echo $EFINALarrayResult[$i]['L_name'] ?></td>
+                      <td><?php echo $EFINALarrayResult[$i]['Group_ID'] ?></td>
+                      <td><?php echo $EFINALarrayResult[$i]['Engineer_rate'] ?></td>
+                    </tr>
+                  </tbody>
+                <?php endfor; ?>
+              </table>
             </div>
+            <!-- END OF TABLE -->
+            <br>
+            <div class="form-group">
+                <input class="btn btn-main" type='submit' value="UPDATE" name='submitPM'>
+            </div>
+                  
+          </form>
         </div>
-        --->
+        <br>
+      </div>
 
-        
-    </div>
+      <!-- BOX FOR FINN
+      ----------------------------------------------------------------------------------------------------->
+      <div class="col-md-4">
+        <div class="w-box">
+          <p>Box for Finn :)</p>
+        </div>
+      </div>
+
+    </div><!--END ROW-->  
     <br>
   
     <!-- GOOGLE BAR CHART fixed
