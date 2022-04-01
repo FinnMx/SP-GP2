@@ -51,6 +51,7 @@ $ProjectVal = $arrayResult[0]['Project_value'];
 $EngineerCost = $arrayResult[0]['Engineer_cost'];
 $MaterialCost = $arrayResult[0]['Material_cost'];
 $AdditionalCost = $arrayResult[0]['Additional_cost'];
+$Timescale = $arrayResult[0]['Timescale'];
 //profit calculated
 $estProfit = $ProjectVal - $EngineerCost - $MaterialCost - $AdditionalCost;
 
@@ -251,40 +252,53 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
     
     <div class="row">
 
-        <!-- INPUT PERFORMANCE         
+        <!-- Detailed Stats         
         ----------------------------------------------------------------------------------------------------->
         <div class="col-md-4">
             <div class="w-box">
                 <!--Form to create projects-->
-                <form action="includes/create_project.inc.php" method="post">
+                <form action="" method="post">
                     <div>
-                        <h3 style="color:#0C4582; text-align:center">INPUT PERFORMANCE</h3>
+                        <h3 style="color:#0C4582; text-align:center">DETAILED STATS</h3>
                         <br>
 
                         <b style="color:#0C4582">PROJECT VALUE</b>
-                        <input class="form-group b-input" type="number" name="project_value" placeholder="Project Value" min="1">
+                        <input class="form-group b-input" type="number" name="project_value" placeholder="<?= $ProjectVal ?>">
                         <br><br>
 
                         <b style="color:#0C4582">TIMESCALE</b>
-                        <input class="form-group b-input" type="number" name="timescale" placeholder="Timescale" min="1">
+                        <input class="form-group b-input" type="number" name="timescale" placeholder="<?= $Timescale ?>">
                         <br><br>
 
                         <b style="color:#0C4582">MATERIAL COST</b>
-                        <input class="form-group b-input" type="number" name="material_cost" placeholder="Material cost" min="1">
+                        <input class="form-group b-input" type="number" name="material_cost" placeholder="<?= $MaterialCost ?>">
                         <br><br>
 
                         <b style="color:#0C4582">ADDITIONAL COST</b>
-                        <input class="form-group b-input" type="number" name="additional_cost" placeholder="Additional cost" min="1">
+                        <input class="form-group b-input" type="number" name="additional_cost" placeholder="<?= $AdditionalCost ?>">
                         <br><br>
 
-                        <b style="color:#0C4582">COMMENTS</b>
-                        <input class="form-control b-input" type="text" name="comments" placeholder="Comments on cost and job specifics">
-                        <br>
+                        <b style="color:#0C4582">ENGINEER COST</b>
+                        <input class="form-group b-input" type="number" name="engineer_cost" placeholder="<?= $EngineerCost ?>" readonly>
+                        <br><br>
                     </div>
                     <br>
                     <div class="form-group">
-                        <input class="btn btn-main" type='submit' value="SUBMIT" name='submitPF'>
+                        <input class="btn btn-main" type='submit' value="UPDATE" name='submitDS'>
                     </div>
+                    <?php
+
+                    if(isset($_POST['submitDS'])){
+                    $sql = "UPDATE Project SET Project_value =:pv, Timescale =:ts, Material_cost =:mc, Additional_cost =:ac WHERE Project_ID =:pid";
+                    $stmt = $db->prepare($sql);
+                    $stmt->bindParam(':pid', $project_id_selected, SQLITE3_TEXT);
+                    $stmt->bindParam(':pv', $ProjectVal, SQLITE3_TEXT);
+                    $stmt->bindParam(':ts', $Timescale, SQLITE3_TEXT);
+                    $stmt->bindParam(':mc', $MaterialCost, SQLITE3_TEXT);
+                    $stmt->bindParam(':ac', $AdditionalCost, SQLITE3_TEXT);
+                    $result = $stmt->execute();
+                    }
+                    ?>
 
                 </form>
             </div>
