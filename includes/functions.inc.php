@@ -9,10 +9,12 @@
 
 //The following functions apply to the registration form
 //Function to check for empty inputs.
-function emptyInputApply($fName, $lName, $pword, $rePassword, $engineerRate, $groupID)
+
+
+function emptyInputEngineer($fName, $lName, $pword, $rePword, $eRate)
 {
 
-    if (empty($fName) || empty($lName) ||  empty($pword) || empty($rePassword) || empty($engineerRate) || empty($groupID)) {
+    if (empty($fName) || empty($lName) ||  empty($pword) || empty($rePword) || empty($eRate)) {
         $result = true;
     } else {
         $result = false;
@@ -53,36 +55,38 @@ function passwordMismatch($pword, $rePassword)
 }
 
 //Function to create a customer and assign to member table in the database.
-function createEngineer($fName, $lName, $pword, $groupID, $engineerRate)
+function createEngineer($fName, $lName, $pword, $GID, $eRate)
 {
+    $user_agent = getenv("HTTP_USER_AGENT");
 
-    //this variable is used to indicate the creation is successfull or not.
-    $sqliteDebug = true;
-    try {
-        // attempt connection.
+    if (strpos($user_agent, "Win") !== FALSE)
+        $os = "Windows";
+    elseif (strpos($user_agent, "Mac") !== FALSE)
+        $os = "Mac";
+
+    if ($os === "Windows") {
         $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-    }
-    //catch exceptions.
-    catch (Exception $exception) {
-        // sqlite3 throws an exception when it is unable to connect.
-        echo '<p>There was an error connecting to the database!</p>';
-        if ($sqliteDebug) {
-            echo $exception->getMessage();
+    } elseif ($os === "Mac") {
+        try {
+            $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+        } catch (Exception $e) {
+            $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
         }
-    }
-    //SQL insert statement for insertion into the member table of the database.
-    $sql = "INSERT INTO Engineer(F_name,L_name, Password, Group_ID, Engineer_rate) VALUES (:fName, :lName, :pword, groupId :engineerRate, )";
-    //prepare the SQL statement.
+    };
+
+    $sql = "INSERT INTO Engineer VALUES(:eid,:fname,:lname,:pwd,:gid,:er,:st)";
     $stmt = $db->prepare($sql);
-    //give the values for the parameters.
-    $stmt->bindParam(':fName', $fName, SQLITE3_TEXT);
-    $stmt->bindParam(':lName', $lName, SQLITE3_TEXT);
-    $stmt->bindParam(':pword', $pword, SQLITE3_TEXT);
-    $stmt->bindParam(':groupId', $groupID, SQLITE3_TEXT);
-    $stmt->bindParam(':engineerRate', $adminId, SQLITE3_TEXT);
+    $status = "active";
 
+    $EngineerID = substr($_POST['first_name'], 0) . rand(1000, 9999); // generates the EngineerID with a random number.
 
-    //execute the sql statement.
+    $stmt->bindParam(':eid', $EngineerID, SQLITE3_TEXT);
+    $stmt->bindParam(':fname', $fName, SQLITE3_TEXT);
+    $stmt->bindParam(':lname', $lName, SQLITE3_TEXT);
+    $stmt->bindParam(':pwd', $pword, SQLITE3_TEXT);
+    $stmt->bindParam(':gid', $GID, SQLITE3_TEXT);
+    $stmt->bindParam(':er', $eRate, SQLITE3_TEXT);
+    $stmt->bindParam(':st', $status, SQLITE3_TEXT);
     $stmt->execute();
 
     //the logic.
@@ -109,11 +113,7 @@ function countEngineers($projectID)
     if ($os === "Windows") {
         $db = new SQLite3('C:\xampp\htdocs\myDB.db');
     } elseif ($os === "Mac") {
-            try {
         $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
-    } catch (Exception $e) {
-        $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
-    }
     };
 
     $sql = "SELECT * from Project WHERE Project_ID = :pid";
@@ -142,11 +142,7 @@ function calculateEngineerCost($projectId)
     if ($os === "Windows") {
         $db = new SQLite3('C:\xampp\htdocs\myDB.db');
     } elseif ($os === "Mac") {
-            try {
         $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
-    } catch (Exception $e) {
-        $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
-    }
     };
     $sql = "SELECT Timescale FROM Project WHERE Project_ID =:pid";
     $stmt = $db->prepare($sql);
@@ -174,7 +170,7 @@ function calculateEngineerCost($projectId)
         $G2arrayResult[] = $row; //adding a record until end of records
     }
 
-    for($i = 0; $i < count($G2arrayResult); $i++){
+    for ($i = 0; $i < count($G2arrayResult); $i++) {
         $sql = "SELECT Engineer_rate FROM Engineer WHERE Group_ID = :gid";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':gid', $G2arrayResult[$i][0], SQLITE3_TEXT);
@@ -182,7 +178,7 @@ function calculateEngineerCost($projectId)
 
         $AggregateEngineerRate = []; //prepare an empty array first
         while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-        $AggregateEngineerRate[] = $row; //adding a record until end of records
+            $AggregateEngineerRate[] = $row; //adding a record until end of records
         }
 
         $AggregateEngineerRate = call_user_func_array('array_merge', $AggregateEngineerRate);
@@ -192,48 +188,40 @@ function calculateEngineerCost($projectId)
 
     $total = $total * 8;
     $totalEngineerCost = $total * $timescale;
-    
+
     $sql = "UPDATE Project SET Engineer_cost =:ec  WHERE Project_ID =:pid";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':ec', $totalEngineerCost, SQLITE3_TEXT);
     $stmt->bindParam(':pid', $projectId, SQLITE3_TEXT);
-    $stmt->execute(); 
+    $stmt->execute();
 }
 
 /*function GetAllEngineers($ProjectID){
     $user_agent = getenv("HTTP_USER_AGENT");
-
     if (strpos($user_agent, "Win") !== FALSE)
         $os = "Windows";
     elseif (strpos($user_agent, "Mac") !== FALSE)
         $os = "Mac";
-
     if ($os === "Windows") {
         $db = new SQLite3('C:\xampp\htdocs\myDB.db');
     } elseif ($os === "Mac") {
         $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
     };
-
     $sql = "SELECT DISTINCT Engineer_ID, F_name, L_name, Engineer.Group_ID, Engineer_rate FROM Engineer  
     INNER JOIN Groups
     ON Groups.Group_ID = Engineer.Group_ID
     INNER JOIN Project 
     ON Groups.Project_ID = Project.Project_ID
     WHERE Project.Project_ID = :pid"; //epic way to inner join everything
-
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':pid', $projectID, SQLITE3_TEXT);
     $result = $stmt->execute(); 
-
     $EarrayResult = []; //prepare an empty array first
     while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
         $EarrayResult[] = $row; //adding a record until end of records
     }
-
     $finalResult = $EarrayResult;
-
     return $finalResult;
-
 }dont know why this wont work as a function but works on the page bruh*/
 
 
