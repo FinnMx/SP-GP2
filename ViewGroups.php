@@ -49,6 +49,10 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
 //---------------------Pushes each data into big arary---------------
   array_push($Values, $arrayResult);
 }
+
+array_filter($Values); //simple way to remove the values that are null due to the status of the project being closed.
+
+print_r($Values);
 ?>
 <!DOCTYPE html>
 <html>
@@ -251,7 +255,7 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
                           $stmt->bindParam(':eid', $_POST['unassigned_engineers'], SQLITE3_TEXT);
                           $result = $stmt->execute();
 
-                                                    header("Location: ViewGroups.php?gid=". $group_id_selected);
+                          header("Location: ViewGroups.php?gid=". $group_id_selected);
                           ob_end_flush();
                         }
                         ?>

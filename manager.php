@@ -373,25 +373,27 @@ ob_start(); // start session allows us to transfer data through pages.
                                     <div class="col">
                                         <b style="color:#0C4582">PROJECT</b>
                                         <br>
-                                        <select class="form-group" name="project_id" id="project_id">
-                                            <?php
-                                            $sql = "SELECT Project_ID FROM Project";
-                                            $stmt = $db->prepare($sql);
-                                            $result = $stmt->execute();
+                                        <select class="form-group" name="project_id_selected" id="project_id">
+                                        <?php
+                                        $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                                        $stmt = $db->prepare($sql);
+                                        $status = 'Active';
+                                        $stmt->bindParam(':st', $status, SQLITE3_TEXT);
+                                        $result = $stmt->execute();
 
-                                            $arrayResult = []; //prepare an empty array first
-                                            while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                                $arrayResult[] = $row; //adding a record until end of records
-                                            }
+                                        $arrayResult = []; //prepare an empty array first
+                                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                            $arrayResult[] = $row; //adding a record until end of records
+                                        }
 
-                                            for ($i = 0; $i < count($arrayResult); $i++) :
-                                                $value2 = $arrayResult[$i]['Project_ID'];
-                                                echo '<option value="' . $value2 . '">' . $value2 . '</option>';
+                                        for ($i = 0; $i < count($arrayResult); $i++) :
+                                            $value = $arrayResult[$i]['Project_ID'];
+                                            echo '<option value="' . $value . '">' . $value . '</option>';
 
-                                            ?>
+                                    ?>
 
-                                            <?php endfor; ?>
-                                        </select>
+                                    <?php endfor; ?>
+                                    </select>
                                     </div>
                                 </div>
                         </div>
@@ -428,28 +430,29 @@ ob_start(); // start session allows us to transfer data through pages.
                                 <div class="col">
                                     <b style="color:#0C4582">PROJECT ID</b>
                                     <br>
-                                    <select class="form-group" name="project_id" id="project_id">
-                                        <?php
-                                        $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
-                                        $status = 'Active';
-                                        $stmt->bindParam(':st', $status, SQLITE3_TEXT);
-                                        $stmt = $db->prepare($sql);
-                                        $result = $stmt->execute();
+                                    <select class="form-group" name="project_id_selected" id="project_id">
+                                    <?php
+                                    $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                                    $stmt = $db->prepare($sql);
+                                    $status = 'Active';
+                                    $stmt->bindParam(':st', $status, SQLITE3_TEXT);
+                                    $result = $stmt->execute();
 
-                                        $arrayResult = []; //prepare an empty array first
-                                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                            $arrayResult[] = $row; //adding a record until end of records
-                                        }
+                                    $arrayResult = []; //prepare an empty array first
+                                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                        $arrayResult[] = $row; //adding a record until end of records
+                                    }
 
-                                        for ($i = 0; $i < count($arrayResult); $i++) :
-                                            $value3 = $arrayResult[$i]['Project_ID'];
-                                            echo '<option value="' . $value3 . '">' . $value3 . '</option>';
+                                    for ($i = 0; $i < count($arrayResult); $i++) :
+                                        $value = $arrayResult[$i]['Project_ID'];
+                                        echo '<option value="' . $value . '">' . $value . '</option>';
 
-                                        ?>
-                                        <?php endfor; ?>
+                                    ?>
+
+                                    <?php endfor; ?>
                                     </select>
-                                </div>
-                                <div class="col">
+                                    </div>
+                                    <div class="col">
                                     <b style="color:#0C4582">CUSTOMER SATISFACTION (1-10)</b>
                                     <br>
                                     <input class="form-group" type="number" name="customer_satisfaction" min="0" max="10">

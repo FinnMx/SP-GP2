@@ -113,11 +113,7 @@ function countEngineers($projectID)
     if ($os === "Windows") {
         $db = new SQLite3('C:\xampp\htdocs\myDB.db');
     } elseif ($os === "Mac") {
-        try {
-            $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
-        } catch (Exception $e) {
-            $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
-        }
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
     };
 
     $sql = "SELECT * from Project WHERE Project_ID = :pid";
@@ -146,11 +142,7 @@ function calculateEngineerCost($projectId)
     if ($os === "Windows") {
         $db = new SQLite3('C:\xampp\htdocs\myDB.db');
     } elseif ($os === "Mac") {
-        try {
-            $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
-        } catch (Exception $e) {
-            $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
-        }
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
     };
     $sql = "SELECT Timescale FROM Project WHERE Project_ID =:pid";
     $stmt = $db->prepare($sql);
