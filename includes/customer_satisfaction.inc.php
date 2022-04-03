@@ -1,6 +1,8 @@
 <?php
+<<<<<<< HEAD
+=======
 if (isset($_POST['submitCS'])) {
-   SetCustomerSatisfaction($_POST['project_id'], $_POST['customer_satisfaction']);
+   SetCustomerSatisfaction($_POST['project_id_selected'], $_POST['customer_satisfaction']);
 }
 
 function SetCustomerSatisfaction($PID, $CS)
@@ -11,22 +13,18 @@ function SetCustomerSatisfaction($PID, $CS)
       $os = "Windows";
    elseif (strpos($user_agent, "Mac") !== FALSE)
       $os = "Mac";
+>>>>>>> 09b8b1bb69de2f9c1490d7360cf33737c0da1645
 
-   if ($os === "Windows") {
-      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-   } elseif ($os === "Mac") {
-      $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
-   };
+if (isset($_POST['submitCS'])) {
 
-   $status = "Complete";
+   $PID = $_POST['project_id'];
+   $CS = $_POST['customer_satisfaction'];
 
-   $sql = "UPDATE Project SET Customer_satisfaction =:cs, Status =:status WHERE Project_ID =:pid";
-   $stmt = $db->prepare($sql);
-   $stmt->bindParam(':cs', $CS, SQLITE3_TEXT);
-   $stmt->bindParam(':status', $status, SQLITE3_TEXT);
-   $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
-   $stmt->execute();
-
-
-   header("Location: ../manager.php");
+   if ($PID == '' || $CS == '') {
+      header("Location: ../manager.php?errorcs=emptyinput");
+      exit();
+   } else {
+      require_once("functions.inc.php");
+      SetCustomerSatisfaction($_POST['project_id'], $_POST['customer_satisfaction']);
+   }
 }

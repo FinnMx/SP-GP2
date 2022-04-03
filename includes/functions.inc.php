@@ -113,11 +113,7 @@ function countEngineers($projectID)
     if ($os === "Windows") {
         $db = new SQLite3('C:\xampp\htdocs\myDB.db');
     } elseif ($os === "Mac") {
-        try {
-            $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
-        } catch (Exception $e) {
-            $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
-        }
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
     };
 
     $sql = "SELECT * from Project WHERE Project_ID = :pid";
@@ -146,11 +142,7 @@ function calculateEngineerCost($projectId)
     if ($os === "Windows") {
         $db = new SQLite3('C:\xampp\htdocs\myDB.db');
     } elseif ($os === "Mac") {
-        try {
-            $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
-        } catch (Exception $e) {
-            $db = new SQLite3('/Applications/MAMP/htdocs/SP-GP2/myDB.db');
-        }
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
     };
     $sql = "SELECT Timescale FROM Project WHERE Project_ID =:pid";
     $stmt = $db->prepare($sql);
@@ -257,4 +249,73 @@ function calculateProfit($projectId, $projectValue, $engineerCost, $materialCost
     $stmt->bindParam(':p', $profit, SQLITE3_TEXT);
     $stmt->bindParam(':pid', $projectId, SQLITE3_TEXT);
     $stmt->execute();
+}
+//Function to create a project
+function CreateProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $AdditionalCost, $Comments, $CustomerSatisfaction, $Status, $Timescale)
+{
+
+    echo $Timescale;
+
+    $user_agent = getenv("HTTP_USER_AGENT");
+
+    if (strpos($user_agent, "Win") !== FALSE)
+        $os = "Windows";
+    elseif (strpos($user_agent, "Mac") !== FALSE)
+        $os = "Mac";
+
+    if ($os === "Windows") {
+        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    } elseif ($os === "Mac") {
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    }
+
+
+
+    $sql = "INSERT INTO Project VALUES(:pid,:pname,:pval,:ecost,:mcost,:addcost,:comments,:cs,:status,:ts)";
+    $stmt = $db->prepare($sql);
+    $EngineerCost = 0;
+
+
+    $stmt->bindParam(':pid', $ProjectID, SQLITE3_TEXT);
+    $stmt->bindParam(':pname', $ProjectName, SQLITE3_TEXT);
+    $stmt->bindParam(':pval', $ProjectVal, SQLITE3_TEXT);
+    $stmt->bindParam(':ecost', $EngineerCost, SQLITE3_TEXT);
+    $stmt->bindParam(':mcost', $MaterialCost, SQLITE3_TEXT);
+    $stmt->bindParam(':addcost', $AdditionalCost, SQLITE3_TEXT);
+    $stmt->bindParam(':comments', $Comments, SQLITE3_TEXT);
+    $stmt->bindParam(':cs', $CustomerSatisfaction, SQLITE3_TEXT);
+    $stmt->bindParam(':status', $Status, SQLITE3_TEXT);
+    $stmt->bindParam(':ts', $Timescale, SQLITE3_TEXT);
+
+    $result = $stmt->execute();
+
+    header("Location: ../manager.php?successp=createdsuccessfully");
+}
+//Function sets customer satisfaction and deactivates the project (marked as complete).
+function SetCustomerSatisfaction($PID, $CS)
+{
+   $user_agent = getenv("HTTP_USER_AGENT");
+
+   if (strpos($user_agent, "Win") !== FALSE)
+      $os = "Windows";
+   elseif (strpos($user_agent, "Mac") !== FALSE)
+      $os = "Mac";
+
+   if ($os === "Windows") {
+      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+   } elseif ($os === "Mac") {
+      $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+   };
+
+   $status = "Complete";
+
+   $sql = "UPDATE Project SET Customer_satisfaction =:cs, Status =:status WHERE Project_ID =:pid";
+   $stmt = $db->prepare($sql);
+   $stmt->bindParam(':cs', $CS, SQLITE3_TEXT);
+   $stmt->bindParam(':status', $status, SQLITE3_TEXT);
+   $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
+   $stmt->execute();
+
+
+   header("Location: ../manager.php?successcs=updatesuccess");
 }

@@ -96,7 +96,7 @@ ob_start(); // start session allows us to transfer data through pages.
                             //Error messages for create engineer form
                             if (isset($_GET["error"])) {
                                 if ($_GET["error"] == "emptyinput") {
-                                    echo "Empty fileds are not allowed";
+                                    echo "Empty fields are not allowed";
                                 } elseif ($_GET["error"] == "invalidfirstname") {
                                     echo "First name field will only accept characters!";
                                 } elseif ($_GET["error"] == "invalidlastname") {
@@ -212,12 +212,27 @@ ob_start(); // start session allows us to transfer data through pages.
                             <b style="color:#0C4582">COMMENTS</b>
                             <input class="form-control b-input" type="text" name="comments" placeholder="Comments on cost and job specifics">
                             <br>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input class="btn btn-main" type='submit' value="CREATE PROJECT" name='submitCP'>
-                        </div>
 
+
+                            <br>
+                            <div class="form-group">
+                                <input class="btn btn-main" type='submit' value="CREATE PROJECT" name='submitCP'>
+                            </div>
+                            <br>
+
+                            <?php
+                            if (isset($_GET["errorp"])) {
+                                if ($_GET["errorp"] == "emptyinput") {
+                                    echo "Empty fields are not allowed";
+                                }
+                            } else if (isset($_GET["successp"])) {
+                                if ($_GET["successp"] == "createdsuccessfully") {
+                                    echo "Successfully created";
+                                }
+                            }
+                            ?>
+
+                        </div>
                     </form>
                 </div>
             </div>
@@ -373,25 +388,27 @@ ob_start(); // start session allows us to transfer data through pages.
                                     <div class="col">
                                         <b style="color:#0C4582">PROJECT</b>
                                         <br>
-                                        <select class="form-group" name="project_id" id="project_id">
-                                            <?php
-                                            $sql = "SELECT Project_ID FROM Project";
-                                            $stmt = $db->prepare($sql);
-                                            $result = $stmt->execute();
+                                        <select class="form-group" name="project_id_selected" id="project_id">
+                                        <?php
+                                        $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                                        $stmt = $db->prepare($sql);
+                                        $status = 'Active';
+                                        $stmt->bindParam(':st', $status, SQLITE3_TEXT);
+                                        $result = $stmt->execute();
 
-                                            $arrayResult = []; //prepare an empty array first
-                                            while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                                $arrayResult[] = $row; //adding a record until end of records
-                                            }
+                                        $arrayResult = []; //prepare an empty array first
+                                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                            $arrayResult[] = $row; //adding a record until end of records
+                                        }
 
-                                            for ($i = 0; $i < count($arrayResult); $i++) :
-                                                $value2 = $arrayResult[$i]['Project_ID'];
-                                                echo '<option value="' . $value2 . '">' . $value2 . '</option>';
+                                        for ($i = 0; $i < count($arrayResult); $i++) :
+                                            $value = $arrayResult[$i]['Project_ID'];
+                                            echo '<option value="' . $value . '">' . $value . '</option>';
 
-                                            ?>
+                                    ?>
 
-                                            <?php endfor; ?>
-                                        </select>
+                                    <?php endfor; ?>
+                                    </select>
                                     </div>
                                 </div>
                         </div>
@@ -428,41 +445,59 @@ ob_start(); // start session allows us to transfer data through pages.
                                 <div class="col">
                                     <b style="color:#0C4582">PROJECT ID</b>
                                     <br>
-                                    <select class="form-group" name="project_id" id="project_id">
-                                        <?php
-                                        $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
-                                        $status = 'Active';
-                                        $stmt->bindParam(':st', $status, SQLITE3_TEXT);
-                                        $stmt = $db->prepare($sql);
-                                        $result = $stmt->execute();
+                                    <select class="form-group" name="project_id_selected" id="project_id">
+                                    <?php
+                                    $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                                    $stmt = $db->prepare($sql);
+                                    $status = 'Active';
+                                    $stmt->bindParam(':st', $status, SQLITE3_TEXT);
+                                    $result = $stmt->execute();
 
-                                        $arrayResult = []; //prepare an empty array first
-                                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                            $arrayResult[] = $row; //adding a record until end of records
-                                        }
+                                    $arrayResult = []; //prepare an empty array first
+                                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                        $arrayResult[] = $row; //adding a record until end of records
+                                    }
 
-                                        for ($i = 0; $i < count($arrayResult); $i++) :
-                                            $value3 = $arrayResult[$i]['Project_ID'];
-                                            echo '<option value="' . $value3 . '">' . $value3 . '</option>';
+                                    for ($i = 0; $i < count($arrayResult); $i++) :
+                                        $value = $arrayResult[$i]['Project_ID'];
+                                        echo '<option value="' . $value . '">' . $value . '</option>';
 
-                                        ?>
-                                        <?php endfor; ?>
+                                    ?>
+
+                                    <?php endfor; ?>
                                     </select>
-                                </div>
-                                <div class="col">
+                                    </div>
+                                    <div class="col">
                                     <b style="color:#0C4582">CUSTOMER SATISFACTION (1-10)</b>
                                     <br>
                                     <input class="form-group" type="number" name="customer_satisfaction" min="0" max="10">
+                                    <br>
                                 </div>
+
+
+                                <b style="color:#0C4582">COMMENTS</b>
+                                <br><br>
+                                <input class="form-control b-input" type="text" name="xxxxx" placeholder="Comments and notes on customer satisfaction with project">
+                                <br>
+                                <div class="form-group">
+                                    <br>
+                                    <input class="btn btn-main" type='submit' value="SUBMIT" name='submitCS'>
+                                </div>
+                                <br>
+                                <?php
+                                if (isset($_GET["errorcs"])) {
+                                    if ($_GET["errorcs"] == "emptyinput") {
+                                        echo "Empty fields are not allowed";
+                                    }
+                                } else if (isset($_GET["successcs"])) {
+                                    if ($_GET["successcs"] == "updatesuccess") {
+                                        echo "Successfully updated this project is now closed!";
+                                    }
+                                }
+                                ?>
                             </div>
 
-                            <b style="color:#0C4582">COMMENTS</b>
-                            <br>
-                            <input class="form-control b-input" type="text" name="xxxxx" placeholder="Comments and notes on customer satisfaction with project">
-                            <br>
-                            <div class="form-group">
-                                <input class="btn btn-main" type='submit' value="SUBMIT" name='submitCS'>
-                            </div>
+
                     </form>
                 </div>
             </div>
