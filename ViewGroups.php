@@ -22,7 +22,7 @@ ob_start();
 
 //---------------------Selects projects----------------------------
 $group_id_selected = $_GET['gid'];
-$sql = "SELECT Project_ID FROM Groups WHERE Group_ID =:gid";
+$sql = "SELECT Project_ID FROM Groups WHERE Group_ID =:gid AND Project_ID != 0";
 $stmt = $db->prepare($sql);
 $stmt->bindParam(':gid', $group_id_selected, SQLITE3_TEXT);
 $result = $stmt->execute(); 

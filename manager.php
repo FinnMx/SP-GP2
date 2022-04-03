@@ -113,10 +113,6 @@ ob_start(); // start session allows us to transfer data through pages.
                                 }
                             }
 
-
-
-
-
                             if (isset($_POST['create_new_group'])) { //method to create new group ID from largest
 
                                 $sql = "SELECT MAX(group_id) FROM Groups"; // the MAX(..) function selects the highest value in the column

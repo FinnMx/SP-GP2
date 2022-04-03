@@ -316,6 +316,11 @@ function SetCustomerSatisfaction($PID, $CS)
     $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
     $stmt->execute();
 
+    $sql = "UPDATE Groups SET Project_ID = 0 WHERE Project_ID =:pid";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
+    $stmt->execute();
+
 
     header("Location: ../manager.php?successcs=updatesuccess");
 }
