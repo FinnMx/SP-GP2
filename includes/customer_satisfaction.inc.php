@@ -12,6 +12,7 @@ if (isset($_POST['submitCS'])) {
       }
       else
       {
+         require_once("functions.inc.php");
          SetCustomerSatisfaction($PID, $CS);
       }
 
