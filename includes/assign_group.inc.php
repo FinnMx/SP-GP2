@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['submitAG'])) {
-    AssignGroup($_POST['group_id'], $_POST['project_id']);
+    AssignGroup($_POST['group_id'], $_POST['project_id_selected']);
 }
 
 function AssignGroup($GID, $PID)
