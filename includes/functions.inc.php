@@ -294,28 +294,28 @@ function CreateProject($ProjectID, $ProjectName, $ProjectVal, $MaterialCost, $Ad
 //Function sets customer satisfaction and deactivates the project (marked as complete).
 function SetCustomerSatisfaction($PID, $CS)
 {
-   $user_agent = getenv("HTTP_USER_AGENT");
+    $user_agent = getenv("HTTP_USER_AGENT");
 
-   if (strpos($user_agent, "Win") !== FALSE)
-      $os = "Windows";
-   elseif (strpos($user_agent, "Mac") !== FALSE)
-      $os = "Mac";
+    if (strpos($user_agent, "Win") !== FALSE)
+        $os = "Windows";
+    elseif (strpos($user_agent, "Mac") !== FALSE)
+        $os = "Mac";
 
-   if ($os === "Windows") {
-      $db = new SQLite3('C:\xampp\htdocs\myDB.db');
-   } elseif ($os === "Mac") {
-      $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
-   };
+    if ($os === "Windows") {
+        $db = new SQLite3('C:\xampp\htdocs\myDB.db');
+    } elseif ($os === "Mac") {
+        $db = new SQLite3('/Applications/XAMPP/data/myDB.db');
+    };
 
-   $status = "Complete";
+    $status = "Complete";
 
-   $sql = "UPDATE Project SET Customer_satisfaction =:cs, Status =:status WHERE Project_ID =:pid";
-   $stmt = $db->prepare($sql);
-   $stmt->bindParam(':cs', $CS, SQLITE3_TEXT);
-   $stmt->bindParam(':status', $status, SQLITE3_TEXT);
-   $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
-   $stmt->execute();
+    $sql = "UPDATE Project SET Customer_satisfaction =:cs, Status =:status WHERE Project_ID =:pid";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':cs', $CS, SQLITE3_TEXT);
+    $stmt->bindParam(':status', $status, SQLITE3_TEXT);
+    $stmt->bindParam(':pid', $PID, SQLITE3_TEXT);
+    $stmt->execute();
 
 
-   header("Location: ../manager.php?successcs=updatesuccess");
+    header("Location: ../manager.php?successcs=updatesuccess");
 }
