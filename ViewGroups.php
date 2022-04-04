@@ -14,7 +14,7 @@ array.
 */
 
 //session,header and footer
-
+require("header.php");
 require("require.php");
 
 //session_start();
@@ -52,7 +52,6 @@ for ($i = 0; $i < count($GarrayResult); $i++) {
 
 array_filter($Values); //simple way to remove the values that are null due to the status of the project being closed.
 
-print_r($Values);
 ?>
 <!DOCTYPE html>
 <html>

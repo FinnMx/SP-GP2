@@ -1,5 +1,6 @@
 <?php
 //session,header and footer
+require("header.php");
 require("require.php");
 
 //error_reporting(0);
