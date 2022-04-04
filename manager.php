@@ -253,9 +253,60 @@ ob_start(); // start session allows us to transfer data through pages.
         <hr style="border:2px; color:white"><br>
 
         <div class="row">
-            <div class="col-md-2"></div>
+            
+            <!-- VIEW PROJECT -->
+            <div class="col">
+            <div class="w-box">
 
-            <div class="col-md-4">
+                <!--Form to view projects -->
+                <form method="post">
+                    <h3 style="color:#0C4582; text-align:center">VIEW PROJECT</h3>
+                    <br>
+                    <div class="row" style="text-align:center">
+                        <div class="col">
+                            <b style="color:#0C4582">SELECT PROJECT</b>
+                            <br>
+                            <select class="form-group" name="project_id_selected" id="project_id">
+                                <?php
+                                $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                                $stmt = $db->prepare($sql);
+                                $status = 'Active';
+                                $stmt->bindParam(':st', $status, SQLITE3_TEXT);
+                                $result = $stmt->execute();
+
+                                $arrayResult = []; //prepare an empty array first
+                                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                    $arrayResult[] = $row; //adding a record until end of records
+                                }
+
+                                for ($i = 0; $i < count($arrayResult); $i++) :
+                                    $value = $arrayResult[$i]['Project_ID'];
+                                    echo '<option value="' . $value . '">' . $value . '</option>';
+
+                                ?>
+
+                                <?php endfor; ?>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <input class="btn btn-main" type='submit' value="VIEW" name='submitP'>
+                                <?php
+                                if (isset($_POST['submitP'])) {
+                                    $_SESSION['project_id_selected'] = $_POST['project_id_selected']; // sets the SESSION variable to the POST input
+                                    header("Location: ViewProject.php?pid=" . $_POST['project_id_selected']);
+                                    ob_end_flush();
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+                
+
+            <div class="col">
 
                 <!-- VIEW GROUP -->
                 <div class="w-box">
@@ -305,60 +356,11 @@ ob_start(); // start session allows us to transfer data through pages.
                 </div>
                 <br>
 
-                <!-- VIEW PROJECT -->
-                <div class="w-box">
-
-                    <!--Form to view projects -->
-                    <form method="post">
-                        <h3 style="color:#0C4582; text-align:center">VIEW PROJECT</h3>
-                        <br>
-                        <div class="row" style="text-align:center">
-                            <div class="col">
-                                <b style="color:#0C4582">SELECT PROJECT</b>
-                                <br>
-                                <select class="form-group" name="project_id_selected" id="project_id">
-                                    <?php
-                                    $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
-                                    $stmt = $db->prepare($sql);
-                                    $status = 'Active';
-                                    $stmt->bindParam(':st', $status, SQLITE3_TEXT);
-                                    $result = $stmt->execute();
-
-                                    $arrayResult = []; //prepare an empty array first
-                                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                        $arrayResult[] = $row; //adding a record until end of records
-                                    }
-
-                                    for ($i = 0; $i < count($arrayResult); $i++) :
-                                        $value = $arrayResult[$i]['Project_ID'];
-                                        echo '<option value="' . $value . '">' . $value . '</option>';
-
-                                    ?>
-
-                                    <?php endfor; ?>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <input class="btn btn-main" type='submit' value="VIEW" name='submitP'>
-                                    <?php
-                                    if (isset($_POST['submitP'])) {
-                                        $_SESSION['project_id_selected'] = $_POST['project_id_selected']; // sets the SESSION variable to the POST input
-                                        header("Location: ViewProject.php?pid=" . $_POST['project_id_selected']);
-                                        ob_end_flush();
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <br>
 
             </div>
 
             <!-- ASSIGN GROUPS -->
-            <div class="col-md-4">
+            <div class="col">
                 <div class="w-box" style="text-align:center">
 
                     <!--Form to assign groups to projects-->
