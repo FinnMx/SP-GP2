@@ -6,10 +6,10 @@
  * needed - 
  */
 
-
 //The following functions apply to the registration form
 //Function to check for empty inputs.
 
+error_reporting(0);
 
 function emptyInputEngineer($fName, $lName, $pword, $rePword, $eRate)
 {

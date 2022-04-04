@@ -180,9 +180,19 @@ ob_start(); // start session allows us to transfer data through pages.
                         <div>
                             <h3 style="color:#0C4582; text-align:center">CREATE PROJECT</h3>
                             <br>
+                            <?php
+                            $sql = "SELECT MAX(Project_ID) FROM Project"; // the MAX(..) function selects the highest value in the column
+                            $stmt = $db->prepare($sql);
+                            $result = $stmt->execute();
+                            $NarrayResult = []; //prepare an empty array first
+                            while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                $NarrayResult[] = $row; //adding a record until end of records
+                            }
+                            $newID = $NarrayResult[0][0] +1;
+                            ?>
 
                             <b style="color:#0C4582">PROJECT ID</b>
-                            <input class="form-group b-input" type="number" name="project_id" placeholder="Project ID" min="1">
+                            <input class="form-group b-input" type="number" value="<?= $newID ?>" name="project_id" placeholder="Project ID" min="1" readonly>
                             <br><br>
 
                             <b style="color:#0C4582">PROJECT NAME</b>
@@ -399,11 +409,13 @@ ob_start(); // start session allows us to transfer data through pages.
 
                                         for ($i = 0; $i < count($arrayResult); $i++) :
                                             $value = $arrayResult[$i]['Project_ID'];
+                                            
                                             echo '<option value="' . $value . '">' . $value . '</option>';
 
                                     ?>
 
                                     <?php endfor; ?>
+                                    </select>
                                     </select>
                                     </div>
                                 </div>
