@@ -1,5 +1,6 @@
 <?php
 ob_start();
+require("header.php");
 require("require.php");
 $project_id_selected = $_GET['pid'];
 
@@ -15,25 +16,22 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
     $ParrayResult[] = $row; //adding a record until end of records
 }
 
-
-
-
 //------------------------------------this section grabs and sets the data------------------------------------
-$ProjectName = $arrayResult[0]['Project_name'];
-$ProjectVal = $arrayResult[0]['Project_value'];
-$EngineerCost = $arrayResult[0]['Engineer_cost'];
-$MaterialCost = $arrayResult[0]['Material_cost'];
-$AdditionalCost = $arrayResult[0]['Additional_cost'];
-$Timescale = $arrayResult[0]['Timescale'];
-$customerSatisfaction = $arrayResult[0]['Customer_satisfaction'];
+$ProjectName = $ParrayResult[0]['Project_name'];
+$ProjectVal = $ParrayResult[0]['Project_value'];
+$EngineerCost = $ParrayResult[0]['Engineer_cost'];
+$MaterialCost = $ParrayResult[0]['Material_cost'];
+$AdditionalCost = $ParrayResult[0]['Additional_cost'];
+$Timescale = $ParrayResult[0]['Timescale'];
+$customerSatisfaction = $ParrayResult[0]['Customer_satisfaction'];
 //profit calculated
 $estProfit = $ProjectVal - $EngineerCost - $MaterialCost - $AdditionalCost;
 //create empty array for all results
 $cSArray = [];
 $pNArray = [];
-for ($i = 0; $i < count($arrayResult); $i++) {
-    array_push($cSArray, $arrayResult[$i]['Customer_satisfaction']);
-    array_push($pNArray, $arrayResult[$i]['Project_name']);
+for ($i = 0; $i < count($ParrayResult); $i++) {
+    array_push($cSArray, $ParrayResult[$i]['Customer_satisfaction']);
+    array_push($pNArray, $ParrayResult[$i]['Project_name']);
 }
 
 ?>
@@ -41,11 +39,11 @@ for ($i = 0; $i < count($arrayResult); $i++) {
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
 </head>
-
 <br>
 
 <body>
@@ -85,12 +83,12 @@ for ($i = 0; $i < count($arrayResult); $i++) {
 
                                         <tbody>
                                             <tr>
-                                                <td><?php echo $arrayResult[$i]['Project_name'] ?></td>
-                                                <td><?php echo $arrayResult[$i]['Project_value'] ?></td>
-                                                <td><?php echo $arrayResult[$i]['Engineer_cost'] ?></td>
-                                                <td><?php echo $arrayResult[$i]['Material_cost'] ?></td>
-                                                <td><?php echo $arrayResult[$i]['Additional_cost'] ?></td>
-                                                <td><?php echo $arrayResult[$i]['Timescale'] ?></td>
+                                                <td><?php echo $ParrayResult[$i]['Project_name'] ?></td>
+                                                <td><?php echo $ParrayResult[$i]['Project_value'] ?></td>
+                                                <td><?php echo $ParrayResult[$i]['Engineer_cost'] ?></td>
+                                                <td><?php echo $ParrayResult[$i]['Material_cost'] ?></td>
+                                                <td><?php echo $ParrayResult[$i]['Additional_cost'] ?></td>
+                                                <td><?php echo $ParrayResult[$i]['Timescale'] ?></td>
                                             </tr>
                                         </tbody>
                                     <?php
@@ -121,11 +119,11 @@ for ($i = 0; $i < count($arrayResult); $i++) {
 
                     function drawChart() {
                         var data = google.visualization.arrayToDataTable([
-                            ['Project Name', 'customer_satisfaction'],
+                            ['Project Name', 'customer Satisfaction'],
                             <?php
                             for ($j = 0; $j < count($ParrayResult); $j++) {
                                 $Xarray = array($pNArray[$j], $cSArray[$j]);
-                                echo json_encode($xArray);
+                                echo json_encode($Xarray);
                                 echo ",";
                             }
                             ?>
@@ -133,8 +131,8 @@ for ($i = 0; $i < count($arrayResult); $i++) {
 
                         var options = {
                             chart: {
-                                title: 'Group Projects',
-                                subtitle: 'Displaying all projects that are being managed by the group',
+                                title: 'Completed projects',
+                                subtitle: 'Showing all the Satisfaction rates for each project',
                             }
                         };
 
