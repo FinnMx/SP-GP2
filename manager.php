@@ -189,7 +189,7 @@ ob_start(); // start session allows us to transfer data through pages.
                             while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
                                 $NarrayResult[] = $row; //adding a record until end of records
                             }
-                            $newID = $NarrayResult[0][0] +1;
+                            $newID = $NarrayResult[0][0] + 1;
                             ?>
 
                             <b style="color:#0C4582">PROJECT ID</b>
@@ -254,58 +254,58 @@ ob_start(); // start session allows us to transfer data through pages.
         <hr style="border:2px; color:white"><br>
 
         <div class="row">
-            
+
             <!-- VIEW PROJECT -->
             <div class="col">
-            <div class="w-box">
+                <div class="w-box">
 
-                <!--Form to view projects -->
-                <form method="post">
-                    <h3 style="color:#0C4582; text-align:center">VIEW PROJECT</h3>
-                    <br>
-                    <div class="row" style="text-align:center">
-                        <div class="col">
-                            <b style="color:#0C4582">SELECT PROJECT</b>
-                            <br>
-                            <select class="form-group" name="project_id_selected" id="project_id">
-                                <?php
-                                $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
-                                $stmt = $db->prepare($sql);
-                                $status = 'Active';
-                                $stmt->bindParam(':st', $status, SQLITE3_TEXT);
-                                $result = $stmt->execute();
+                    <!--Form to view projects -->
+                    <form method="post">
+                        <h3 style="color:#0C4582; text-align:center">VIEW PROJECT</h3>
+                        <br>
+                        <div class="row" style="text-align:center">
+                            <div class="col">
+                                <b style="color:#0C4582">SELECT PROJECT</b>
+                                <br>
+                                <select class="form-group" name="project_id_selected" id="project_id">
+                                    <?php
+                                    $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                                    $stmt = $db->prepare($sql);
+                                    $status = 'Active';
+                                    $stmt->bindParam(':st', $status, SQLITE3_TEXT);
+                                    $result = $stmt->execute();
 
-                                $arrayResult = []; //prepare an empty array first
-                                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                    $arrayResult[] = $row; //adding a record until end of records
-                                }
+                                    $arrayResult = []; //prepare an empty array first
+                                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                        $arrayResult[] = $row; //adding a record until end of records
+                                    }
 
-                                for ($i = 0; $i < count($arrayResult); $i++) :
-                                    $value = $arrayResult[$i]['Project_ID'];
-                                    echo '<option value="' . $value . '">' . $value . '</option>';
+                                    for ($i = 0; $i < count($arrayResult); $i++) :
+                                        $value = $arrayResult[$i]['Project_ID'];
+                                        echo '<option value="' . $value . '">' . $value . '</option>';
 
-                                ?>
+                                    ?>
 
-                                <?php endfor; ?>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <input class="btn btn-main" type='submit' value="VIEW" name='submitP'>
-                                <?php
-                                if (isset($_POST['submitP'])) {
-                                    $_SESSION['project_id_selected'] = $_POST['project_id_selected']; // sets the SESSION variable to the POST input
-                                    header("Location: ViewProject.php?pid=" . $_POST['project_id_selected']);
-                                    ob_end_flush();
-                                }
-                                ?>
+                                    <?php endfor; ?>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input class="btn btn-main" type='submit' value="VIEW" name='submitP'>
+                                    <?php
+                                    if (isset($_POST['submitP'])) {
+                                        $_SESSION['project_id_selected'] = $_POST['project_id_selected']; // sets the SESSION variable to the POST input
+                                        header("Location: ViewProject.php?pid=" . $_POST['project_id_selected']);
+                                        ob_end_flush();
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-            </div>
-                
+
 
             <div class="col">
 
@@ -348,15 +348,13 @@ ob_start(); // start session allows us to transfer data through pages.
                                     <?php
                                     if (isset($_POST['submitG'])) {
 
-                                        if($_POST['group_id_selected'] == "All"){
-                                        header("Location: ViewAllGroups.php");
-                                        ob_end_flush();
-                                        }
-
-                                        else{
-                                        $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
-                                        header("Location: ViewGroups.php?gid=" . $_POST['group_id_selected']);
-                                        ob_end_flush();
+                                        if ($_POST['group_id_selected'] == "All") {
+                                            header("Location: ViewAllGroups.php");
+                                            ob_end_flush();
+                                        } else {
+                                            $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
+                                            header("Location: ViewGroups.php?gid=" . $_POST['group_id_selected']);
+                                            ob_end_flush();
                                         }
                                     }
                                     ?>
@@ -408,28 +406,28 @@ ob_start(); // start session allows us to transfer data through pages.
                                         <b style="color:#0C4582">PROJECT</b>
                                         <br>
                                         <select class="form-group" name="project_id_selected" id="project_id">
-                                        <?php
-                                        $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
-                                        $stmt = $db->prepare($sql);
-                                        $status = 'Active';
-                                        $stmt->bindParam(':st', $status, SQLITE3_TEXT);
-                                        $result = $stmt->execute();
+                                            <?php
+                                            $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                                            $stmt = $db->prepare($sql);
+                                            $status = 'Active';
+                                            $stmt->bindParam(':st', $status, SQLITE3_TEXT);
+                                            $result = $stmt->execute();
 
-                                        $arrayResult = []; //prepare an empty array first
-                                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                            $arrayResult[] = $row; //adding a record until end of records
-                                        }
+                                            $arrayResult = []; //prepare an empty array first
+                                            while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                                $arrayResult[] = $row; //adding a record until end of records
+                                            }
 
-                                        for ($i = 0; $i < count($arrayResult); $i++) :
-                                            $value = $arrayResult[$i]['Project_ID'];
-                                            
-                                            echo '<option value="' . $value . '">' . $value . '</option>';
+                                            for ($i = 0; $i < count($arrayResult); $i++) :
+                                                $value = $arrayResult[$i]['Project_ID'];
 
-                                    ?>
+                                                echo '<option value="' . $value . '">' . $value . '</option>';
 
-                                    <?php endfor; ?>
-                                    </select>
-                                    </select>
+                                            ?>
+
+                                            <?php endfor; ?>
+                                        </select>
+                                        </select>
                                     </div>
                                 </div>
                         </div>
@@ -467,28 +465,28 @@ ob_start(); // start session allows us to transfer data through pages.
                                     <b style="color:#0C4582">PROJECT ID</b>
                                     <br>
                                     <select class="form-group" name="project_id_selected" id="project_id">
-                                    <?php
-                                    $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
-                                    $stmt = $db->prepare($sql);
-                                    $status = 'Active';
-                                    $stmt->bindParam(':st', $status, SQLITE3_TEXT);
-                                    $result = $stmt->execute();
+                                        <?php
+                                        $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                                        $stmt = $db->prepare($sql);
+                                        $status = 'Active';
+                                        $stmt->bindParam(':st', $status, SQLITE3_TEXT);
+                                        $result = $stmt->execute();
 
-                                    $arrayResult = []; //prepare an empty array first
-                                    while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                                        $arrayResult[] = $row; //adding a record until end of records
-                                    }
+                                        $arrayResult = []; //prepare an empty array first
+                                        while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                            $arrayResult[] = $row; //adding a record until end of records
+                                        }
 
-                                    for ($i = 0; $i < count($arrayResult); $i++) :
-                                        $value = $arrayResult[$i]['Project_ID'];
-                                        echo '<option value="' . $value . '">' . $value . '</option>';
+                                        for ($i = 0; $i < count($arrayResult); $i++) :
+                                            $value = $arrayResult[$i]['Project_ID'];
+                                            echo '<option value="' . $value . '">' . $value . '</option>';
 
-                                    ?>
+                                        ?>
 
-                                    <?php endfor; ?>
+                                        <?php endfor; ?>
                                     </select>
-                                    </div>
-                                    <div class="col">
+                                </div>
+                                <div class="col">
                                     <b style="color:#0C4582">CUSTOMER SATISFACTION (1-10)</b>
                                     <br>
                                     <input class="form-group" type="number" name="customer_satisfaction" min="0" max="10">
@@ -522,11 +520,55 @@ ob_start(); // start session allows us to transfer data through pages.
                     </form>
                 </div>
             </div>
+        </div>
 
-            <div class="row">
+        <!-- View past customer satisfaction  -->
+        <div class="row">
+            <form method="post">
+                <h3 style="color:#0C4582; text-align:center">VIEW PAST CUSTOMER SATISFACTION</h3>
+                <br>
+                <div class="row" style="text-align:center">
+                    <div class="col">
+                        <b style="color:#0C4582">SELECT PROJECT</b>
+                        <br>
+                        <select class="form-group" name="project_id_selected" id="project_id">
+                            <?php
+                            $sql = "SELECT Project_ID FROM Project WHERE Status =:st";
+                            $stmt = $db->prepare($sql);
+                            $status = 'Complete';
+                            $stmt->bindParam(':st', $status, SQLITE3_TEXT);
+                            $result = $stmt->execute();
 
-            </div> <!-- container -->
-            <br><br>
+                            $arrayResult = []; //prepare an empty array first
+                            while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+                                $arrayResult[] = $row; //adding a record until end of records
+                            }
+
+                            for ($i = 0; $i < count($arrayResult); $i++) :
+                                $value = $arrayResult[$i]['Project_ID'];
+                                echo '<option value="' . $value . '">' . $value . '</option>';
+
+                            ?>
+
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input class="btn btn-main" type='submit' value="VIEW" name='submitpcs'>
+                            <?php
+                            if (isset($_POST['submitpcs'])) {
+                                $_SESSION['project_id_selected'] = $_POST['project_id_selected']; // sets the SESSION variable to the POST input
+                                header("Location: pastcustomersatisfaction.php?pid=" . $_POST['project_id_selected']);
+                                ob_end_flush();
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br><br>
 </body>
 
 </html>
