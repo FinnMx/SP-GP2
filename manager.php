@@ -338,6 +338,8 @@ ob_start(); // start session allows us to transfer data through pages.
                                     ?>
 
                                     <?php endfor; ?>
+
+                                    <option value="All">All</option>
                                 </select>
                             </div>
                             <div class="col">
@@ -345,9 +347,17 @@ ob_start(); // start session allows us to transfer data through pages.
                                     <input class="btn btn-main" type='submit' value="VIEW" name='submitG' />
                                     <?php
                                     if (isset($_POST['submitG'])) {
+
+                                        if($_POST['group_id_selected'] == "All"){
+                                        header("Location: ViewAllGroups.php");
+                                        ob_end_flush();
+                                        }
+
+                                        else{
                                         $_SESSION['group_id_selected'] = $_POST['group_id_selected'];
                                         header("Location: ViewGroups.php?gid=" . $_POST['group_id_selected']);
                                         ob_end_flush();
+                                        }
                                     }
                                     ?>
                                 </div>
