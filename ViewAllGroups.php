@@ -20,7 +20,7 @@ require("require.php");
 //session_start();
 ob_start();
 //------------------Selects all groups to start the loop-----------
-$sql = "SELECT DISTINCT Group_ID FROM Groups";
+$sql = "SELECT DISTINCT Group_ID FROM Groups"; // we get all group_IDs and store them
 $stmt = $db->prepare($sql);
 $result = $stmt->execute(); 
 
@@ -29,7 +29,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
   $AGarrayResult[] = $row; //adding a record until end of records
 }
 
-//vars
+//array setup, we create these so we can easily store the total data for each group. each array size will be the count of the total groups.
 $Values = array();
 $GidS = array();
 $ProjVals = array();
@@ -37,7 +37,7 @@ $EngCost = array();
 $MatCost = array();
 $AddCost = array();
 
-for($j = 0; $j < count($AGarrayResult); $j++){
+for($j = 0; $j < count($AGarrayResult); $j++){ //start a loop to get each project for the individual groups. the count of the loop is the amount of groups in the db
     //---------------------Selects projects----------------------------
     $sql = "SELECT DISTINCT Project_ID FROM Groups WHERE Group_ID =:gid AND Project_ID != 0";
     $stmt = $db->prepare($sql);
@@ -50,11 +50,11 @@ for($j = 0; $j < count($AGarrayResult); $j++){
     }
 
     //---------------------Retrieves project data-----------------------
-    $currentVal = 0;
+    $currentVal = 0; //set the temp vars to 0 so they clear on next iteration.
     $currentEng = 0;
     $currentMat = 0;
     $currentAdd = 0;
-    for ($i = 0; $i < count($GarrayResult); $i++) {
+    for ($i = 0; $i < count($GarrayResult); $i++) { // start another loop to get the data from the current project in the loop
       $sql = "SELECT Project_value, Engineer_cost, Material_cost, Additional_cost FROM Project WHERE Project_ID=:pid AND Status = 'Active'"; 
       $stmt = $db->prepare($sql);
       $stmt->bindParam(':pid', $GarrayResult[$i][0], SQLITE3_TEXT); //sets the current projectID based on the counter $i.
@@ -66,12 +66,12 @@ for($j = 0; $j < count($AGarrayResult); $j++){
         $arrayResult[] = $row; //adding a record until end of records
       }
 
-      $currentVal += $arrayResult[0]['Project_value'];
+      $currentVal += $arrayResult[0]['Project_value']; // add the current projects data to the temp values, += because each group will have multiple projects so we need to stack the data.
       $currentEng += $arrayResult[0]['Engineer_cost'];
       $currentMat += $arrayResult[0]['Material_cost'];
       $currentAdd += $arrayResult[0]['Additional_cost'];
     }
-    array_push($ProjVals, $currentVal);
+    array_push($ProjVals, $currentVal); //after each value has been stored for that one group it is then pushed into the array making it so that the first term in the arrays i.e [0] will always be the data for the first group that is pulled from the db
     array_push($EngCost, $currentEng);
     array_push($MatCost, $currentEng);
     array_push($AddCost, $currentEng);
