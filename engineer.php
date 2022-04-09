@@ -18,6 +18,26 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
   $GGarrayResult[] = $row; //adding a record until end of records
 }
 
+//----------------Getting other data----------------
+                
+//getting engineer data
+$sql = "SELECT Engineer_ID,F_name,L_name,Group_ID FROM Engineer WHERE Group_ID =:gid";
+$stmt = $db->prepare($sql);
+$stmt->bindParam(':gid', $GGarrayResult[0]['Group_ID'], SQLITE3_TEXT);
+$result = $stmt->execute();
+
+$EarrayResult = []; //prepare an empty array first
+while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
+
+  $EarrayResult[] = $row; //adding a record until end of records
+}
+
+
+$URange = 100 / count($EarrayResult);
+$LRange = 100 / (2 * count($EarrayResult));
+
+$FRange = rand($LRange,$URange);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,15 +55,13 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['Teams Total Hours', <?=(100 - $FRange) ?>],
+          ['Your Hours worked', <?=$FRange;?>],
+
         ]);
 
         var options = {
-          title: 'My Daily Activities'
+          title: 'Hours Worked'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -85,22 +103,9 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
                     <th>GROUP ID</th>
                   </tr>
                 </thead>
-                <?php
-                //getting engineer data
-                $sql = "SELECT Engineer_ID,F_name,L_name,Group_ID FROM Engineer WHERE Group_ID =:gid";
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam(':gid', $GGarrayResult[0]['Group_ID'], SQLITE3_TEXT);
-                $result = $stmt->execute();
-
-                $EarrayResult = []; //prepare an empty array first
-                while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another approach
-                  $EarrayResult[] = $row; //adding a record until end of records
-                }
-
-                for ($i = 0; $i < count($EarrayResult); $i++) :
-                ?>
                   <tbody>
                     <tr>
+                  <?php for ($i = 0; $i < count($EarrayResult); $i++) : ?>
                       <td><?php echo $EarrayResult[$i]['Engineer_ID'] ?></td>
                       <td><?php echo $EarrayResult[$i]['F_name'] ?></td>
                       <td><?php echo $EarrayResult[$i]['L_name'] ?></td>
