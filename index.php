@@ -1,5 +1,6 @@
 <?php
 //session,header and footer
+require("headerLogin.php");
 require("require.php");
 ob_start();
 ?>
