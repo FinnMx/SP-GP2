@@ -80,54 +80,52 @@ $FRange = rand($LRange,$URange);
     <br>
 
     <div class="row">
-      <div class="col-md-1"></div>
 
-      <!-- GROUP DETAILS
-      ----------------------------------------------------------------------------------------------------->
-      <div class="col-md-10">
-      <div class="w-box">
+      <!-- TABLE -->
+      <div class="col-md-6">
+        <div class="w-box">
 
-        <div class="row">
-
-          <div class="col-md-6">
-            <h3 style="color:#0C4582; text-align:center">TABLE</h3>
-            <br>
-            <!-- TABLE -->
-            <div class="b-box">
-              <table class="styled-table" style="display:block; height:140px; overflow:auto;">
-                <thead >
+          <h3 style="color:#0C4582; text-align:center">YOUR GROUP</h3>
+          <br>
+          <div class="b-box">
+            <table class="styled-table" style="display:block; height:140px; overflow:auto;">
+              <thead >
+                <tr>
+                  <th>ID</th>
+                  <th>FIRST NAME</th>
+                  <th>LAST NAME</th>
+                  <th>GROUP ID</th>
+                </tr>
+              </thead>
+                <tbody>
                   <tr>
-                    <th>ID</th>
-                    <th>FIRST NAME</th>
-                    <th>LAST NAME</th>
-                    <th>GROUP ID</th>
+                <?php for ($i = 0; $i < count($EarrayResult); $i++) : ?>
+                    <td><?php echo $EarrayResult[$i]['Engineer_ID'] ?></td>
+                    <td><?php echo $EarrayResult[$i]['F_name'] ?></td>
+                    <td><?php echo $EarrayResult[$i]['L_name'] ?></td>
+                    <td><?php echo $EarrayResult[$i]['Group_ID'] ?></td>
                   </tr>
-                </thead>
-                  <tbody>
-                    <tr>
-                  <?php for ($i = 0; $i < count($EarrayResult); $i++) : ?>
-                      <td><?php echo $EarrayResult[$i]['Engineer_ID'] ?></td>
-                      <td><?php echo $EarrayResult[$i]['F_name'] ?></td>
-                      <td><?php echo $EarrayResult[$i]['L_name'] ?></td>
-                      <td><?php echo $EarrayResult[$i]['Group_ID'] ?></td>
-                    </tr>
-                  </tbody>
-                <?php endfor; ?>
-              </table>
-            </div>
-            <!-- END OF TABLE -->    
+                </tbody>
+              <?php endfor; ?>
+            </table>
           </div>
 
-          <!-- GOOGLE BAR CHART
-          -----------------------------------------------------------------------------------------------------
-            
-            <!-- DISPLAYING THE CHART -->
-            <div id="piechart" style="width: 900px; height: 500px;"></div>
-          </div>
-  
-        </div><!-- end of row -->
+        </div>        
       </div>
+
+      <!-- Pie chart -->
+      <div class="col-md-6">
+        <div class="w-box">
+
+          <h3 style="color:#0C4582; text-align:center">YOUR PERFORMANCE</h3>
+          <br>
+          <div id="piechart" style="width: 500px; height: 300px;"></div>
+        
+        </div>
       </div>
+    
+    </div><!-- end of row -->
+    
   </div><!-- container -->
   <br><br>
 </body>
