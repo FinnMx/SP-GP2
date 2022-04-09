@@ -29,7 +29,10 @@ ob_start();
             <div class="col">
               <a href="index.php"><input type="Button" value="MANAGER LOGIN" class="btn btn-main" style="width:100%"></a>
             </div>
-          </div>
+            <div class="col">
+              <a href="engineerlogin.php"><input type="Button" value="ENGINEER LOGIN" class="btn btn-inv" style="width:100%"></a>
+            </div>
+        </div>
 
           <br><br>
 
@@ -43,6 +46,7 @@ ob_start();
           </div>
 
         </div>
+
 
         <br>
         <input type="submit" value="LOGIN" name="submit" class="btn btn-main">

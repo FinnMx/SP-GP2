@@ -1,8 +1,10 @@
 <?php
 //session,header and footer
 require("require.php");
+require("headerLogin.php");
+ob_start();
 ?>
-<!--Basic html 5 setup-->
+<!--Basic html 5 setup--> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +60,6 @@ require("require.php");
 
   if (isset($_POST['submit'])) {
 
-    session_start();
     //Manager login routine
 
     if ($_POST['EngineerID'] == '' || $_POST['password'] == '') {
@@ -78,8 +79,8 @@ require("require.php");
       }
 
       if ($_POST['EngineerID'] == $arrayResult[0] && $_POST['password'] == $arrayResult[1]) {
-        echo $_SESSION['EID'];
-        header("Location: engineer.php");
+        header("Location: engineer.php?eid=".$_POST['EngineerID']);
+        ob_end_flush();
       } else {
 
         echo "invalid login";
