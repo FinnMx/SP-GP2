@@ -110,9 +110,6 @@ array_filter($Values); //simple way to remove the values that are null due to th
                     <div>
                         <h3 style="color:#0C4582; text-align:center">GROUP DETAILS</h3>
                         <br>
-                        <b style="color:#0C4582">DESCRIPTION</b>
-                        <input class="form-group b-input" type="text" name="first_name" placeholder="First name">
-                        <br><br>
 
                         <b style="color:#0C4582">TEAM MEMBERS:</b>
                         <!-- TABLE -->
@@ -129,9 +126,8 @@ array_filter($Values); //simple way to remove the values that are null due to th
                             </thead>
                             <?php
                             //getting engineer data
-                            $sql = "SELECT * FROM Engineer WHERE Group_ID =:gid AND Status = 'active'";
+                            $sql = "SELECT * FROM Engineer WHERE Status = 'active'";
                             $stmt = $db->prepare($sql);
-                            $stmt->bindParam(':gid', $group_id_selected, SQLITE3_TEXT);
                             $result = $stmt->execute();
 
                             $EarrayResult = []; //prepare an empty array first

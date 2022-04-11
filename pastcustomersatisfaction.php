@@ -17,7 +17,7 @@ while ($row = $result->fetchArray()) { // use fetchArray(SQLITE3_NUM) - another 
 }
 
 //------------------------------------this section grabs and sets the data------------------------------------
-$ProjectName = $ParrayResult[0]['Project_name'];
+$ProjectName = $ParrayResult[0]['Project_Name'];
 $ProjectVal = $ParrayResult[0]['Project_value'];
 $EngineerCost = $ParrayResult[0]['Engineer_cost'];
 $MaterialCost = $ParrayResult[0]['Material_cost'];
@@ -26,13 +26,14 @@ $Timescale = $ParrayResult[0]['Timescale'];
 $customerSatisfaction = $ParrayResult[0]['Customer_satisfaction'];
 //profit calculated
 $estProfit = $ProjectVal - $EngineerCost - $MaterialCost - $AdditionalCost;
-//create empty array for all results
+/*create empty array for all results
 $cSArray = [];
 $pNArray = [];
 for ($i = 0; $i < count($ParrayResult); $i++) {
     array_push($cSArray, $ParrayResult[$i]['Customer_satisfaction']);
     array_push($pNArray, $ParrayResult[$i]['Project_name']);
 }
+*/
 
 ?>
 <!DOCTYPE html>
@@ -54,6 +55,7 @@ for ($i = 0; $i < count($ParrayResult); $i++) {
 
         <div class="row">
             <div class="row">
+                <div class="col-md-2"></div>
 
                 <div class="col-md-8">
                     <div class="w-box">
@@ -78,22 +80,18 @@ for ($i = 0; $i < count($ParrayResult); $i++) {
                                             <th>Timescale</th>
                                         </tr>
                                     </thead>
-                                    <?php for ($i = 0; $i < count($arrayResult); $i++) : ?>
 
 
                                         <tbody>
                                             <tr>
-                                                <td><?php echo $ParrayResult[$i]['Project_name'] ?></td>
-                                                <td><?php echo $ParrayResult[$i]['Project_value'] ?></td>
-                                                <td><?php echo $ParrayResult[$i]['Engineer_cost'] ?></td>
-                                                <td><?php echo $ParrayResult[$i]['Material_cost'] ?></td>
-                                                <td><?php echo $ParrayResult[$i]['Additional_cost'] ?></td>
-                                                <td><?php echo $ParrayResult[$i]['Timescale'] ?></td>
+                                                <td><?php echo $ProjectName ?></td>
+                                                <td><?php echo $ProjectVal ?></td>
+                                                <td><?php echo $EngineerCost ?></td>
+                                                <td><?php echo $MaterialCost ?></td>
+                                                <td><?php echo $AdditionalCost ?></td>
+                                                <td><?php echo $Timescale ?></td>
                                             </tr>
                                         </tbody>
-                                    <?php
-                                    endfor;
-                                    ?>
 
                                 </table>
                             </div>
@@ -119,10 +117,10 @@ for ($i = 0; $i < count($ParrayResult); $i++) {
 
                     function drawChart() {
                         var data = google.visualization.arrayToDataTable([
-                            ['Project Name', 'customer Satisfaction'],
+                            ['Project Name', 'Final Value', 'Engineer Cost', 'Material Cost', 'Additional Cost', 'Estimated Profit'],
                             <?php
                             for ($j = 0; $j < count($ParrayResult); $j++) {
-                                $Xarray = array($pNArray[$j], $cSArray[$j]);
+                                $Xarray = array($ProjectName, $ProjectVal, $EngineerCost, $MaterialCost, $AdditionalCost, $estProfit);
                                 echo json_encode($Xarray);
                                 echo ",";
                             }
@@ -147,9 +145,10 @@ for ($i = 0; $i < count($ParrayResult); $i++) {
 
 
                     <!-- DISPLAYING THE CHART -->
+                    <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <div class="w-box">
-                            <h3 style="color:#0C4582; text-align:center">CURRENT PROJECT PERFORMANCE</h3>
+                            <h3 style="color:#0C4582; text-align:center">FINAL PROJECT STATS (CS RATING: <?= $customerSatisfaction ?>)</h3>
                             <br>
                             <div id="columnchart_material" style="width: 800px; height: 500px; "></div>
                         </div>
