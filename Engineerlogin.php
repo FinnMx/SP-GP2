@@ -66,7 +66,7 @@ ob_start();
       echo "Please fill all fields";
     } else {
 
-      $sql = "SELECT Engineer_ID, Password FROM Engineer WHERE Engineer_ID =:EID";
+      $sql = "SELECT Engineer_ID, Password FROM Engineer WHERE Engineer_ID =:EID AND Status = 'active'";
       $stmt = $db->prepare($sql);
       $stmt->bindParam(':EID', $_POST['EngineerID'], SQLITE3_TEXT);
       $result = $stmt->execute();
